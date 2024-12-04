@@ -123,4 +123,4 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Chemin vers les fichiers statiques pendant le développement
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/public')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/public/static'),]
