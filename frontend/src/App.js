@@ -1,18 +1,15 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Gho from './components/gho'; // Importation de ton composant
+import TaskLandingPage from './components/TaskLandingPage'; // Importation de TaskLandingPage
+import './App.css'; // Garde le CSS général si nécessaire
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <h1>Hello Imene</h1>
-        <Gho /> {/* Affichage du composant Gho */}
-      </header>
+      <TaskLandingPage /> {/* Intégration de la nouvelle page */}
     </div>
   );
 }
 
 export default App;
+
 
