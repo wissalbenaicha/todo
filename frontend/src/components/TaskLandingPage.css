@@ -1,54 +1,55 @@
 .task-landing-container {
     display: flex;
-    justify-content: flex-start;  /* Décalage vers la gauche */
-    align-items: center;
+    justify-content: flex-start;
+    align-items: flex-start; /* Remonter le contenu */
     height: 100vh;
     background-color: #f5f5f5;
-    padding: 20px 40px;
+    padding: 40px 60px; /* Ajustement du padding */
   }
   
   .task-landing-content {
-    max-width: 450px;
-    margin-left: 20px;  /* Décalage léger à gauche */
+    max-width: 400px; /* Réduction de la taille globale */
+    margin-left: 20px;
   }
   
   .task-landing-content h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
+    font-size: 24px; /* Diminution de la taille du titre */
+    margin-bottom: 15px;
     color: #333;
   }
   
   .task-landing-content p {
-    font-size: 16px;
-    margin-bottom: 30px;
+    font-size: 14px; /* Réduction de la taille du texte */
+    margin-bottom: 20px;
     color: #666;
   }
   
   .task-landing-form {
     display: flex;
     flex-direction: column;
+    gap: 10px; /* Espacement uniforme entre les éléments */
+  }
+  
+  .task-email-input, .task-signup-button {
+    padding: 10px 15px;
+    width: 100%;
+    font-size: 14px; /* Taille identique pour les deux */
+    border-radius: 8px;
   }
   
   .task-email-input {
-    padding: 10px;
-    width: 100%;
-    margin-bottom: 15px;
-    border-radius: 8px;
     border: 1px solid #ccc;
   }
   
   .task-signup-button {
     background-color: #007bff;
     color: white;
-    padding: 12px 20px;
     border: none;
-    border-radius: 8px;
     cursor: pointer;
-    font-size: 16px;
-    width: 100%;
   }
   
   .task-signup-button:hover {
     background-color: #0056b3;
   }
+  
   
