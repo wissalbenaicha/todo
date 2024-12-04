@@ -1,55 +1,58 @@
-.task-landing-container {
+.task-landing-container { 
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start; /* Remonter le contenu */
+    align-items: flex-start;
     height: 100vh;
     background-color: #f5f5f5;
-    padding: 40px 60px; /* Ajustement du padding */
+    padding: 60px 80px; /* Ajustement pour plus d'espace */
+    margin-top: 40px; 
   }
   
-  .task-landing-content {
-    max-width: 400px; /* Réduction de la taille globale */
+.task-landing-content {
+    max-width: 400px;
     margin-left: 20px;
-  }
-  
-  .task-landing-content h1 {
-    font-size: 24px; /* Diminution de la taille du titre */
-    margin-bottom: 15px;
+}
+
+.task-landing-content h1 {
+    font-size: 28px; /* Taille légèrement augmentée */
+    margin-bottom: 30px; /* Plus d'espace sous le titre */
     color: #333;
-  }
-  
-  .task-landing-content p {
-    font-size: 14px; /* Réduction de la taille du texte */
+}
+
+.task-landing-content p {
+    font-size: 16px;
     margin-bottom: 20px;
     color: #666;
-  }
-  
-  .task-landing-form {
+}
+
+.task-landing-form {
     display: flex;
     flex-direction: column;
-    gap: 10px; /* Espacement uniforme entre les éléments */
-  }
-  
-  .task-email-input, .task-signup-button {
-    padding: 10px 15px;
-    width: 100%;
-    font-size: 14px; /* Taille identique pour les deux */
+    gap: 15px;
+}
+
+.task-email-input, .task-signup-button {
+    padding: 12px 15px;
+    font-size: 16px;
     border-radius: 8px;
-  }
-  
-  .task-email-input {
+    height: 50px; /* Même hauteur */
+    box-sizing: border-box;
+}
+
+.task-email-input {
     border: 1px solid #ccc;
-  }
-  
-  .task-signup-button {
+    width: 100%;
+}
+
+.task-signup-button {
     background-color: #007bff;
     color: white;
     border: none;
+    width: 100%;
     cursor: pointer;
-  }
-  
-  .task-signup-button:hover {
+    transition: background-color 0.3s ease;
+}
+
+.task-signup-button:hover {
     background-color: #0056b3;
-  }
-  
-  
+}

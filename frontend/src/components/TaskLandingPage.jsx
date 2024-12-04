@@ -16,7 +16,7 @@ function TaskLandingPage() {
             placeholder="Enter your work email" 
             className="task-email-input"
           />
-          <button className="task-signup-button">Sign up free →</button>
+          <button className="task-signup-button">Sign Up Free →</button>
         </div>
       </div>
     </div>
@@ -24,5 +24,3 @@ function TaskLandingPage() {
 }
 
 export default TaskLandingPage;
-
-
