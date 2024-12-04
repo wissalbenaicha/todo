@@ -7,7 +7,7 @@ function TaskLandingPage() {
       <div className="task-landing-content">
         <h1>Your Ultimate Task Management Solution</h1>
         <p>
-          Our to-do list website helps you efficiently organize your daily tasks with a simple and intuitive interface. 
+          Our to-do list website helps you efficiently organize your daily tasks with a simple and intuitive interface.
           Create, manage, and track your priorities in just a few clicks to stay productive every day.
         </p>
         <div className="task-landing-form">
@@ -24,4 +24,5 @@ function TaskLandingPage() {
 }
 
 export default TaskLandingPage;
+
 
