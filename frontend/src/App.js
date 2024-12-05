@@ -1,15 +1,14 @@
 import React from "react";
 import "./App.css";
-import Wissal from './components/Wissal';
-import logo from './logo.svg';
-import './App.css';
+import Wissal from "./components/Wissal";
+import logo from "./logo.svg";
+import "./App.css";
 import React from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import wissal from "./components/wissal";
 
 function App() {
-  return  ( 
+  return (
     <div className="App">
       <Wissal /> {/* Intégration de la nouvelle page */}
       <header className="App-header">
@@ -28,11 +27,9 @@ function App() {
         hello imene
       </header>
       <header className="App-header">hello imene</header>
-
       <wissal />
     </div>
   );
 }
-
 
 export default App;
