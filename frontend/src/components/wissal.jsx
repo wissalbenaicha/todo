@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import "./Wissal.css";
 
 function Wissal() {
@@ -8,6 +9,16 @@ function Wissal() {
         <h1>Simplify Your Daily Planning</h1>
       </div>
       <div className="container">
+=======
+
+function wissal() {
+  return (
+    <div className="features">
+      <div className="container">
+        <div className="title">
+          <h1>Simplify Your Daily Planning</h1>
+        </div>
+>>>>>>> test
         <div className="feat">
           <h3>Task Management</h3>
           <p>
@@ -34,4 +45,8 @@ function Wissal() {
   );
 }
 
+<<<<<<< HEAD
 export default Wissal;
+=======
+export default wissal;
+>>>>>>> test
