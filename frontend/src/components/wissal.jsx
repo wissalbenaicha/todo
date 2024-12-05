@@ -1,12 +1,13 @@
 import React from "react";
+import "./Wissal.css";
 
-function wissal() {
+function Wissal() {
   return (
     <div className="features">
+      <div className="title">
+        <h1>Simplify Your Daily Planning</h1>
+      </div>
       <div className="container">
-        <div className="title">
-          <h1>Simplify Your Daily Planning</h1>
-        </div>
         <div className="feat">
           <h3>Task Management</h3>
           <p>
@@ -33,4 +34,4 @@ function wissal() {
   );
 }
 
-export default wissal;
+export default Wissal;

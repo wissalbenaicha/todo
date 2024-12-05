@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import wissal from './components/wissal';
+import Wissal from './components/Wissal';
 function App() {
   return  ( 
     <div className="App">
-      <wissal /> {/* Intégration de la nouvelle page */}
+      <Wissal /> {/* Intégration de la nouvelle page */}
     </div>
   );
 }
