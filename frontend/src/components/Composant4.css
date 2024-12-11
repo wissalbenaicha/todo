@@ -1,0 +1,53 @@
+.composant4-container {
+    position: relative;
+    width: 100%;
+    max-width: 1024px; /* Ajustez selon vos besoins */
+    margin: 20px auto; /* Ajoute un espace avec les autres composants */
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #e2f4ff; /* Couleur d'arrière-plan */
+  }
+  
+  .composant4-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  
+  .composant4-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: #333;
+  }
+  
+  .composant4-content h2 {
+    font-size: 24px;
+    color: #1f1f1f;
+    margin: 0 0 10px;
+  }
+  
+  .composant4-content p {
+    font-size: 16px;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .composant4-button {
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .composant4-button:hover {
+    background-color: #2563eb;
+  }
+  

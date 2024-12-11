@@ -1,0 +1,34 @@
+/* Supprimer toute marge et padding autour du composant */
+.composant2-container {
+    text-align: center;
+    padding: 0px; /* Utilisation de !important pour garantir l'absence de padding */
+    margin: 40px; /* Suppression totale de la marge autour du composant */
+  }
+  
+  .composant2-title {
+    font-size: 18px;
+    color: #666;
+    margin: 0 !important; /* Suppression de la marge sous le titre */
+  }
+  
+  .composant2-logos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px; /* Réduction de l'espacement entre les logos */
+  }
+  
+  .logo {
+    width: 80px; /* Taille des logos */
+    height: auto;
+    object-fit: contain;
+  }
+  
+  /* Réinitialisation de toutes les marges et paddings des éléments html et body */
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Assurez-vous que le corps prend toute la hauteur */
+  }
+  
+  

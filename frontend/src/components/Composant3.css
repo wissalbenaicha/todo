@@ -1,0 +1,57 @@
+.composant3-container {
+    text-align: center;
+    margin: 100px auto; /* Espace de 40px au-dessus et centrer horizontalement */
+    background-color: #E2F4FF; /* Couleur de fond */
+    padding: 20px; /* Espacement interne */
+    border-radius: 10px; /* Coins arrondis */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre douce */
+  }
+  
+  .composant3-title {
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .composant3-cards {
+    display: flex;
+    justify-content: space-around;
+    gap: 30px;
+    margin-top: 30px;
+  }
+  
+  .composant3-card {
+    width: 250px;
+    text-align: center;
+  }
+  
+  .composant3-logo {
+    width: 100px; /* Ajustez selon la taille des logos */
+    height: auto;
+    margin-bottom: 15px;
+  }
+  
+  .composant3-text {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+  }
+  
+  .composant3-author {
+    font-size: 12px;
+    color: #888;
+  }
+  
+  .composant3-button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    font-size: 14px;
+    border-radius: 8px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .composant3-button:hover {
+    background-color: #0056b3;
+  }
+  
