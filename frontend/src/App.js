@@ -1,14 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import React from 'react';
+import Navbar from './components/Navbar';
+import Faq from './components/Faq';
+import Footer from './components/Footer'
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        hello imene
-      </header>
-    </div>
+    <>
+      <Navbar />
+      <Faq />
+      <Footer />
+    </>
   );
-}
+};
 
 export default App;
