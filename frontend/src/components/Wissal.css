@@ -1,0 +1,100 @@
+body {
+  font-family: "work Sans", sans-serif;
+}
+
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*small*/
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+/*medium*/
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/*large*/
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+.features {
+  /*padding-top: 60px;
+  padding-bottom: 60px;*/
+  padding: 10px 30px;
+  background-color: white;
+}
+
+.features .container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  /*grid-template-columns: repeat(2, 1fr);*/
+  grid-gap: 20px;
+  margin-top: 10px;
+  padding: 20px;
+  text-align: center;
+}
+.title {
+  justify-content: center; /* Centrer horizontalement */
+  align-items: center; /* Centrer verticalement */
+  height: 30px; /* Hauteur du conteneur */
+  padding: 20px;
+  font-weight: bold;
+}
+
+.features .feat {
+  margin-top: 10px;
+  padding: 20px;
+  text-align: center;
+}
+
+.features .feat h3 {
+  font-weight: 800;
+  margin: 10px 0;
+  text-align: justify;
+}
+
+.features .feat p {
+  line-height: 1.8;
+  color: #777;
+  font-size: 16px;
+  text-align: justify;
+}
+.yellow-section {
+  position: absolute;
+  background-color: #ffd700; /* Couleur jaune */
+  color: black; /* Couleur du texte */
+  font-size: 8px;
+  font-weight: bold;
+  text-align: center; /* Centrer le texte horizontalement */
+  padding: 5px 5px; /* Espacement vertical */
+  margin-top: 20px; /* Espacement au-dessus */
+  border-radius: 20px; /* Coins arrondis */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optionnel : ombre légère */
+  width: 120px;
+  height: 15px;
+  left: 800px;
+  top: 50px;
+}
+.features .more {
+  background-color: #007bff;
+  color: white;
+  padding: 15px 20px;
+  display: block;
+  width: fit-content;
+  margin: 30px auto;
+  border-radius: 30px;
+  text-decoration: none;
+}
