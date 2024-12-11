@@ -1,6 +1,6 @@
 import React from 'react';
-import './Composant4.css'; // Fichier CSS pour styliser le composant.
-
+import '../styles/Composant4.css';
+ // Fichier CSS pour styliser le com
 const Composant4 = () => {
   return (
     <div className="composant4-container">

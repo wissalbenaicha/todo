@@ -1,6 +1,5 @@
 import React from 'react';
-import './Composant2.css';
-
+import '../styles/Composant2.css';
 function Composant2() {
   return (
     <div className="composant2-container">

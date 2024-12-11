@@ -1,5 +1,6 @@
 import React from 'react';
-import './Composant3.css';
+
+import '../styles/Composant3.css';
 function Composant3() {
     return (
       <div className="composant3-container">

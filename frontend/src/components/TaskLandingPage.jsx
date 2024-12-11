@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import './TaskLandingPage.css';
+
+import '../styles/TaskLandingPage.css'
 
 function TaskLandingPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
