@@ -51,6 +51,7 @@ body {
   align-items: center; /* Centrer verticalement */
   height: 30px; /* Hauteur du conteneur */
   padding: 20px;
+  font-weight: bold;
 }
 
 .features .feat {
