@@ -1,5 +1,5 @@
 import React from "react";
-import "./styles/Stay.css";
+import "../styles/Stay.css";
 
 function Stay() {
   return (
