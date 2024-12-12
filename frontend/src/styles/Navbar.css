@@ -1,5 +1,33 @@
 /* Styles de base de la barre de navigation */
-nav {
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*small*/
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+/*medium*/
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/*large*/
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+nav .container {
   background-color: #fdfeff;
   padding: 5px 10px;
   position: sticky;
@@ -13,30 +41,31 @@ nav {
   flex-wrap: wrap;
   overflow-x: hidden; /* Supprime la barre de défilement horizontale */
   box-sizing: border-box;
+  padding: 0 40px;
 }
 
 /* Styles du logo dans la navbar */
-.navbar-logo {
+nav .container .navbar-logo {
   width: 120px;
   height: auto;
 }
 
 /* Styles de la liste de la navigation (gauche) */
-nav .navbar-left {
+nav .container .navbar-left {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
 /* Styles pour la liste à droite (langue, contact, login, sign up) */
-nav .navbar-right {
+nav .container .navbar-right {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
 }
 
 /* Listes de la navigation */
-nav ul {
+nav .container ul {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -44,7 +73,7 @@ nav ul {
   flex-wrap: wrap;
 }
 
-nav li {
+nav .container li {
   position: relative;
   padding: 10px 20px;
   font-size: 14px;
@@ -56,11 +85,11 @@ nav li {
   border-radius: 30px;
 }
 
-nav li:not(:last-child) {
+nav .container li:not(:last-child) {
   margin-right: 30px;
 }
 
-nav li:hover {
+nav .container li:hover {
   background-color: #00d9ff;
   color: white;
   transform: scale(1.1);
@@ -68,13 +97,13 @@ nav li:hover {
   letter-spacing: 3px;
 }
 
-nav li i {
+nav .container li i {
   margin-left: 10px;
   transition: transform 0.3s ease;
 }
 
 /* Dropdown menu */
-nav .dropdown {
+nav .container .dropdown {
   display: none;
   position: absolute;
   top: 100%;
@@ -87,24 +116,24 @@ nav .dropdown {
   transition: opacity 0.3s ease;
 }
 
-nav li:hover .dropdown {
+nav .container li:hover .dropdown {
   display: block;
   opacity: 1;
 }
 
-nav .dropdown li {
+nav .container .dropdown li {
   padding: 10px;
   font-size: 16px;
   color: #333;
 }
 
-nav .dropdown li:hover {
+nav .container .dropdown li:hover {
   background-color: #f1f1f1;
   color: #1ca6bf;
 }
 
 /* Styles des liens (ex. : Contact, Login, Sign Up) à droite */
-.navbar-right a {
+.container .navbar-right a {
   color: black;
   text-decoration: none;
   font-size: 14px;

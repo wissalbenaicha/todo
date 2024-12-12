@@ -1,5 +1,5 @@
 import React from "react";
-import "./Seamless.css";
+import "../styles/Seamless.css";
 
 function Seamless() {
   return (
