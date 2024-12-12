@@ -1,0 +1,122 @@
+/* Footer global styles */
+.footer {
+  background-color: #f4f9fc; /* Couleur de fond */
+  padding: 20px 40px;
+  font-family: Arial, sans-serif;
+  color: #003366; /* Couleur du texte */
+  overflow-x: hidden; /* Supprime la barre de défilement horizontale */
+  width: 100%;
+  box-sizing: border-box; /* Assure que le padding ne dépasse pas la largeur */
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 20px;
+}
+
+.footer-logo {
+  width: 100%; /* Ajuste la taille du logo */
+  max-width: 450px; /* Assure que le logo ne dépasse pas cette taille */
+}
+
+.footer-links {
+  display: flex;
+  gap: 80px;
+  flex-wrap: wrap; /* Pour éviter le débordement */
+}
+
+.footer-column h3 {
+  color: #003366;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column li {
+  margin-bottom: 12px;
+  font-size: 14px;
+}
+
+.footer-column li:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Divider line */
+.footer-divider {
+  border: 0;
+  height: 1px;
+  background: #003366;
+  margin: 20px 0;
+}
+
+/* Footer bottom section */
+.footer-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.footer-social a {
+  margin: 0 10px;
+  font-size: 20px;
+  color: #003366;
+  text-decoration: none;
+}
+
+.footer-social a:hover {
+  color: #0055a5;
+}
+
+.footer-lang {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 100px;
+  font-size: 14px;
+  justify-content: center;
+}
+
+.footer-lang a {
+  color: #003366;
+  text-decoration: none;
+}
+
+.footer-lang a:hover {
+  text-decoration: underline;
+  color: #0055a5;
+}
+
+.footer-app-links {
+  display: flex;
+  gap: 20px;
+}
+
+.footer-app-link {
+  text-align: center;
+  font-size: 12px;
+  color: #003366;
+}
+
+.footer-app-link span {
+  display: block;
+  margin-top: 5px;
+}
+
+.footer-app-link a {
+  color: #003366;
+  text-decoration: none;
+}
+
+.footer-app-link a:hover {
+  color: #0055a5;
+}
