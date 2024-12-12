@@ -6,6 +6,8 @@ import "./App.css";
 import Wissal from "./components/Wissal";
 import Stay from "./components/Stay";
 import Seamless from "./components/Seamless";
+import Work from "./components/Work";
+import Continue1 from "./components/Continue1";
 import logo from "./logo.svg";
 
 function App() {
@@ -15,8 +17,10 @@ function App() {
       <Wissal />
       <Stay />
       <Seamless />
+      <Work />
       <Faq />
       <Footer />
+      <Continue1 />
     </div>
   );
 }
