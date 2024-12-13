@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Stay.css";
+import image1 from "../assets/images/image1Stay.png";
 
 function Stay() {
   return (
