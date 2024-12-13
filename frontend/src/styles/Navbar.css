@@ -1,7 +1,46 @@
+<<<<<<< HEAD
 /* Styles généraux pour la navbar */
 nav {
   background-color: white;
   border-bottom: 1px solid #eaeaea;
+=======
+/* Styles de base de la barre de navigation */
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*small*/
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+/*medium*/
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/*large*/
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+nav .container {
+  background-color: #fdfeff;
+  padding: 5px 10px;
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+>>>>>>> 7aa479446df27b751c623f9072ef8271f92bbf28
   font-family: Arial, sans-serif;
   position: fixed;
   width: 100%;
@@ -21,8 +60,10 @@ nav {
   max-width: 1200px; /* Largeur maximale pour limiter l'étirement */
   padding: 0 20px; /* Espacement intérieur horizontal */
   box-sizing: border-box;
+  padding: 0 40px;
 }
 
+<<<<<<< HEAD
 /* Menu gauche et droit */
 .navbar-left,
 .navbar-right {
@@ -30,19 +71,100 @@ nav {
   align-items: center;
   list-style-type: none;
   margin: -180px;
+=======
+/* Styles du logo dans la navbar */
+nav .container .navbar-logo {
+  width: 120px;
+  height: auto;
+}
+
+/* Styles de la liste de la navigation (gauche) */
+nav .container .navbar-left {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Styles pour la liste à droite (langue, contact, login, sign up) */
+nav .container .navbar-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Listes de la navigation */
+nav .container ul {
+  list-style: none;
+  margin: 0;
+>>>>>>> 7aa479446df27b751c623f9072ef8271f92bbf28
   padding: 0;
 }
 
+<<<<<<< HEAD
 .navbar-left li,
 .navbar-right li {
   margin: 0 20px; /* Espacement modifié entre les éléments */
   font-size: 14px;
+=======
+nav .container li {
+  position: relative;
+  padding: 10px 20px;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border-radius: 30px;
+}
+
+nav .container li:not(:last-child) {
+  margin-right: 30px;
+}
+
+nav .container li:hover {
+  background-color: #00d9ff;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  letter-spacing: 3px;
+}
+
+nav .container li i {
+  margin-left: 10px;
+  transition: transform 0.3s ease;
+}
+
+/* Dropdown menu */
+nav .container .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 150px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+nav .container li:hover .dropdown {
+  display: block;
+  opacity: 1;
+}
+
+nav .container .dropdown li {
+  padding: 10px;
+  font-size: 16px;
+>>>>>>> 7aa479446df27b751c623f9072ef8271f92bbf28
   color: #333;
   position: relative;
   cursor: pointer;
   white-space: nowrap; /* Évite les sauts de ligne */
 }
 
+<<<<<<< HEAD
 .navbar-logo {
   height: auto; /* La hauteur du logo sera ajustée dynamiquement */
   max-height: 100px; /* Limiter la hauteur du logo */
@@ -70,6 +192,17 @@ nav {
 
 .dropdown li {
   padding: 8px 15px;
+=======
+nav .container .dropdown li:hover {
+  background-color: #f1f1f1;
+  color: #1ca6bf;
+}
+
+/* Styles des liens (ex. : Contact, Login, Sign Up) à droite */
+.container .navbar-right a {
+  color: black;
+  text-decoration: none;
+>>>>>>> 7aa479446df27b751c623f9072ef8271f92bbf28
   font-size: 14px;
 }
 

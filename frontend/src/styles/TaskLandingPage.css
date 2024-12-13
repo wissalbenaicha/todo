@@ -1,0 +1,85 @@
+.task-landing-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  height: 100vh;
+  background-color: #ffffff;
+  padding: 40px 60px;
+  margin-top: 40px;
+}
+
+.task-landing-content {
+  max-width: 400px;
+  margin-left: 20px;
+}
+
+.task-landing-content h1 {
+  font-size: 24px;
+  margin-bottom: 25px;
+  color: #333;
+}
+
+.task-landing-content p {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: #666;
+}
+
+.task-landing-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.task-email-input,
+.task-signup-button {
+  padding: 10px 15px;
+  font-size: 14px;
+  border-radius: 8px;
+  height: 45px; /* Même hauteur */
+  box-sizing: border-box; /* Empêche les décalages dus au padding */
+}
+
+.task-email-input {
+  border: 1px solid #ccc;
+  width: 100%; /* Même largeur */
+}
+
+.task-signup-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  width: 100%; /* Même largeur */
+  cursor: pointer;
+}
+
+.task-signup-button:hover {
+  background-color: #0056b3;
+}
+
+.task-stars {
+  margin-top: 15px; /* Espace entre le bouton et les étoiles */
+  color: #FFD700; /* Couleur jaune */
+  font-size: 24px; /* Taille des étoiles */
+}
+
+.task-stars i {
+  margin-right: 5px; /* Espace entre les étoiles */
+}
+
+/* Carrousel d'images */
+.task-landing-images {
+  width: 100%; /* La largeur du conteneur de l'image */
+  max-width: 600px; /* Limite la largeur maximale pour que ce ne soit pas trop grand */
+  margin-top: 30px;
+  margin-bottom: 30px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.task-image {
+  width: 100%; /* Prend toute la largeur du carrousel */
+  height: 300px; /* Hauteur des images */
+  object-fit: cover; /* Pour que l'image remplisse l'espace sans déformation */
+  border-radius: 8px; /* Bordures arrondies */
+}
