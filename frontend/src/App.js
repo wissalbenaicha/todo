@@ -14,6 +14,8 @@ import Composant4 from "./components/Composant4";
 import Wissal from "./components/Wissal";
 import Stay from "./components/Stay";
 import Seamless from "./components/Seamless";
+import Work from "./components/Work";
+
 import "./App.css"; // Assurez-vous d'importer le fichier CSS
 
 function App() {
@@ -35,6 +37,9 @@ function App() {
           <Route path="/stay" element={<Stay />} />
           <Route path="/seamless" element={<Seamless />} />
         </Routes>
+        <Stay />
+        <Seamless />
+        <Work />
 
         <Footer />
       </div>
