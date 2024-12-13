@@ -46,7 +46,7 @@ nav {
 
 .navbar-logo {
   height: auto; /* La hauteur du logo sera ajustée dynamiquement */
-  max-height: 120px; /* Limiter la hauteur du logo */
+  max-height: 60px; /* Limiter la hauteur du logo */
 }
 
 /* Style pour le menu déroulant */
