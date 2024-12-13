@@ -1,0 +1,130 @@
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-left: 20px; /* Décaler le header à droite du sidebar */
+    z-index: 999;
+    position: relative;
+    margin-top: -140px;
+    width: 970px;
+  }
+  
+  .search-container {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    padding: 5px 10px;
+    width: 250px;
+    right: 20px;
+  }
+  
+  .search-icon {
+    color: #888;
+    margin-right: 5px;
+  }
+  
+  .search-input {
+    border: none;
+    outline: none;
+    width: 100%;
+    font-size: 14px;
+    color: #555;
+  }
+  
+  .notification-container {
+    position: relative;
+    margin-right: 20px;
+    right: 350px;
+  }
+  
+  .notification-icon {
+    font-size: 18px;
+    color: #555;
+    cursor: pointer;
+  }
+  
+  .notification-dot {
+    position: absolute;
+    top: -2px;
+    right: 120px;
+    width: 8px;
+    height: 8px;
+    background-color: #ff3366;
+    border-radius: 50%;
+  }
+  
+ /* Profil dans le Header */
+.profile-container {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+   
+    top:0px;
+    margin-left: -190px;
+
+  }
+  
+  .profile-image {
+    width: 35px; /* Réduire la taille de l'image du profil */
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .profile-info {
+    text-align: left;
+  }
+  
+  .profile-name {
+    font-size: 13px; /* Réduire la taille du texte */
+    font-weight: bold;
+    color: #333;
+    margin: 0;
+  }
+  
+  .profile-role {
+    font-size: 11px; /* Réduire la taille du texte */
+    color: #888;
+    margin: 0;
+  }
+  
+  /* Bouton pour fermer le profile modal */
+  .close-modal-btn {
+    padding: 5px 10px;
+    background-color: #ff3366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .page-container {
+    display: flex;
+    margin-top: 60px; /* Laisser de la place pour le Header */
+  }
+  
+  .main-content {
+    margin-left: 20px; /* Largeur du Sidebar */
+    margin-top: 60px;   /* Laisser de la place sous le Header */
+    padding: 120px;
+    width: calc(100% - 290px); /* S'assurer que le contenu occupe l'espace restant */
+  }
+  
+  .calendar-container {
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-left: 50px;
+    margin-top: -30px;
+}
+  
+  h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
