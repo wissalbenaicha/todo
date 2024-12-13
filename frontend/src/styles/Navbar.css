@@ -45,7 +45,7 @@ nav {
 }
 
 .navbar-logo {
-  height: 50px; /* La hauteur du logo sera ajustée dynamiquement */
+  height: auto; /* La hauteur du logo sera ajustée dynamiquement */
   max-height: 120px; /* Limiter la hauteur du logo */
 }
 

@@ -21,7 +21,6 @@ function App() {
     <Router>
       <div className="parent-container">
         <Navbar />
-        
         <Routes>
           <Route path="/" element={<TaskLandingPage />} />
           <Route path="/composant2" element={<Composant2 />} />
