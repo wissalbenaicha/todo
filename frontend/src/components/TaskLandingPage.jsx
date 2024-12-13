@@ -1,19 +1,22 @@
 import React, { useState, useEffect } from 'react';
+import '../styles/TaskLandingPage.css';
 
-import '../styles/TaskLandingPage.css'
+// Importation des images depuis src/assets/images
+import image1 from '../assets/images/image1.png';
+import image3 from '../assets/images/image3.png';
+import image4 from '../assets/images/image4.png';
 
 function TaskLandingPage() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const images = ["/images/image1.png", "/images/image3.png", "/images/image4.png"];
+  const images = [image1, image3, image4];
 
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 2500); // Change l'image toutes les 2.5 secondes
+    }, 2500);
 
-    // Nettoyage de l'intervalle quand le composant est démonté
     return () => clearInterval(interval);
-  }, [images]); // Ajoutez 'images' ici pour que l'effet s'exécute à chaque changement de 'images'
+  }, [images]);
 
   return (
     <div className="task-landing-container">
@@ -36,8 +39,6 @@ function TaskLandingPage() {
           <i className="fa fa-star-half-o"></i>
         </div>
       </div>
-
-      {/* Affichage dynamique des images */}
       <div className="task-landing-images">
         <img
           src={images[currentImageIndex]}
