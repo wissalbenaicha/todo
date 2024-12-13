@@ -17,6 +17,7 @@ import Seamless from "./components/Seamless";
 import Work from "./components/Work";
 
 import "./App.css"; // Assurez-vous d'importer le fichier CSS
+import Continue1 from "./components/Continue1"; // Vérifiez qu'il n'y a qu'une seule importation.
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
         <Work />
 
         <Footer />
+        <Continue1 />
       </div>
     </Router>
   );

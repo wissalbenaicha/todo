@@ -45,11 +45,12 @@ body {
   height: 100vh;
 }
 
-.header {
+/*.header {
   display: flex;
   align-items: center;
   padding: 20px;
-}
+  background-color: transparent;
+}*/
 
 .logo {
   width: 120px;
@@ -68,7 +69,7 @@ body {
   flex: 1;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 50px;
+  padding-left: 20px;
 }
 
 .task-form {
