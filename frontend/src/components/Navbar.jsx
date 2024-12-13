@@ -8,14 +8,14 @@ const Navbar = () => {
 
   return (
     <nav>
-      <div className="container">
+      <div className="navbar-container">
         {/* Menu de gauche avec logo */}
         <ul className="navbar-left">
           <li className="logo">
             <img src={logo} alt="Logo" className="navbar-logo" />
           </li>
-          <li
-            onMouseEnter={() => setShowSolutions(true)}
+          <li 
+            onMouseEnter={() => setShowSolutions(true)} 
             onMouseLeave={() => setShowSolutions(false)}
           >
             Solutions
@@ -28,8 +28,8 @@ const Navbar = () => {
             )}
           </li>
 
-          <li
-            onMouseEnter={() => setShowRessources(true)}
+          <li 
+            onMouseEnter={() => setShowRessources(true)} 
             onMouseLeave={() => setShowRessources(false)}
           >
             Ressources
@@ -42,26 +42,24 @@ const Navbar = () => {
             )}
           </li>
 
-          <li>About</li>
-          <li>Help</li>
+          {/* Liens de navigation */}
+          <li><a href="/about">About</a></li>
+          <li><a href="/help">Help</a></li>
         </ul>
 
         {/* Menu de droite */}
         <ul className="navbar-right">
           <li>
-            <i className="fas fa-globe"></i>{" "}
-            {/* Icône pour changer la langue */}
+            <i className="fas fa-globe"></i> {/* Icône pour changer la langue */}
           </li>
-          <li>
-            <a href="/contact">Contact</a>
-          </li>
-          <li>
-            <a href="/login">Login</a>
-          </li>
+          <li><a href="/contact">Contact</a></li>
+          {/* Convertir Login en lien */}
+          <li><a href="/login">Login</a></li>
+          {/* Convertir le bouton Sign Up en lien */}
           <li className="btnli">
-            <button className="btn-signup">
+            <a href="/signup" className="btn-signup">
               Sign Up for Free <i className="fas fa-chevron-right"></i>
-            </button>
+            </a>
           </li>
         </ul>
       </div>
