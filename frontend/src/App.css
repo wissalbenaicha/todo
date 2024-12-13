@@ -136,3 +136,25 @@ html, body {
     transform: rotate(360deg);
   }
 }
+
+
+.sidebar {
+  width: 250px;
+  background-color: #003366;
+  color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.content {
+  margin-left: 250px; /* Espace pour le sidebar */
+  padding: 20px;
+  flex: 1;
+}
+.main-content {
+  margin-left: 250px;  /* Largeur du sidebar, ajustez selon la taille du Sidebar */
+  margin-top: 60px;    /* Pour donner de l'espace sous le Header */
+  padding: 20px;       /* Espace intérieur autour du contenu */
+}

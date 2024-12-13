@@ -1,11 +1,14 @@
 import React from 'react';
 import '../styles/Composant4.css';
- // Fichier CSS pour styliser le com
+
+// Importation de l'image depuis src/assets/images
+import ComposantImage from '../assets/images/composant.png';
+
 const Composant4 = () => {
   return (
     <div className="composant4-container">
       <img
-        src="/composant.png"
+        src={ComposantImage}
         alt="The Ways We Work"
         className="composant4-image"
       />

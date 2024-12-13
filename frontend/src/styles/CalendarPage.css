@@ -1,0 +1,22 @@
+/* Styles pour la page CalendarPage */
+.page-container {
+  display: flex;
+}
+
+.main-content {
+  margin-left: 250px; /* Largeur du Sidebar */
+  margin-top: 60px;   /* Espace sous le Header */
+  padding: 20px;
+  width: calc(100% - 250px); /* S'assurer que le contenu occupe l'espace restant */
+}
+
+.calendar-container {
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
