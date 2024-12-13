@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/Wissal.css";
-import "./Wissal.css";
 
 function Wissal() {
   return (

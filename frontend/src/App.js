@@ -1,20 +1,22 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Faq from './components/Faq';
-import Footer from './components/Footer';
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Dashbroard from './components/Dashbroard'; // Corrigé l'orthographe de Dashboard
-import Sidbar from './components/Sidbar'; // Corrigé l'orthographe de Sidebar
-import TaskLandingPage from './components/TaskLandingPage';
-import Composant2 from './components/Composant2';
-import Composant3 from './components/Composant3';
-import Composant4 from './components/Composant4';
-import Wissal from './components/Wissal';
-import Stay from './components/Stay';
-import Seamless from './components/Seamless';
-import './App.css'; // Assurez-vous d'importer le fichier CSS
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Faq from "./components/Faq";
+import Footer from "./components/Footer";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import Dashbroard from "./components/Dashbroard"; // Corrigé l'orthographe de Dashboard
+import Sidbar from "./components/Sidbar"; // Corrigé l'orthographe de Sidebar
+import TaskLandingPage from "./components/TaskLandingPage";
+import Composant2 from "./components/Composant2";
+import Composant3 from "./components/Composant3";
+import Composant4 from "./components/Composant4";
+import Wissal from "./components/Wissal";
+import Stay from "./components/Stay";
+import Seamless from "./components/Seamless";
+import Work from "./components/Work";
+
+import "./App.css"; // Assurez-vous d'importer le fichier CSS
 
 function App() {
   return (
@@ -22,7 +24,13 @@ function App() {
       <div className="parent-container">
         {/* Navbar sera affichée sur toutes les pages */}
         <Navbar />
-        
+
+        <Wissal />
+        <Stay />
+        <Seamless />
+        <Work />
+        <Faq />
+
         {/* Routes pour gérer les différentes pages */}
         <Routes>
           <Route path="/" element={<TaskLandingPage />} />
@@ -38,7 +46,7 @@ function App() {
           <Route path="/stay" element={<Stay />} />
           <Route path="/seamless" element={<Seamless />} />
         </Routes>
-        
+
         {/* Footer sera également affiché sur toutes les pages */}
         <Footer />
       </div>
