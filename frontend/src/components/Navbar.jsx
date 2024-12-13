@@ -5,21 +5,29 @@ import logo from "../assets/images/logo.png"; // L'importation de l'image du log
 const Navbar = () => {
   const [showSolutions, setShowSolutions] = useState(false);
   const [showRessources, setShowRessources] = useState(false);
+  const [menuActive, setMenuActive] = useState(false); // Etat pour afficher/masquer le menu complet
 
   return (
     <nav>
       <div className="navbar-container">
-        {/* Menu de gauche avec logo */}
-        <ul className="navbar-left">
-          <li className="logo">
-            <img src={logo} alt="Logo" className="navbar-logo" />
-          </li>
+        {/* Logo */}
+        <div className="logo">
+          <img src={logo} alt="Logo" className="navbar-logo" />
+        </div>
+
+        {/* Hamburger Menu */}
+        <div className="hamburger" onClick={() => setMenuActive(!menuActive)}>
+          <i className="fas fa-bars"></i> {/* Icône hamburger */}
+        </div>
+
+        {/* Menu de gauche et de droite, masqués par défaut sur petit écran */}
+        <ul className={`navbar-left ${menuActive ? "active" : ""}`}>
           <li 
             onMouseEnter={() => setShowSolutions(true)} 
             onMouseLeave={() => setShowSolutions(false)}
           >
             Solutions
-            <i className="fas fa-caret-down"></i> {/* L'icône caret-down */}
+            <i className="fas fa-caret-down"></i>
             {showSolutions && (
               <ul className="dropdown">
                 <li>Option 1</li>
@@ -33,7 +41,7 @@ const Navbar = () => {
             onMouseLeave={() => setShowRessources(false)}
           >
             Ressources
-            <i className="fas fa-caret-down"></i> {/* L'icône caret-down */}
+            <i className="fas fa-caret-down"></i>
             {showRessources && (
               <ul className="dropdown">
                 <li>Option 1</li>
@@ -42,20 +50,17 @@ const Navbar = () => {
             )}
           </li>
 
-          {/* Liens de navigation */}
           <li><a href="/about">About</a></li>
           <li><a href="/help">Help</a></li>
         </ul>
 
         {/* Menu de droite */}
-        <ul className="navbar-right">
+        <ul className={`navbar-right ${menuActive ? "active" : ""}`}>
           <li>
-            <i className="fas fa-globe"></i> {/* Icône pour changer la langue */}
+            <i className="fas fa-globe"></i>
           </li>
           <li><a href="/contact">Contact</a></li>
-          {/* Convertir Login en lien */}
           <li><a href="/login">Login</a></li>
-          {/* Convertir le bouton Sign Up en lien */}
           <li className="btnli">
             <a href="/signup" className="btn-signup">
               Sign Up for Free <i className="fas fa-chevron-right"></i>

@@ -7,10 +7,11 @@ nav {
   width: 100%;
   top: 0;
   z-index: 1000;
-  height: 60px; /* Hauteur fixe de la navbar */
+  height: 60px;
   display: flex;
-  justify-content: center; /* Centrer les éléments horizontalement */
-  align-items: center; /* Centrer les éléments verticalement */
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
 }
 
 .navbar-container {
@@ -18,41 +19,38 @@ nav {
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  max-width: 1200px; /* Largeur maximale pour limiter l'étirement */
-  padding: 0 20px; /* Espacement intérieur horizontal */
+  padding: 0 20px;
   box-sizing: border-box;
-  padding: 0 40px;
+  max-width: 1200px;
 }
 
-/* Menu gauche et droit */
-.navbar-left,
-.navbar-right {
+/* Menu de gauche et droite */
+.navbar-left, .navbar-right {
   display: flex;
   align-items: center;
   list-style-type: none;
-  margin: -180px;
+  margin: 0;
   padding: 0;
 }
 
-.navbar-left li,
-.navbar-right li {
-  margin: 0 20px; /* Espacement modifié entre les éléments */
+.navbar-left li, .navbar-right li {
+  margin: 0 15px;
   font-size: 14px;
   color: #333;
   position: relative;
   cursor: pointer;
-  white-space: nowrap; /* Évite les sauts de ligne */
+  white-space: nowrap;
 }
 
 .navbar-logo {
-  height: auto; /* La hauteur du logo sera ajustée dynamiquement */
-  max-height: 60px; /* Limiter la hauteur du logo */
+  height: 50px; /* Limiter la taille du logo */
+  width: auto;
 }
 
-/* Style pour le menu déroulant */
+/* Menu déroulant */
 .dropdown {
   position: absolute;
-  top: 100%; /* Positionnement juste sous la navbar */
+  top: 100%;
   left: 0;
   background-color: white;
   border: 1px solid #ddd;
@@ -62,11 +60,11 @@ nav {
   padding: 10px 0;
   display: none;
   z-index: 1000;
-  min-width: 150px; /* Largeur minimale pour éviter le chevauchement */
+  min-width: 150px;
 }
 
 .navbar-left li:hover .dropdown {
-  display: block; /* Affiche le menu déroulant au survol */
+  display: block;
 }
 
 .dropdown li {
@@ -87,82 +85,65 @@ nav {
   border-radius: 20px;
   cursor: pointer;
   font-size: 14px;
-  text-decoration: none; /* Convertir le bouton en lien */
+  text-decoration: none;
 }
 
 .btn-signup:hover {
   background-color: #0056b3;
 }
 
-/* Icônes et liens */
-.navbar-right li a {
-  text-decoration: none;
+/* Hamburger */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
   color: #333;
-  font-size: 14px;
 }
 
-.navbar-right li .fas {
-  font-size: 16px;
-  color: #555;
+.hamburger i {
+  display: block;
 }
 
-/* Responsivité : Adaptation pour les écrans moyens (1024px et moins) */
-@media screen and (max-width: 1024px) {
+/* Pour les petits écrans (max-width: 768px), tout sauf le logo et le bouton Sign Up sera caché */
+@media (max-width: 768px) {
+  .navbar-left, .navbar-right {
+    display: none; /* Masquer les menus gauche et droit */
+    flex-direction: column; /* Afficher les éléments en colonne sur petit écran */
+    width: 100%;
+  }
+
+  .navbar-left.active, .navbar-right.active {
+    display: flex; /* Afficher les menus quand ils sont actifs */
+  }
+
+  .hamburger {
+    display: block; /* Afficher le hamburger sur les petits écrans */
+  }
+
+  /* Conserver le logo et le bouton Sign Up visibles */
   .navbar-container {
-    padding: 0 15px;
+    justify-content: space-between;
   }
 
-  .navbar-left li,
-  .navbar-right li {
-    margin: 0 15px; /* Réduire l'espacement entre les éléments */
-    font-size: 13px;
+  .logo, .btn-signup {
+    display: block;
   }
 
-  .navbar-logo {
-    max-height: 40px;
+  /* Style de chaque élément dans le menu hamburger */
+  .navbar-left li, .navbar-right li {
+    margin: 10px 0; /* Espacement vertical entre les éléments */
+    width: 100%; /* Faire en sorte que chaque élément prenne toute la largeur */
+    text-align: center; /* Centrer les éléments */
   }
 }
 
-/* Responsivité : Adaptation pour les écrans plus petits (768px et moins) */
-@media screen and (max-width: 768px) {
-  .navbar-container {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 10px;
-  }
-
-  .navbar-left,
-  .navbar-right {
-    flex-direction: column;
-    align-items: flex-start;
-    width: 100%;
-  }
-
-  .navbar-left li,
-  .navbar-right li {
-    margin: 8px 0; /* Espacement vertical entre les éléments */
-  }
-
-  .dropdown {
-    width: 100%;
-    top: auto;
-    left: 0;
-  }
-
-  .btn-signup {
-    width: 100%;
-    text-align: center;
-  }
+/* Icône pour changer la langue */
+.fas.fa-globe {
+  font-size: 18px;
 }
 
-/* Responsivité : Adaptation pour les très petits écrans (480px et moins) */
-@media screen and (max-width: 480px) {
-  .navbar-logo {
-    max-height: 30px;
-  }
-
-  .btn-signup {
-    font-size: 12px;
-    padding: 6px 12px;
-  }
+/* Icône pour le bouton "Sign Up" */
+.fas.fa-chevron-right {
+  margin-left: 5px;
+  font-size: 12px;
 }
