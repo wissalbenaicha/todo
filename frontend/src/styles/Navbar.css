@@ -1,0 +1,177 @@
+/* Styles généraux pour la navbar */
+.container {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/*small*/
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+}
+
+/*medium*/
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+}
+
+/*large*/
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+}
+
+nav {
+  background-color: white;
+  border-bottom: 1px solid #eaeaea;
+  font-family: Arial, sans-serif;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 20px;
+  box-sizing: border-box;
+  max-width: 1200px;
+}
+
+/* Menu de gauche et droite */
+.navbar-left, .navbar-right {
+  display: flex;
+  align-items: center;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-left li, .navbar-right li {
+  margin: 0 15px;
+  font-size: 14px;
+  color: #333;
+  position: relative;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.navbar-logo {
+  height: 50px; /* Limiter la taille du logo */
+  width: auto;
+}
+
+/* Menu déroulant */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  list-style-type: none;
+  padding: 10px 0;
+  display: none;
+  z-index: 1000;
+  min-width: 150px;
+}
+
+.navbar-left li:hover .dropdown {
+  display: block;
+}
+
+.dropdown li {
+  padding: 8px 15px;
+  font-size: 14px;
+}
+
+.dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Bouton d'inscription */
+.btn-signup {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.btn-signup:hover {
+  background-color: #0056b3;
+}
+
+/* Hamburger */
+.hamburger {
+  display: none;
+  cursor: pointer;
+  font-size: 24px;
+  color: #333;
+}
+
+.hamburger i {
+  display: block;
+}
+
+/* Pour les petits écrans (max-width: 768px), tout sauf le logo et le bouton Sign Up sera caché */
+@media (max-width: 768px) {
+  .navbar-left, .navbar-right {
+    display: none; /* Masquer les menus gauche et droit */
+    flex-direction: column; /* Afficher les éléments en colonne sur petit écran */
+    width: 100%;
+  }
+
+  .navbar-left.active, .navbar-right.active {
+    display: flex; /* Afficher les menus quand ils sont actifs */
+  }
+
+  .hamburger {
+    display: block; /* Afficher le hamburger sur les petits écrans */
+  }
+
+  /* Conserver le logo et le bouton Sign Up visibles */
+  .navbar-container {
+    justify-content: space-between;
+  }
+
+  .logo, .btn-signup {
+    display: block;
+  }
+
+  /* Style de chaque élément dans le menu hamburger */
+  .navbar-left li, .navbar-right li {
+    margin: 10px 0; /* Espacement vertical entre les éléments */
+    width: 100%; /* Faire en sorte que chaque élément prenne toute la largeur */
+    text-align: center; /* Centrer les éléments */
+  }
+}
+
+/* Icône pour changer la langue */
+.fas.fa-globe {
+  font-size: 18px;
+}
+
+/* Icône pour le bouton "Sign Up" */
+.fas.fa-chevron-right {
+  margin-left: 5px;
+  font-size: 12px;
+}
