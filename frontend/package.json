@@ -6,7 +6,6 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-<<<<<<< HEAD
     "binary-extensions": "^3.0.0",
     "core-js": "^3.39.0",
     "core-js-pure": "^3.39.0",
@@ -15,26 +14,11 @@
     "react-icons": "^5.4.0",
     "react-scripts": "^5.0.1",
     "swiper": "^11.1.15",
-=======
     "@types/react-i18next": "^7.8.3",
     "chart.js": "^4.4.7",
-    "react": "^18.3.1",
     "react-chartjs-2": "^5.2.0",
-    "react-dom": "^18.3.1",
-<<<<<<< HEAD
     "react-router-dom": "^7.0.2",
-    "react-scripts": "^5.0.1",
     "typescript": "^4.9.5",
-=======
-    "react-icons": "^5.4.0",
-    "react-scripts": "^5.0.1",
-<<<<<<< HEAD
-    "typescript": "^5.7.2",
->>>>>>> 8ea1dd5ffeee4c03e7ce1cbd0dae8c4fbc5761a8
-=======
-    "typescript": "^4.9.5",
->>>>>>> 91aa90f46e87803574fff19eea44969367904c9f
->>>>>>> 7aa479446df27b751c623f9072ef8271f92bbf28
     "web-vitals": "^2.1.4"
   },
   "scripts": {
