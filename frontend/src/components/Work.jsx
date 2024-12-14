@@ -1,5 +1,9 @@
 import React from "react";
 import "../styles/Work.css";
+import user1 from "../assets/images/image1Work.png";
+import user2 from "../assets/images/image2Work.png";
+import user3 from "../assets/images/image3Work.png";
+import user4 from "../assets/images/image4Work.webp";
 
 function Work() {
   return (
@@ -39,14 +43,8 @@ function Work() {
               <div className="task-footer">
                 <span>📅 Oct - Dec 2024</span>
                 <div className="avatars">
-                  <img
-                    src="https://th.bing.com/th/id/R.f14a8e4cb974927357ae66fc892b3c2b?rik=yZy5ahYnnjHZww&pid=ImgRaw&r=0"
-                    alt="User 1"
-                  />
-                  <img
-                    src="https://i1.rgstatic.net/ii/profile.image/1059994531278849-1629733798801_Q512/Leana-Van-Der-Merwe.jpg"
-                    alt="User 2"
-                  />
+                  <img src={user1} alt="User 1" />
+                  <img src={user2} alt="User 2" />
                 </div>
               </div>
             </div>
@@ -63,14 +61,8 @@ function Work() {
               <div className="task-footer">
                 <span>📅 Oct - Dec 2024</span>
                 <div className="avatars">
-                  <img
-                    src="https://d2uur722ua7fvv.cloudfront.net/photos/Dr-Gabriela-Gryczynski-MD-325701-circle_large__v1__.png"
-                    alt="User 3"
-                  />
-                  <img
-                    src="https://static.wixstatic.com/media/d3f591_37c6da634a374a1e9a2962c3add5a3ff~mv2.png/v1/fill/w_230,h_230,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/oliver_stevenson.png"
-                    alt="User 4"
-                  />
+                  <img src={user3} alt="User 3" />
+                  <img src={user4} alt="User 4" />
                 </div>
               </div>
             </div>

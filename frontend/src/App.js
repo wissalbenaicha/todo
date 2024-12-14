@@ -1,42 +1,48 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import Faq from './components/Faq';
-import Footer from './components/Footer';
-import Login from './components/Login';
-import Dashbroard from './components/Dashbroard';  // Corrigé l'orthographe de Dashboard
-import Sidbar from './components/Sidbar';    // Corrigé l'orthographe de Sidebar
-import TaskLandingPage from './components/TaskLandingPage';
-import Composant2 from './components/Composant2';
-import Composant3 from './components/Composant3';
-import Composant4 from './components/Composant4';
-import Wissal from './components/Wissal';
-import Stay from './components/Stay';
-import Seamless from './components/Seamless';
-import './App.css';  // Assurez-vous d'importer le fichier CSS
-import SignUp from "./pages/SignUp"; // Import de la page SignUp
-
+import React, { useState } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LandingPage from "./pages/LandingPage"; // Composant de la Landing Page
+import CalendarPage from "./pages/CalendarPage"; // Page avec Header et Sidebar
+import Profile from "./components/Profile"; // Composant Profile
+import "./App.css";
 
 function App() {
+  // État pour gérer l'affichage du profil
+  const [isProfileVisible, setIsProfileVisible] = useState(false);
+
+  // Fonction pour afficher/masquer le profil
+  const handleProfileClick = () => {
+    setIsProfileVisible((prev) => !prev);
+  };
+
+  // Fonction pour fermer le profil
+  const closeProfile = () => {
+    setIsProfileVisible(false);
+  };
+
   return (
     <Router>
-      <div className="parent-container">
-        
+      <div className="app">
+        {/* Affichage conditionnel du Profile en overlay */}
+        {isProfileVisible && (
+          <div className="profile-overlay">
+            <Profile onClose={closeProfile} /> {/* Passe la fonction pour fermer */}
+          </div>
+        )}
+
+        {/* Configuration des routes */}
         <Routes>
-          <Route path="/" element={<TaskLandingPage />} />
-          <Route path="/composant2" element={<Composant2 />} />
-          <Route path="/composant3" element={<Composant3 />} />
-          <Route path="/composant4" element={<Composant4 />} />
-          <Route path="/faq" element={<Faq />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signUp" element={<SignUp />} />
-          <Route path="/dashboard" element={<Dashbroard />} />
-          <Route path="/sidebar" element={<Sidbar />} />
-          <Route path="/wissal" element={<Wissal />} />
-          <Route path="/stay" element={<Stay />} />
-          <Route path="/seamless" element={<Seamless />} />
+          {/* Route pour la Landing Page */}
+          <Route path="/" element={<LandingPage />} />
+          <Route path="/LandingPage" element={<LandingPage />} />
+
+          {/* Route pour CalendarPage */}
+          <Route
+            path="/calendar"
+            element={
+              <CalendarPage onProfileClick={handleProfileClick} />
+            }
+          />
         </Routes>
-        
       </div>
     </Router>
   );
