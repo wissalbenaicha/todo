@@ -1,7 +1,53 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 import '../styles/Signup.css';
 
 const Signup = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [message, setMessage] = useState('');
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Validation simple des mots de passe
+    if (password !== confirmPassword) {
+      setMessage("Les mots de passe ne correspondent pas");
+      return;
+    }
+
+    const userData = {
+      nomuser: name,          // Utilise 'nomuser' ici
+      emailuser: email,       // Utilise 'emailuser' ici
+      passworduser: password, // Utilise 'passworduser' ici
+    };
+
+    try {
+      const response = await axios.post('http://localhost:8000/api/signup/', userData, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      setMessage('Inscription réussie!');
+      // Réinitialisation des champs après l'inscription
+      setName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+    } catch (error) {
+      if (error.response) {
+        // Affiche les erreurs détaillées
+        console.error('Backend Errors:', error.response.data);
+        setMessage(error.response.data.detail || 'Erreur lors de l\'inscription');
+      } else {
+        // Erreur de réseau
+        setMessage('Problème de connexion au serveur');
+      }
+    }
+  };
+
   return (
     <div className="flex h-screen">
       {/* Left Side */}
@@ -9,34 +55,6 @@ const Signup = () => {
         <div className="text-white text-center">
           <h1 className="text-4xl font-bold mb-6">Join Us Today!</h1>
           <p className="text-lg mb-4">Create your account to start managing tasks and tracking progress.</p>
-
-          {/* Mockup cards */}
-          <div className="mockup-container">
-            <div className="mockup-card">
-              <img src="https://img.icons8.com/fluency/48/checklist.png" alt="Checklist icon" />
-              <p className="mockup-card-title">Stay Organized</p>
-              <p className="mockup-card-description">
-                Manage your tasks and keep everything in order.
-              </p>
-            </div>
-
-            <div className="mockup-card">
-              <img src="https://img.icons8.com/fluency/48/task.png" alt="Task icon" />
-              <p className="mockup-card-title">Achieve Goals</p>
-              <p className="mockup-card-description">
-                Set milestones and accomplish your objectives.
-              </p>
-            </div>
-
-            <div className="mockup-card">
-              <img src="https://img.icons8.com/fluency/48/combo-chart.png" alt="Chart icon" />
-              <p className="mockup-card-title">Track Progress</p>
-              <p className="mockup-card-description">
-                Visualize your data and monitor your performance easily.
-              </p>
-            </div>
-          </div>
-
         </div>
       </div>
 
@@ -53,6 +71,9 @@ const Signup = () => {
               type="text"
               className="w-full border border-gray-300 rounded-lg p-2 mt-1"
               placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
             />
           </div>
 
@@ -63,6 +84,9 @@ const Signup = () => {
               type="email"
               className="w-full border border-gray-300 rounded-lg p-2 mt-1"
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
             />
           </div>
 
@@ -73,6 +97,9 @@ const Signup = () => {
               type="password"
               className="w-full border border-gray-300 rounded-lg p-2 mt-1"
               placeholder="Create a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
 
@@ -83,31 +110,19 @@ const Signup = () => {
               type="password"
               className="w-full border border-gray-300 rounded-lg p-2 mt-1"
               placeholder="Confirm your password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
             />
           </div>
 
+          {/* Message */}
+          {message && <p className="text-center text-red-500 mb-4">{message}</p>}
+
           {/* Sign Up Button */}
-          <button className="w-full bg-blue-900 text-white py-2 rounded-lg mb-4">
+          <button onClick={handleSubmit} className="w-full bg-blue-900 text-white py-2 rounded-lg mb-4">
             Sign Up
           </button>
-
-          {/* Or Sign Up With */}
-          <div className="text-center text-gray-500 mb-4">Or sign up with</div>
-          <div className="flex justify-center gap-4">
-            <button className="flex items-center gap-2 border border-gray-300 rounded-lg px-4 py-2">
-              <img src="https://img.icons8.com/color/48/000000/google-logo.png" alt="Google logo" className="h-5" />
-              Google
-            </button>
-            <button className="flex items-center gap-2 border border-gray-300 rounded-lg px-4 py-2">
-              <img src="https://img.icons8.com/color/48/000000/facebook.png" alt="Facebook logo" className="h-5" />
-              Facebook
-            </button>
-          </div>
-
-          {/* Sign In Link */}
-          <p className="text-center text-gray-500 mt-4">
-            Already have an account? <a href="#" className="text-blue-500">Sign In</a>
-          </p>
         </div>
       </div>
     </div>
