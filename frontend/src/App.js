@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./pages/LandingPage"; // Composant de la Landing Page
 import CalendarPage from "./pages/CalendarPage"; // Page avec Header et Sidebar
 import Profile from "./components/Profile"; // Composant Profile
+import SignUpPage from "./pages/SignUp";
 import "./App.css";
 
 function App() {
@@ -40,6 +41,12 @@ function App() {
             path="/calendar"
             element={
               <CalendarPage onProfileClick={handleProfileClick} />
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <SignUpPage  />
             }
           />
         </Routes>

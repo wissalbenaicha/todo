@@ -10,7 +10,6 @@ import Composant4 from "../components/Composant4";
 import Work from "../components/Work";
 import Composant3 from "../components/Composant3";
 import Faq from "../components/Faq";
-import Work from "../components/Work";
 
 const LandingPage = () => {
   return (
