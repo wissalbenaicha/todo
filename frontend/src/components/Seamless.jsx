@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/Seamless.css";
+import imageSeamless from "../assets/images/imageSeamless.png";
 
 function Seamless() {
   return (
@@ -7,10 +8,7 @@ function Seamless() {
       <div className="container">
         {/* Section images */}
         <div className="images">
-          <img
-            src="https://aca-expertise.com/wp-content/uploads/2023/05/Miro-1030x1030.png"
-            alt=""
-          />
+          <img src={imageSeamless} alt="Integration with Tools" />
         </div>
         <div className="text">
           <h1>Seamless Integration with Your Favorite Tools</h1>
