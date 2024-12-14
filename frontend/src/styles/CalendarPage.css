@@ -4,10 +4,11 @@
 }
 
 .main-content {
-  margin-left: 250px; /* Largeur du Sidebar */
-  margin-top: 60px;   /* Espace sous le Header */
+ 
+  margin-top: 65px;   /* Espace sous le Header */
   padding: 20px;
-  width: calc(100% - 250px); /* S'assurer que le contenu occupe l'espace restant */
+  width: calc(80% - 100px); /* S'assurer que le contenu occupe l'espace restant */
+  left: 1030px;
 }
 
 .calendar-container {
