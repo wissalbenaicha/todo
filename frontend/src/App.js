@@ -5,7 +5,7 @@ import CalendarPage from "./pages/CalendarPage"; // Page avec Header et Sidebar
 import Profile from "./components/Profile"; // Composant Profile
 import SignUpPage from "./pages/SignUp";
 import "./App.css";
-
+import Login from "./components/Login";
 function App() {
   // État pour gérer l'affichage du profil
   const [isProfileVisible, setIsProfileVisible] = useState(false);
@@ -47,6 +47,12 @@ function App() {
             path="/signup"
             element={
               <SignUpPage  />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <Login  />
             }
           />
         </Routes>
