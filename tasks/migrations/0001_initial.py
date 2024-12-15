@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('date_create', models.DateTimeField(auto_now_add=True)),
                 ('date_echeance', models.DateField(blank=True, null=True)),
                 ('priorite', models.CharField(max_length=50)),
-                ('etat', models.BooleanField(default=False)),
+                ('etat', models.CharField(max_length=50)),
             ],
         ),
     ]
