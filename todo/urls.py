@@ -27,6 +27,10 @@ from django.contrib import admin
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TemplateView.as_view(template_name='index.html')),
+
+
+    path('api/', include('tasks.urls')),
     path('tasks/', include('tasks.urls')),  # Inclure les URLs de l'application tasks
     path('api/', include('accounts.urls')),  # Inclure les URLs de l'application accounts sans préfixe
 ]
+
