@@ -18,15 +18,16 @@ from django.contrib import admin
 from django.urls import path, include
 from django.urls import path
 from django.views.generic import TemplateView
-from django.urls import path, include
-from django.contrib import admin
-
-
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    # API Django
+    path('tasks/', include('tasks.urls')),       # Routes pour l'app 'tasks'
+    path('api/', include('accounts.urls')),      # Routes pour l'app 'accounts'
+
+    # React Frontend : toutes les autres routes pointent vers React
     path('', TemplateView.as_view(template_name='index.html')),
-    path('tasks/', include('tasks.urls')),  # Inclure les URLs de l'application tasks
-    path('api/', include('accounts.urls')),  # Inclure les URLs de l'application accounts sans préfixe
+    
 ]
