@@ -85,13 +85,22 @@ WSGI_APPLICATION = 'todo.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'todo_db',
-        'USER': 'todo_user',
-        'PASSWORD': 'todo',
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'NAME': 'todo_db',          
+        'USER': 'todo_user',        
+        'PASSWORD': 'todo',         
+        'HOST': 'localhost',        
+        'PORT': '5432',             
+     },
+    'calendar': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'calendar_db',      # Nom de la base de données pour le calendrier
+        'USER': 'calendar_user',    # Utilisateur pour la base de données calendrier
+        'PASSWORD': 'calendar', # Mot de passe pour la base de données calendrier
+        'HOST': 'localhost',        # Hôte de la base de données
+        'PORT': '5432',             # Port de la base de données
     }
 }
+
 
 # Configuration des fichiers statiques
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
