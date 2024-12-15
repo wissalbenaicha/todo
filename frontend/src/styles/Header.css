@@ -1,3 +1,4 @@
+/* Style principal du Header */
 .header {
     display: flex;
     align-items: center;
@@ -117,9 +118,109 @@
     margin-left: 50px;
     margin-top: -30px;
 }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+
+/* Recherche dans le Header */
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 5px 10px;
+  width: 250px;
+  max-width: 80%; /* Adapte la largeur pour petits écrans */
+}
+
+.search-icon {
+  color:transparent;
+  margin-right: 5px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Notifications */
+.notification-container {
+  position: relative;
+  margin-right: 20px;
+}
+
+.notification-icon {
+  font-size: 18px;
+  color: #555;
+}
+
+.notification-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background-color: #ff3366;
+  border-radius: 50%;
+}
+
+/* Profil dans le Header */
+.profile-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profile-image {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.profile-info {
+  text-align: left;
+}
+
+.profile-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.profile-role {
+  font-size: 11px;
+  color: #888;
+  margin: 0;
+}
+
+/* Conteneur principal */
+.page-container {
+  display: flex;
+  margin-top: 60px; /* Laisser de la place pour le Header */
+}
+
+.main-content {
+  margin-left: 250px; /* Largeur du sidebar */
+  padding: 20px;
+  width: calc(100% - 250px); /* Ajuste la largeur */
+}
+
+/* Calendrier */
+.calendar-container {
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px; /* Limite la largeur pour grands écrans */
+}
+
+/* Responsivité */
+@media (max-width: 1024px) {
+  .header {
+    padding: 10px; /* Réduit le padding */
   }
  
+}

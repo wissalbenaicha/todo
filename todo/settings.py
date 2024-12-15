@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 from datetime import timedelta
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = True
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -118,3 +120,26 @@ LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+
+# settings.py
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'eneimxema@gmail.com'# Ton adresse email
+EMAIL_HOST_PASSWORD = 'pvxr jvkg evcj xvda'  # Mot de passe ou mot de passe d'application
+
+FRONTEND_URL = 'http://localhost:3000'  # URL de ton frontend pour les liens de vérification
