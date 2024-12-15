@@ -1,0 +1,116 @@
+/* Overlay pour le profil */
+.profile-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+/* Carte profil */
+.profile-card {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+  width: 400px;
+  height: 450px;
+  padding: 20px;
+  position: relative;
+}
+
+.profile-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.photo-container .profile-image {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ddd;
+}
+
+.upload-photo-button {
+  background-color: rgb(42, 84, 176);
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upload-photo-button:hover {
+  background-color: #f80909;
+}
+
+/* Champs du profil */
+.profile-field {
+  margin: 40px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.field-label {
+  font-weight: bold;
+}
+
+.field-value {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+/* Bouton pour fermer */
+.close-button {
+  position: absolute;
+  top: 450px;
+  right: 10px;
+  background-color: rgb(42, 84, 176);
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.close-button:hover {
+  background-color: darkred;
+}
+/* Bouton Edit */
+.profile-field button {
+  background-color: #F0EFFA;
+  color: black; /* Couleur du texte */
+  border:#F0EFFA; /* Supprimer la bordure par défaut */
+  padding: 10px 20px; /* Taille du bouton (hauteur, largeur) */
+  font-size: 14px; /* Taille de la police du texte */
+  border-radius: 5px; /* Coins arrondis */
+  cursor: pointer; /* Curseur en forme de main pour indiquer que c'est cliquable */
+  transition: background-color 0.3s ease; /* Animation pour le changement de couleur */
+}
+
+/* Effet au survol */
+.profile-field button:hover {
+  background-color: #b5c8f0; /* Couleur du bouton au survol */
+}
+
+/* Positionnement du bouton à droite */
+.profile-field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px; /* Espacement entre les champs */
+}
+
+/* Optionnel : modifier la taille ou la position selon ton besoin */
+.profile-field button {
+  margin-left: 10px; /* Espace à gauche du bouton, ajuste selon ton besoin */
+}
+

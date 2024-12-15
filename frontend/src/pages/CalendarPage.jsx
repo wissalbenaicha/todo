@@ -4,11 +4,11 @@ import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import '../styles/CalendarPage.css'; // Fichier CSS personnalisé
 import Header from '../components/Header'; // Importer le Header
-import Sidebar from '../components/Sidebar'; // Importer le Sidebar
+import Sidbar from '../components/Sidbar';
 
 const localizer = momentLocalizer(moment);
 
-const CalendarPage = () => {
+const CalendarPage = ({ onProfileClick }) => { // Prend en charge la fonction pour le profil
   const [events, setEvents] = useState([
     {
       title: 'Team Meeting',
@@ -24,12 +24,15 @@ const CalendarPage = () => {
 
   return (
     <div className="page-container">
-      <Sidebar /> {/* Sidebar sur le côté gauche */}
-      
-      <div className="main-content"> {/* Contenu principal après Sidebar */}
-        <Header /> {/* Header au-dessus de la page */}
+      {/* Sidebar */}
+     <Sidbar/>
 
-        {/* Contenu de la page avec le calendrier */}
+      {/* Contenu principal */}
+      <div className="main-content">
+        {/* Header avec gestion du profil */}
+        <Header onProfileClick={onProfileClick} />
+
+        {/* Conteneur pour le calendrier */}
         <div className="calendar-container">
           <h1>Calendar</h1>
           <Calendar
@@ -47,4 +50,3 @@ const CalendarPage = () => {
 };
 
 export default CalendarPage;
-

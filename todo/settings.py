@@ -38,6 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'tasks',
+    'rest_framework',
+    'rest_framework_simplejwt',
+    'corsheaders',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -48,8 +52,17 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+        'corsheaders.middleware.CorsMiddleware',
 
+
+]
+CORS_ALLOW_ALL_ORIGINS = True  # Ou spécifie les domaines autorisés
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+}
 ROOT_URLCONF = 'todo.urls'
 
 TEMPLATES = [
@@ -126,3 +139,18 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Chemin vers les fichiers statiques pendant le développement
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'frontend/build/static'),]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+
+# settings.py
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}
