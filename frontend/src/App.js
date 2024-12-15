@@ -6,6 +6,9 @@ import Profile from "./components/Profile"; // Composant Profile
 import SignUpPage from "./pages/SignUp";
 import "./App.css";
 import Login from "./components/Login";
+import VerifyEmail from "./components/VerifyEmail";
+import DashboardPage from "./pages/DashboardPage";
+
 function App() {
   // État pour gérer l'affichage du profil
   const [isProfileVisible, setIsProfileVisible] = useState(false);
@@ -55,6 +58,9 @@ function App() {
               <Login  />
             }
           />
+            <Route path="/verify-email" element={<VerifyEmail />} /> {/* Route pour la vérification */}
+            <Route path="/dashboard" element={<DashboardPage />} />
+
         </Routes>
       </div>
     </Router>

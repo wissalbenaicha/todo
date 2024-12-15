@@ -1,131 +1,168 @@
+/* Style principal du Header */
 .header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-left: -20px; /* Décaler le header à droite du sidebar */
-    z-index: 999;
-    position: relative;
-    margin-top: -140px;
-    width: 990px;
-   
-  }
-  
-  .search-container {
-    display: flex;
-    align-items: center;
-    border: 1px solid #ddd;
-    border-radius: 20px;
-    padding: 5px 10px;
-    width: 250px;
-    right: 20px;
-  }
-  
-  .search-icon {
-    color: #888;
-    margin-right: 5px;
-  }
-  
-  .search-input {
-    border: none;
-    outline: none;
-    width: 100%;
-    font-size: 14px;
-    color: #555;
-  }
-  
-  .notification-container {
-    position: relative;
-    margin-right: 20px;
-    right: 350px;
-  }
-  
-  .notification-icon {
-    font-size: 18px;
-    color: #555;
-    cursor: pointer;
-  }
-  
-  .notification-dot {
-    position: absolute;
-    top: -2px;
-    right: 120px;
-    width: 8px;
-    height: 8px;
-    background-color: #ff3366;
-    border-radius: 50%;
-  }
-  
- /* Profil dans le Header */
-.profile-container {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-   
-    top:0px;
-    margin-left: -190px;
-
-  }
-  
-  .profile-image {
-    width: 35px; /* Réduire la taille de l'image du profil */
-    height: 35px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  .profile-info {
-    text-align: left;
-  }
-  
-  .profile-name {
-    font-size: 13px; /* Réduire la taille du texte */
-    font-weight: bold;
-    color: #333;
-    margin: 0;
-  }
-  
-  .profile-role {
-    font-size: 11px; /* Réduire la taille du texte */
-    color: #888;
-    margin: 0;
-  }
-  
-  /* Bouton pour fermer le profile modal */
-  .close-modal-btn {
-    padding: 5px 10px;
-    background-color: #ff3366;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  .page-container {
-    display: flex;
-    margin-top: 60px; /* Laisser de la place pour le Header */
-  }
-  
-  .main-content {
-    margin-left: 20px; /* Largeur du Sidebar */
-    margin-top: 60px;   /* Laisser de la place sous le Header */
-    padding: 120px;
-    width: calc(100% - 290px); /* S'assurer que le contenu occupe l'espace restant */
-  }
-  
-  .calendar-container {
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin-left: 50px;
-    margin-top: -30px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px; /* Ajoute un espace uniforme */
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Prend toute la largeur */
+  position: fixed; /* Reste en haut de la page */
+  top: 0;
+  z-index: 999;
 }
-  
-  h1 {
-    font-size: 24px;
-    margin-bottom: 20px;
+
+/* Recherche dans le Header */
+.search-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  padding: 5px 10px;
+  width: 250px;
+  max-width: 80%; /* Adapte la largeur pour petits écrans */
+}
+
+.search-icon {
+  color:transparent;
+  margin-right: 5px;
+}
+
+.search-input {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 14px;
+  color: #555;
+}
+
+/* Notifications */
+.notification-container {
+  position: relative;
+  margin-right: 20px;
+}
+
+.notification-icon {
+  font-size: 18px;
+  color: #555;
+}
+
+.notification-dot {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  background-color: #ff3366;
+  border-radius: 50%;
+}
+
+/* Profil dans le Header */
+.profile-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.profile-image {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-right: 10px;
+}
+
+.profile-info {
+  text-align: left;
+}
+
+.profile-name {
+  font-size: 13px;
+  font-weight: bold;
+  color: #333;
+  margin: 0;
+}
+
+.profile-role {
+  font-size: 11px;
+  color: #888;
+  margin: 0;
+}
+
+/* Conteneur principal */
+.page-container {
+  display: flex;
+  margin-top: 60px; /* Laisser de la place pour le Header */
+}
+
+.main-content {
+  margin-left: 250px; /* Largeur du sidebar */
+  padding: 20px;
+  width: calc(100% - 250px); /* Ajuste la largeur */
+}
+
+/* Calendrier */
+.calendar-container {
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px; /* Limite la largeur pour grands écrans */
+}
+
+/* Responsivité */
+@media (max-width: 1024px) {
+  .header {
+    padding: 10px; /* Réduit le padding */
   }
-  
+
+  .search-container {
+    width: 200px; /* Réduit la largeur */
+  }
+
+  .main-content {
+    margin-left: 200px; /* Ajuste le contenu */
+    width: calc(100% - 200px);
+  }
+
+  .profile-container {
+    margin-left: 10px; /* Ajuste l'espacement sur les écrans plus petits */
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Empile les éléments */
+    align-items: flex-start;
+  }
+
+  .search-container {
+    width: 100%; /* Prend toute la largeur */
+    margin-bottom: 10px;
+  }
+
+  .notification-container {
+    margin-right: 0; /* Réinitialise le décalage */
+  }
+
+  .profile-container {
+    margin-top: 10px; /* Ajoute un espace en haut */
+    align-self: flex-end; /* Place le profil à droite */
+  }
+
+  .page-container {
+    flex-direction: column; /* Empile le contenu */
+    margin-top: 100px; /* Ajuste l'espace sous le Header */
+  }
+
+  .main-content {
+    margin-left: 0; /* Supprime le décalage */
+    width: 100%; /* S'adapte à la taille */
+  }
+
+  .calendar-container {
+    width: 100%; /* Prend toute la largeur */
+    margin: 10px 0;
+  }
+}

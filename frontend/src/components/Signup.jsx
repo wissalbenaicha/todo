@@ -9,12 +9,24 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [message, setMessage] = useState('');
 
+  // Fonction pour valider le format de l'email
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // Expression régulière simple pour l'email
+    return emailRegex.test(email);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Validation simple des mots de passe
     if (password !== confirmPassword) {
       setMessage("Les mots de passe ne correspondent pas");
+      return;
+    }
+
+    // Validation du format de l'email
+    if (!validateEmail(email)) {
+      setMessage("Veuillez entrer une adresse email valide");
       return;
     }
 
@@ -30,19 +42,22 @@ const Signup = () => {
           'Content-Type': 'application/json',
         },
       });
-      setMessage('Inscription réussie!');
+
+      // Si la réponse est OK
+      setMessage('Inscription réussie! Vérifiez votre email pour activer votre compte.');
       // Réinitialisation des champs après l'inscription
       setName('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
     } catch (error) {
+      // Gestion des erreurs
       if (error.response) {
-        // Affiche les erreurs détaillées
-        console.error('Backend Errors:', error.response.data);
-        setMessage(error.response.data.detail || 'Erreur lors de l\'inscription');
+        // Erreur spécifique du backend
+        const errorMessage = error.response.data.detail || 'Erreur lors de l\'inscription';
+        setMessage(errorMessage);
       } else {
-        // Erreur de réseau
+        // Erreur réseau ou autre
         setMessage('Problème de connexion au serveur');
       }
     }
