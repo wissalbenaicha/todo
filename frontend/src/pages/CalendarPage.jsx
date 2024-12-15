@@ -40,7 +40,7 @@ const CalendarPage = ({ onProfileClick }) => { // Prend en charge la fonction po
             events={events}
             startAccessor="start"
             endAccessor="end"
-            style={{ height: 500 }}
+            style={{ height: 400 }}
             views={['month', 'week', 'day']}
           />
         </div>
