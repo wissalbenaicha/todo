@@ -1,0 +1,229 @@
+/* Styles généraux */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f3f9ff; /* Bleu clair */
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Section principale */
+.task-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  border-radius: 15px;
+  padding: 20px;
+  width: 100%;
+  max-width: 1200px;
+  height: 450px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.container .logo {
+  height: 100px;
+  width: auto;
+  margin-bottom: 50px;
+}
+
+/* Gauche : Ajouter tâche */
+.task-left {
+  width: 45%;
+}
+
+.task-title {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
+  gap: 10px; /* Espacement entre l'input et les icônes */
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.icon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative; /* Positionné pour le dropdown */
+}
+
+.icon:hover {
+  background-color: #e0e0e0;
+}
+
+.date-picker-input {
+  position: absolute;
+  top: 40px;
+  z-index: 10;
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+.priority-wrapper {
+  position: absolute;
+  top: 40px;
+  z-index: 10;
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  width: 150px;
+  padding: 5px;
+}
+
+.priority-wrapper select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}
+
+.continue-btn {
+  margin-top: 20px;
+  background-color: #0055ff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.continue-btn:hover {
+  background-color: #0044cc;
+}
+
+.back-arrow {
+  margin-top: 10px;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* Droite : Étape & Message */
+.task-right {
+  width: 45%;
+  text-align: center;
+  position: relative;
+}
+
+.step-badge {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  background-color: #e0f2ff;
+  color: #0055ff;
+  padding: 5px 15px;
+  border-radius: 12px;
+  font-weight: bold;
+}
+
+.user-message {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.circle {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(to bottom, #66aaff, #0055ff);
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+  .task-right {
+    display: none;
+  }
+
+  .task-left {
+    width: 100%;
+  }
+
+  .task-left h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .input-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .icons {
+    justify-content: flex-start;
+  }
+}
+
+/* Position dropdowns below icons */
+.icon .calendar-dropdown,
+.icon .priority-wrapper,
+.icon .category-wrapper {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  z-index: 20;
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.category-wrapper {
+  position: absolute;
+  top: 40px;
+  z-index: 10;
+  background: #fff;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  width: 150px;
+  padding: 5px;
+}
+
+.category-wrapper select {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: none;
+  outline: none;
+}

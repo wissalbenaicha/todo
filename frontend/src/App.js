@@ -15,6 +15,7 @@ import Wissal from "./components/Wissal";
 import Stay from "./components/Stay";
 import Seamless from "./components/Seamless";
 import Work from "./components/Work";
+import TaskPage from "./components/TaskPage";
 
 import "./App.css"; // Assurez-vous d'importer le fichier CSS
 import Continue1 from "./components/Continue1"; // Vérifiez qu'il n'y a qu'une seule importation.
@@ -40,10 +41,9 @@ function App() {
         </Routes>
         <Stay />
         <Seamless />
-        <Work />
 
         <Footer />
-        <Continue1 />
+        <TaskPage />
       </div>
     </Router>
   );

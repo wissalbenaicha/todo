@@ -1,30 +1,38 @@
+
+# Create your views here.
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt  # Pour désactiver la protection CSRF (si nécessaire)
-import json
 from .models import Task
+from django.views.decorators.csrf import csrf_exempt
+from django.utils.decorators import method_decorator
+from django.views import View
+import json
 
-# Vue pour gérer les tâches
-@csrf_exempt  # Si vous désactivez temporairement CSRF (par exemple pour le test), sinon retirez cette ligne.
-def task_create(request):
-    if request.method == 'POST':
+@method_decorator(csrf_exempt, name='dispatch')
+class TaskView(View):
+    def post(self, request):
         try:
-            # Charger le corps de la requête en JSON
             data = json.loads(request.body)
+            nom_task = data['nom_task']
+            date_echeance = data.get('date_echeance')
+            priorite = data.get('priorite', 'Normal')  # Default priority
+            etat = data.get('etat', False)
+            catégorie = data.get('catégorie')
 
-            title = data.get('title')  # Récupérer le nom de la tâche depuis le JSON
 
-            if title:
-                task = Task.objects.create(title=title)
-                return JsonResponse({"message": "Task added successfully!", "task_id": task.id}, status=201)
-            return JsonResponse({"error": "Task name is required!"}, status=400)
+            task = Task.objects.create(
+                nom_task=nom_task,
+                date_echeance=date_echeance,
+                priorite=priorite,
+                etat=etat,
+                catégorie=catégorie,
+            )
+            task.save()
 
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON format!"}, status=400)
+            return JsonResponse({'message': 'Task created successfully!'}, status=201)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=400)
 
-    # Pour les requêtes GET, récupérer les tâches existantes
-    elif request.method == 'GET':
+    def get(self, request):
         tasks = Task.objects.all().values()
-        return JsonResponse({"tasks": list(tasks)}, safe=False)
-
-    return JsonResponse({"error": "Invalid request method!"}, status=405)
+        return JsonResponse(list(tasks), safe=False)
