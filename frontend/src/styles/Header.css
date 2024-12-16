@@ -1,168 +1,151 @@
-/* Style principal du Header */
+/* Header principal */
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 10px 20px; /* Ajoute un espace uniforme */
-  background-color: #fff;
-  border-bottom: 1px solid #ddd;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Prend toute la largeur */
-  position: fixed; /* Reste en haut de la page */
-  top: 0;
-  z-index: 999;
-}
-
-/* Recherche dans le Header */
-.search-container {
-  display: flex;
   align-items: center;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  padding: 5px 10px;
-  width: 250px;
-  max-width: 80%; /* Adapte la largeur pour petits écrans */
-}
-
-.search-icon {
-  color:transparent;
-  margin-right: 5px;
-}
-
-.search-input {
-  border: none;
-  outline: none;
-  width: 100%;
-  font-size: 14px;
-  color: #555;
-}
-
-/* Notifications */
-.notification-container {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
   position: relative;
-  margin-right: 20px;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header-icons {
+  position: relative;
 }
 
 .notification-icon {
-  font-size: 18px;
-  color: #555;
-}
-
-.notification-dot {
-  position: absolute;
-  top: -2px;
-  right: -2px;
-  width: 8px;
-  height: 8px;
-  background-color: #ff3366;
-  border-radius: 50%;
-}
-
-/* Profil dans le Header */
-.profile-container {
-  display: flex;
-  align-items: center;
+  font-size: 1.5rem;
   cursor: pointer;
+  position: relative;
 }
 
-.profile-image {
-  width: 35px;
-  height: 35px;
+.badge {
+  position: absolute;
+  top: -15px;
+  right: -10px;
+  background: red;
+  color: white;
   border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
+  padding: 2px 6px;
+  font-size: 0.8rem;
 }
 
-.profile-info {
-  text-align: left;
+/* Barre de notifications */
+.notification-bar {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  width: 300px;
+  background: white;
+  border: 1px solid #ddd;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  z-index: 10;
+  max-height: 400px;
+  overflow-y: auto;
 }
 
-.profile-name {
-  font-size: 13px;
-  font-weight: bold;
+.notification-bar h4 {
+  margin: 0;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #ddd;
+  font-size: 1rem;
   color: #333;
-  margin: 0;
 }
 
-.profile-role {
-  font-size: 11px;
-  color: #888;
-  margin: 0;
-}
+/* Media Queries pour rendre le Header responsive */
 
-/* Conteneur principal */
-.page-container {
-  display: flex;
-  margin-top: 60px; /* Laisser de la place pour le Header */
-}
-
-.main-content {
-  margin-left: 250px; /* Largeur du sidebar */
-  padding: 20px;
-  width: calc(100% - 250px); /* Ajuste la largeur */
-}
-
-/* Calendrier */
-.calendar-container {
-  padding: 20px;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 20px auto;
-  max-width: 1200px; /* Limite la largeur pour grands écrans */
-}
-
-/* Responsivité */
+/* Écrans moyens (tablettes et petits écrans) */
 @media (max-width: 1024px) {
   .header {
-    padding: 10px; /* Réduit le padding */
+    padding: 8px 15px;
+    flex-direction: column;
+    text-align: center;
   }
 
-  .search-container {
-    width: 200px; /* Réduit la largeur */
-  }
-
-  .main-content {
-    margin-left: 200px; /* Ajuste le contenu */
-    width: calc(100% - 200px);
-  }
-
-  .profile-container {
-    margin-left: 10px; /* Ajuste l'espacement sur les écrans plus petits */
-  }
-}
-
-@media (max-width: 768px) {
-  .header {
-    flex-direction: column; /* Empile les éléments */
-    align-items: flex-start;
-  }
-
-  .search-container {
-    width: 100%; /* Prend toute la largeur */
+  .logo {
+    font-size: 1.3rem;
     margin-bottom: 10px;
   }
 
-  .notification-container {
-    margin-right: 0; /* Réinitialise le décalage */
+  .notification-bar {
+    top: 40px;
+    right: 10px;
+    width: 250px;
   }
 
-  .profile-container {
-    margin-top: 10px; /* Ajoute un espace en haut */
-    align-self: flex-end; /* Place le profil à droite */
+  .notification-bar h4 {
+    font-size: 0.9rem;
+  }
+}
+
+/* Écrans petits (mobiles) */
+@media (max-width: 768px) {
+  .header {
+    padding: 8px 10px;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .page-container {
-    flex-direction: column; /* Empile le contenu */
-    margin-top: 100px; /* Ajuste l'espace sous le Header */
+  .logo {
+    font-size: 1.2rem;
   }
 
-  .main-content {
-    margin-left: 0; /* Supprime le décalage */
-    width: 100%; /* S'adapte à la taille */
+  .notification-icon {
+    font-size: 1.2rem;
   }
 
-  .calendar-container {
-    width: 100%; /* Prend toute la largeur */
-    margin: 10px 0;
+  .badge {
+    top: -10px;
+    right: -8px;
+    padding: 1px 5px;
+    font-size: 0.7rem;
+  }
+
+  .notification-bar {
+    top: 40px;
+    right: 5px;
+    width: 200px;
+    max-height: 300px;
+  }
+}
+
+/* Très petits écrans (moins de 480px) */
+@media (max-width: 480px) {
+  .header {
+    padding: 5px 8px;
+    flex-direction: column;
+  }
+
+  .logo {
+    font-size: 1rem;
+  }
+
+  .notification-icon {
+    font-size: 1rem;
+  }
+
+  .badge {
+    top: -8px;
+    right: -6px;
+    padding: 1px 4px;
+    font-size: 0.6rem;
+  }
+
+  .notification-bar {
+    top: 35px;
+    right: 2px;
+    width: 180px;
+    max-height: 250px;
+  }
+
+  .notification-bar h4 {
+    font-size: 0.8rem;
   }
 }
