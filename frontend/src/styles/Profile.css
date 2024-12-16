@@ -5,11 +5,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent */
+  background-color: rgba(0, 0, 0, 0.5); /* Fond semi-transparent pour l'overlay */
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1000; /* Garantit que l'overlay est au-dessus de tout autre élément */
 }
 
 /* Carte profil */
@@ -18,27 +18,41 @@
   border-radius: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
   width: 400px;
-  height: 450px;
+  height: 500px;
   padding: 20px;
   position: relative;
+  display: flex;
+  flex-direction: column; /* Organise les éléments du profil en colonne */
+  align-items: center; /* Centre les éléments */
 }
 
+/* Header de la carte profil (en haut) */
 .profile-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Espace entre les éléments */
   align-items: center;
+  width: 100%; /* Prend toute la largeur */
+  margin-bottom: 20px; /* Espacement sous l'en-tête */
+}
+
+/* Photo du profil */
+.photo-container {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 60px;
+  flex-direction: column; /* Organise les éléments en colonne */
 }
 
 .photo-container .profile-image {
-  width: 250px;
-  height: 250px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid #ddd;
+  width: 150px; /* Taille de l'image */
+  height: 150px; /* Taille de l'image */
+  border-radius: 50%; /* Image en forme de cercle */
+  object-fit: cover; /* Pour que l'image couvre l'espace sans déformation */
+  border: 3px solid #ddd; /* Bordure grise autour de l'image */
+  margin-bottom: 20px; /* Espacement entre la photo et le bouton */
 }
 
+/* Bouton pour télécharger une photo */
 .upload-photo-button {
   background-color: rgb(42, 84, 176);
   color: white;
@@ -46,71 +60,76 @@
   padding: 8px 12px;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+/* Effet au survol pour le bouton de téléchargement */
 .upload-photo-button:hover {
-  background-color: #f80909;
+  background-color: #f80909; /* Change la couleur au survol */
 }
 
-/* Champs du profil */
+/* Champs du profil (nom, rôle, etc.) */
 .profile-field {
-  margin: 40px 0;
+  margin: 20px 0; /* Espacement entre les champs */
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Aligne les champs avec les labels à gauche et valeurs à droite */
+  width: 100%; /* Prend toute la largeur */
 }
 
+/* Label du champ (ex. Nom, Email, etc.) */
 .field-label {
   font-weight: bold;
+  font-size: 14px;
+  width: 150px; /* Largeur fixe pour les labels */
 }
 
+/* Valeur du champ (ex. le nom, l'email) */
 .field-value {
-  flex-grow: 1;
+  flex-grow: 1; /* Laisse l'espace disponible pour la valeur */
   margin-left: 10px;
+  font-size: 14px;
+  color: #555;
 }
 
-/* Bouton pour fermer */
+/* Bouton pour fermer la fenêtre du profil */
 .close-button {
   position: absolute;
-  top: 450px;
-  right: 10px;
+  top: 10px;
+  right: 10px; /* Positionné en haut à droite */
   background-color: rgb(42, 84, 176);
   color: white;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 5px;
+  transition: background-color 0.3s ease;
 }
 
 .close-button:hover {
-  background-color: darkred;
+  background-color: darkred; /* Changement de couleur au survol */
 }
-/* Bouton Edit */
+
+/* Bouton Edit (mettre à droite dans le champ) */
 .profile-field button {
   background-color: #F0EFFA;
-  color: black; /* Couleur du texte */
-  border:#F0EFFA; /* Supprimer la bordure par défaut */
-  padding: 10px 20px; /* Taille du bouton (hauteur, largeur) */
-  font-size: 14px; /* Taille de la police du texte */
-  border-radius: 5px; /* Coins arrondis */
-  cursor: pointer; /* Curseur en forme de main pour indiquer que c'est cliquable */
-  transition: background-color 0.3s ease; /* Animation pour le changement de couleur */
+  color: black;
+  border: none;
+  padding: 7px 30px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  text-align: center;
 }
 
-/* Effet au survol */
+/* Effet de survol pour le bouton Edit */
 .profile-field button:hover {
-  background-color: #b5c8f0; /* Couleur du bouton au survol */
+  background-color: #b5c8f0;
 }
 
-/* Positionnement du bouton à droite */
-.profile-field {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px; /* Espacement entre les champs */
-}
-
-/* Optionnel : modifier la taille ou la position selon ton besoin */
+/* Positionnement du bouton Edit à droite du champ */
 .profile-field button {
-  margin-left: 10px; /* Espace à gauche du bouton, ajuste selon ton besoin */
+  margin-left: 10px; /* Espacement entre le champ et le bouton */
+  align-self: flex-end; /* Aligne le bouton à droite */
+  text-align: right; /* Assure que le texte est bien aligné à droite */
 }
-

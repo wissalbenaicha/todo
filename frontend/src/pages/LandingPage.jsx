@@ -10,7 +10,13 @@ import Composant4 from "../components/Composant4";
 import Work from "../components/Work";
 import Composant3 from "../components/Composant3";
 import Faq from "../components/Faq";
+<<<<<<< HEAD
 import TaskPage from "../components/TaskPage";
+=======
+
+import TaskPage from "../components/TaskPage";
+
+>>>>>>> 50149803b023f2c0bc6a6bae6e66e368109970b7
 
 const LandingPage = () => {
   return (
