@@ -82,7 +82,8 @@ function TaskPage() {
             />
 
             {/* Date d'échéance */}
-            <label>Date echeance</label>
+            <div className="label">
+            <label >Date echeance </label>
             <DatePicker
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
@@ -114,6 +115,7 @@ function TaskPage() {
               <option value="Pending">Pending</option>
               <option value="Completed">Completed</option>
             </select>
+          </div>
           </div>
 
           {/* <div className="icons">

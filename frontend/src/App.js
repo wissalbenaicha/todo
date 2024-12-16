@@ -8,6 +8,7 @@ import "./App.css";
 import Login from "./components/Login";
 import VerifyEmail from "./components/VerifyEmail";
 import DashboardPage from "./pages/DashboardPage";
+import TachePage from "./pages/TachePage";
 
 function App() {
   // État pour gérer l'affichage du profil
@@ -29,7 +30,8 @@ function App() {
         {/* Affichage conditionnel du Profile en overlay */}
         {isProfileVisible && (
           <div className="profile-overlay">
-            <Profile onClose={closeProfile} /> {/* Passe la fonction pour fermer */}
+            <Profile onClose={closeProfile} />{" "}
+            {/* Passe la fonction pour fermer */}
           </div>
         )}
 
@@ -38,29 +40,19 @@ function App() {
           {/* Route pour la Landing Page */}
           <Route path="/" element={<LandingPage />} />
           <Route path="/LandingPage" element={<LandingPage />} />
-
+          {/* Route pour la Tache Page */}
+          <Route path="/" element={<TachePage />} />
+          <Route path="/TachePage" element={<TachePage />} />
           {/* Route pour CalendarPage */}
           <Route
             path="/calendar"
-            element={
-              <CalendarPage onProfileClick={handleProfileClick} />
-            }
+            element={<CalendarPage onProfileClick={handleProfileClick} />}
           />
-          <Route
-            path="/signup"
-            element={
-              <SignUpPage  />
-            }
-          />
-          <Route
-            path="/login"
-            element={
-              <Login  />
-            }
-          />
-            <Route path="/verify-email" element={<VerifyEmail />} /> {/* Route pour la vérification */}
-            <Route path="/dashboard" element={<DashboardPage />} />
-
+          <Route path="/signup" element={<SignUpPage />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />{" "}
+          {/* Route pour la vérification */}
+          <Route path="/dashboard" element={<DashboardPage />} />
         </Routes>
       </div>
     </Router>
