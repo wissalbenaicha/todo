@@ -1,12 +1,6 @@
 /* Conteneur principal des notifications */
 .notification-container {
-    width: 400px;
-    margin: 20px auto;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
-    overflow: hidden; /* Pour éviter les débordements de bordures */
+  left: 1%;
   }
   
   /* Onglets de filtre (Tous/Non lus) */
@@ -40,7 +34,7 @@
   /* Élément individuel de notification */
   .notification-item {
     border-bottom: 1px solid #eee;
-    padding: 15px;
+    padding: 5px;
     transition: background-color 0.3s ease;
   }
   
@@ -100,4 +94,27 @@
     max-height: 500px;
     overflow-y: auto;
   }
+  .notification-list {
+    padding: 10px;
+  }
   
+  .notification-item {
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+  }
+  
+  .notification-item:last-child {
+    border-bottom: none;
+  }
+  
+  .notification-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+  }
+  
+  .time {
+    color: gray;
+    font-size: 12px;
+  }
+    

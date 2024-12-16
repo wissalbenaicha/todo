@@ -1,44 +1,43 @@
 /* Styles globaux du Header */
 .header {
-  position: fixed; /* Fixé en haut */
+  position: fixed;
   top: 0;
-  left: 250px; /* Ajustement pour la sidebar */
+  left: 250px;
   right: 0;
-  height: 65px; /* Hauteur définie */
+  height: 65px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #fff; /* Fond blanc */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 0 20px;
-  z-index: 999; /* Pour être au-dessus des autres éléments */
+  z-index: 999;
 }
 
 /* Zone de recherche */
 .search-container {
   display: flex;
-  justify-content: space-between;
   align-items: center;
   position: relative;
-  flex: 1; /* Prend l'espace disponible */
-  max-width: 400px; /* Limite la largeur */
+  flex: 1;
+  max-width: 400px;
 }
 
 .search-icon {
   position: absolute;
   left: 10px;
-  color: #aaa; /* Couleur grise */
+  color: #aaa;
   font-size: 16px;
 }
 
 .search-input {
   width: 100%;
-  padding: 8px 10px 8px 35px; /* Décalage pour l'icône */
-  border: 1px solid #ddd; /* Bordure légère */
-  border-radius: 20px; /* Arrondi */
+  padding: 8px 10px 8px 35px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
   outline: none;
   font-size: 14px;
-  color: #333; /* Texte sombre */
+  color: #333;
   background-color: #f7f7f7;
 }
 
@@ -50,43 +49,27 @@
 .notification-container {
   position: relative;
   cursor: pointer;
-  margin-right: 20px;
+  margin-right: 10px;
+
 }
 
 .notification-icon {
-  font-size: 18px;
-  color: #555; /* Gris foncé */
+  font-size: 25px;
+  color: #555;
 }
 
-.notification-dot {
-  position: absolute;
-  top: -4px;
-  right: -6px;
-  background-color: #f00; /* Rouge */
-  color: #fff;
-  border-radius: 50%;
-  font-size: 10px;
-  width: 16px;
-  height: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-}
 
 /* Section du profil utilisateur */
 .profile-container {
-  position: relative; /* Conteneur parent */
   display: flex;
   align-items: center;
   cursor: pointer;
-  position: relative;
 }
 
 .profile-image {
   width: 40px;
   height: 40px;
-  border-radius: 50%; /* Cercle parfait */
+  border-radius: 50%;
   margin-right: 10px;
 }
 
@@ -104,7 +87,7 @@
 
 .profile-role {
   font-size: 12px;
-  color: #777; /* Texte gris clair */
+  color: #777;
   margin: 0;
 }
 
@@ -114,50 +97,38 @@
   margin-left: 5px;
 }
 
-/* Menu déroulant du profil */
-.profile-dropdown {
+/* Modal Notifications */
+.notification-modal {
   position: absolute;
-  top: 65px; /* Décalage sous le header */
-  right: 0;
-  background-color: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Ombre subtile */
-  border-radius: 5px;
-  width: 200px;
-  z-index: 1000; /* Plus élevé que le header */
-  overflow: hidden;
+  top: 60px;
+  right: 18%;
+  width: 300px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
+  max-height: 400px;
+  overflow-y:hidden;
+  overflow-x:hidden;
+
 }
 
-.profile-dropdown ul {
-  list-style: none;
-  margin: 0;
-  padding: 10px 0;
+.notification-modal.hidden {
+  display: none;
 }
 
-.profile-dropdown li {
-  padding: 10px 15px;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.profile-dropdown li:hover {
-  background-color: #f1f1f1;
-}
-
-/* Responsive pour écrans plus petits */
+/* Responsive pour mobile */
 @media (max-width: 768px) {
   .header {
-    left: 0; /* Header plein écran sur mobile */
+    left: 0;
   }
 
   .search-container {
     max-width: 250px;
   }
 
-  .notification-container {
-    margin-right: 10px;
-  }
-
   .profile-info {
-    display: none; /* Cache les informations sur mobile */
+    display: none;
   }
 }

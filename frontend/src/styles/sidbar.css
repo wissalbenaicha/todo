@@ -15,7 +15,7 @@
   }
   
   .logo img {
-    max-width: 270%;
+    max-width: 470%;
     filter: invert(100%) brightness(100%) grayscale(100%);
 
   }
@@ -50,15 +50,12 @@
   }
   
   .icon {
-    margin-right: 10px;
+    margin-right: 5px;
   }
-  
- 
-  
   
   .menu .icon,
 .bottom-menu .icon {
-  margin-right: 10px; /* Espacement entre l'icône et le texte */
+  margin-right: 15px; /* Espacement entre l'icône et le texte */
   font-size: 20px;    /* Taille des icônes */
   color: #ffffff;        /* Couleur des icônes */
 }

@@ -1,10 +1,15 @@
 /* General Dashboard Styles */
+
 .dashboard-container {
   background-color: #f4f7fc;
   font-family: 'Arial', sans-serif;
   padding: 20px;
+  width: 100%; /* Largeur en pourcentage, s'ajustant à la taille de l'écran */
+  max-width: 2200px; /* Largeur maximale */
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
 }
-
 .stats-container {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* 2 colonnes égales pour la 1ère ligne */
@@ -114,7 +119,7 @@
   width: 100%;  /* Le graphique prend toute la largeur de la section */
   height: calc(100% - 50px); /* Le graphique prend toute la hauteur de la section, mais laisse de l'espace pour le titre */
   display: block;  /* Assurer que le graphique soit un bloc complet */
-  margin-top: -85px; /* Légère marge au-dessus du graphique pour l'espacement */
+  margin-top: -80px; /* Légère marge au-dessus du graphique pour l'espacement */
   margin-left: 220px;
 }
 
