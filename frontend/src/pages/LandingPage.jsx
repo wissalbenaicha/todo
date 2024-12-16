@@ -10,10 +10,7 @@ import Composant4 from "../components/Composant4";
 import Work from "../components/Work";
 import Composant3 from "../components/Composant3";
 import Faq from "../components/Faq";
-<<<<<<< HEAD
 import TaskPage from "../components/TaskPage";
-=======
->>>>>>> c6c02b20ad6184be3fe464ef46797fae73adcfc5
 
 const LandingPage = () => {
   return (
