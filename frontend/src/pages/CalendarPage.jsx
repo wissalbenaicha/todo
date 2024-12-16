@@ -25,7 +25,7 @@ const CalendarPage = ({ onProfileClick }) => { // Prend en charge la fonction po
   return (
     <div className="page-container">
       {/* Sidebar */}
-     <Sidbar/>
+      <Sidbar />
 
       {/* Contenu principal */}
       <div className="main-content">

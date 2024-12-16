@@ -1,40 +1,186 @@
+/* Reset global des marges et paddings */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  overflow-x: hidden; /* Empêche le débordement horizontal */
+}
+
 /* Conteneur principal */
 .page-container {
-  display: flex;
-  overflow-x: hidden; /* Désactive le défilement horizontal */
-  width: 100%; /* S'assure que le conteneur occupe toute la largeur */
+  display: flex; /* Flexbox pour aligner la sidebar et le contenu */
+  width: 100%;
+}
+
+/* Sidebar */
+.sidebar {
+  position: fixed; /* Rend la sidebar fixe */
+  top: 0;
+  left: 0;
+  width: 250px; /* Largeur de la sidebar */
+  background-color: #002366; /* Couleur bleue */
+  color: #fff;
+  height: 100vh; /* Prend toute la hauteur */
+  z-index: 999; /* Assure que la sidebar est devant */
+  transition: all 0.3s ease;
 }
 
 /* Contenu principal */
 .main-content {
+  margin-left: 250px; /* Décalage pour laisser l'espace de la sidebar */
   margin-top: 65px; /* Espace sous le Header */
   padding: 20px;
-  width: 100%; /* Prend 100% de la largeur disponible */
-  margin-left: 0; /* Supprime tout décalage horizontal */
-  box-sizing: border-box; /* Inclut padding et bordures dans la largeur */
+  flex: 1; /* Prend tout l'espace disponible */
+  background-color: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+/* Header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 250px; /* Aligne le header après la sidebar */
+  width: calc(100% - 250px); /* Prend la largeur restante */
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Barre de recherche dans le Header */
+.header .search-container {
+  display: flex;
+  align-items: center;
+  width: 50%;
+}
+
+.header .search-container input {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  outline: none;
+}
+
+/* Icône du profil dans le Header */
+.header .profile-section {
+  display: flex;
+  align-items: center;
+}
+
+.header .profile-section img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
 
 /* Conteneur du calendrier */
 .calendar-container {
-  padding: 0px;
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  width: 100%; /* Assure que la largeur du calendrier ne dépasse pas */
+  padding: 40px; /* Espacement intérieur */
+  border-radius: 5px;
+  margin: 0 auto; /* Centre le calendrier */
+  width: 100%;
+  transition: all 0.3s ease;
 }
 
-/* Titre */
-h1 {
+/* Titre du calendrier */
+.calendar-container h1 {
   font-size: 24px;
   margin-bottom: 20px;
 }
 
-/* Spécifique à la page */
-.page-container .main-content {
-  margin-top: 120px; /* Ajuste l'espace sous le Header */
-  margin-left: 0; /* Supprime le décalage gauche */
+/* ---------- Media Queries pour les écrans plus petits ---------- */
+
+/* Écrans inférieurs à 1200px */
+@media (max-width: 1200px) {
+  .sidebar {
+    width: 200px; /* Réduit la largeur de la sidebar */
+  }
+
+  .main-content {
+    margin-left: 200px; /* Ajuste le contenu principal */
+  }
+
+  .header {
+    left: 200px;
+    width: calc(100% - 200px);
+  }
 }
 
-/* Global : Désactiver tout débordement horizontal */
-html, body {
-  overflow-x: hidden; /* Empêche tout défilement horizontal */
+/* Écrans inférieurs à 768px (tablettes) */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 150px; /* Réduit encore la sidebar */
+  }
+
+  .main-content {
+    margin-left: 150px; /* Ajuste le contenu principal */
+  }
+
+  .header {
+    left: 150px;
+    width: calc(100% - 150px);
+    padding: 10px;
+  }
+
+  .calendar-container {
+    padding: 20px; /* Réduit l'espacement intérieur */
+  }
+
+  .header .search-container {
+    width: 70%; /* Réduit la largeur de la barre de recherche */
+  }
+
+  .header .profile-section img {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+/* Écrans inférieurs à 576px (mobiles) */
+@media (max-width: 576px) {
+  .sidebar {
+    display: none; /* Cache la sidebar */
+  }
+
+  .main-content {
+    margin-left: 0; /* Réinitialise le décalage */
+    width: 100%;
+  }
+
+  .header {
+    left: 0; /* Aligne le header sans sidebar */
+    width: 100%;
+    padding: 10px;
+  }
+
+  .calendar-container {
+    padding: 15px; /* Ajuste l'espacement intérieur */
+  }
+
+  h1 {
+    font-size: 18px; /* Réduit la taille du titre */
+  }
+
+  .header .search-container input {
+    padding: 6px;
+  }
+
+  .header .profile-section img {
+    width: 30px;
+    height: 30px;
+  }
 }
