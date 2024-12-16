@@ -1,34 +1,32 @@
-import React from "react";
-import "../styles/Header.css"; // Style associé
-import profileImage from "../assets/images/profile.jpg"; // Image du profil par défaut
-import { FaSearch, FaBell } from "react-icons/fa"; // Icônes
+import React, { useState } from "react";
+import NotificationList from "./NotificationList";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBell } from "@fortawesome/free-solid-svg-icons";
+import "../styles/Header.css";
 
-const Header = ({ onProfileClick, onNotificationClick, notificationCount }) => {
+const Header = () => {
+  const [showNotifications, setShowNotifications] = useState(false);
+
+  const toggleNotifications = () => {
+    setShowNotifications(!showNotifications);
+  };
+
   return (
     <header className="header">
-      {/* Zone de recherche */}
-      <div className="search-container">
-        <FaSearch className="search-icon" />
-        <input type="text" placeholder="Search..." className="search-input" />
-      </div>
-
-      {/* Icône de notification avec un compteur dynamique */}
-      <div className="notification-container" onClick={onNotificationClick}>
-        <FaBell className="notification-icon" />
-        {notificationCount > 0 && (
-          <span className="notification-dot">{notificationCount}</span>
-        )}
-      </div>
-
-      {/* Section profil avec gestion du clic */}
-      <div className="profile-container" onClick={onProfileClick}>
-        <img src={profileImage} alt="Profile" className="profile-image" />
-        <div className="profile-info">
-          <p className="profile-name">Angela L.</p>
-          <p className="profile-role">Project Manager</p>
+      <div className="logo">Mon Application</div>
+      <div className="header-icons">
+        {/* Icône FontAwesome */}
+        <div className="notification-icon" onClick={toggleNotifications}>
+          <FontAwesomeIcon icon={faBell} size="lg" />
+          <span className="badge">3</span>
         </div>
-        <div className="dropdown-icon">▼</div>
       </div>
+
+      {showNotifications && (
+        <div className="notification-bar">
+          <NotificationList />
+        </div>
+      )}
     </header>
   );
 };

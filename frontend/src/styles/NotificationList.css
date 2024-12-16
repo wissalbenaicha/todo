@@ -1,0 +1,103 @@
+/* Conteneur principal des notifications */
+.notification-container {
+    width: 400px;
+    margin: 20px auto;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+    overflow: hidden; /* Pour éviter les débordements de bordures */
+  }
+  
+  /* Onglets de filtre (Tous/Non lus) */
+  .filter-tabs {
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+  
+  .filter-tabs button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+  }
+  
+  .filter-tabs button:hover {
+    color: #007bff;
+  }
+  
+  .filter-tabs button.active {
+    color: #007bff;
+    border-bottom: 2px solid #007bff;
+  }
+  
+  /* Élément individuel de notification */
+  .notification-item {
+    border-bottom: 1px solid #eee;
+    padding: 15px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .notification-item:hover {
+    background-color: #f5f5f5;
+    cursor: pointer;
+  }
+  
+  /* En-tête de la notification */
+  .notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .notification-header h4 {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+  }
+  
+  .notification-header .time {
+    font-size: 0.85rem;
+    color: #888;
+  }
+  
+  /* Texte de description de la notification */
+  .notification-item p {
+    margin: 5px 0 0;
+    color: #555;
+    font-size: 0.95rem;
+  }
+  
+  /* Styles pour le badge de notification */
+  .badge {
+    background-color: #ff4d4f;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: bold;
+    border-radius: 50%;
+    padding: 4px 8px;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+  
+  /* Barre de notifications */
+  .notification-bar {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 400px;
+    background: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    z-index: 1000;
+    max-height: 500px;
+    overflow-y: auto;
+  }
+  
