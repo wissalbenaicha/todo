@@ -1,18 +1,42 @@
-import React, { useState } from "react";
-import "../styles/Header.css"; // Style associé
-import profileImage from "../assets/images/profile.jpg"; // Image du profil par défaut
-import { FaSearch, FaBell } from "react-icons/fa";
-import Profile from "../components/Profile"; // Importation du composant Profile
-import "../styles/Profile.css"; 
+import React, { useState, useEffect, useRef } from "react";
+import "../styles/Header.css"; // Importation des styles
+import profileImage from "../assets/images/profile.jpg"; // Image du profil
+import { FaSearch } from "react-icons/fa"; // Icône de recherche
+import { IoNotificationsOutline } from "react-icons/io5"; // Nouvelle icône de notification
+import Profile from "../components/Profile"; // Composant Profil
+import NotificationList from "../components/NotificationList"; // Composant Liste Notifications
 
-
-const Header = ({ onNotificationClick, notificationCount }) => {
+const Header = ({ notificationCount }) => {
   const [showProfile, setShowProfile] = useState(false); // État pour afficher Profile
+  const [showNotifications, setShowNotifications] = useState(false); // État pour afficher Notifications
+  const notificationRef = useRef(); // Référence pour le modal
 
   // Gestion du clic sur le profil
   const handleProfileClick = () => {
-    setShowProfile(!showProfile); // Inverse l'état
+    setShowProfile(!showProfile);
   };
+
+  // Gestion du clic sur l'icône de notification
+  const handleNotificationClick = () => {
+    setShowNotifications(!showNotifications);
+  };
+
+  // Gestion du clic en dehors pour fermer le modal
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (
+        notificationRef.current &&
+        !notificationRef.current.contains(event.target)
+      ) {
+        setShowNotifications(false); // Fermer le modal
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   return (
     <>
@@ -25,8 +49,8 @@ const Header = ({ onNotificationClick, notificationCount }) => {
         </div>
 
         {/* Icône de notification */}
-        <div className="notification-container" onClick={onNotificationClick}>
-          <FaBell className="notification-icon" />
+        <div className="notification-container" onClick={handleNotificationClick}>
+          <IoNotificationsOutline className="notification-icon" />
           {notificationCount > 0 && (
             <span className="notification-dot">{notificationCount}</span>
           )}
@@ -43,10 +67,17 @@ const Header = ({ onNotificationClick, notificationCount }) => {
         </div>
       </header>
 
-      {/* Affichage conditionnel du composant Profile */}
+      {/* Affichage de la liste des notifications */}
+      {showNotifications && (
+        <div className="notification-modal" ref={notificationRef}>
+          <NotificationList />
+        </div>
+      )}
+
+      {/* Affichage conditionnel du profil */}
       {showProfile && (
         <div className="profile-modal">
-          <Profile /> {/* Le composant Profile s'affiche ici */}
+          <Profile />
         </div>
       )}
     </>

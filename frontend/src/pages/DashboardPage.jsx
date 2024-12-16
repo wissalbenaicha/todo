@@ -6,17 +6,23 @@ import "../styles/DashboardPage.css"; // Ajoutez du CSS pour organiser la mise e
 
 const DashboardPage = () => {
   return (
-    <div className="dashboard-page">
-      {/* Sidbar */}
+    <div className="page-container">
+      {/* Sidebar */}
       <Sidbar />
 
-      {/* Main Content */}
-     
-        {/* Dashboard Content */}
-        <div className="dashboard-content">
-          <h1>Welcome to the Dashboard</h1>
+      {/* Contenu principal */}
+      <div className="main-content">
+        {/* Header avec gestion du profil */}
+        <Header  />
+
+ {/* Dashboard Content */}
+ <div className="dashboard-content">
           <Dashbroard />
         </div>
+        
+        
+    </div>
+    
       </div>
   );
 };
