@@ -25,14 +25,15 @@ body {
   padding: 20px;
   width: 100%;
   max-width: 1200px;
-  height: 450px;
+  height: 500px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .container .logo {
   height: 100px;
   width: auto;
-  margin-bottom: 50px;
+  margin-bottom: 0px;
+  bottom: 160px;
 }
 
 /* Gauche : Ajouter tâche */
@@ -78,7 +79,7 @@ input {
   background-color: #f0f0f0;
   border-radius: 50%;
   cursor: pointer;
-  transition: background-color 0.2s;
+  /*transition: background-color 0.2s;*/
   position: relative; /* Positionné pour le dropdown */
 }
 
@@ -226,4 +227,24 @@ input {
   font-size: 16px;
   border: none;
   outline: none;
+}
+.input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+input,
+select,
+.date-picker-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
 }
