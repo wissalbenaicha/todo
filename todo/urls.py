@@ -18,22 +18,38 @@ from django.contrib import admin
 from django.urls import path, include
 from django.urls import path
 from django.views.generic import TemplateView
+from rest_framework.routers import DefaultRouter
+from table1.views import Table1ViewSet
+
+
+
+router = DefaultRouter()
+router.register(r'table1', Table1ViewSet)
+
+
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    # API Django
-    path('tasks/', include('tasks.urls')),       # Routes pour l'app 'tasks'
-    path('api/', include('accounts.urls')),      # Routes pour l'app 'accounts'
+  
 
     # React Frontend : toutes les autres routes pointent vers React
     path('', TemplateView.as_view(template_name='index.html')),
     
-
-
     path('api/', include('tasks.urls')),
     path('tasks/', include('tasks.urls')),  # Inclure les URLs de l'application tasks
+
+
     path('api/', include('accounts.urls')),  # Inclure les URLs de l'application accounts sans préfixe
+         path('api/', include(router.urls)),
+
+
 ]
+
+
+
+
+
+
 

@@ -26,7 +26,14 @@
   justify-content: center;
   height: 350px; /* Hauteur uniforme pour les sections Task Progress et Daily Task */
 }
+.task-progress h3,
+.daily-task h3 {
+  font-size: 25px;
+}
 
+.progress-item p {
+  margin-top: 15px; /* Espace entre le texte et le canvas */
+}
 /* Grille interne des sections Task Progress et Daily Task */
 .task-progress .progress-items,
 .daily-task .task-items {
@@ -35,15 +42,17 @@
   gap: 10px;
   width: 100%;  /* La grille occupe toute la largeur */
   justify-items: center;  /* Centrer les éléments dans chaque cellule */
+  margin: 30px;
+  margin-top: 20px;
 }
 
 .task-progress .progress-item,
 .daily-task .progress-item {
   text-align: center;
   padding: 10px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1);
 }
 
 .task-progress canvas,
@@ -67,11 +76,17 @@
   justify-content: center; /* Centrer le contenu verticalement */
 }
 
+.category h3,
+.productivity h3{
+  font-size: 20px;
+  margin-right: 350px;
+  margin-bottom: -5px;
+}
 /* Ajuster la taille des graphiques dans Category et Productivity */
 .category canvas,
 .productivity canvas {
-  max-width: 50%;  /* Ajuster la taille du graphique */
-  height: 30%;
+  max-width: 100%;  /* Ajuster la taille du graphique */
+  height: 100%;
 }
 
 /* 3ème ligne : Yearly Progress seul, occupant toute la ligne */
@@ -120,4 +135,31 @@
   border-radius: 5px;
   background-color: #fff; /* Fond blanc pour le select */
   cursor: pointer;
+}
+
+
+.task-bar {
+  margin: 20px 0;
+  width: 100%;
+  background-color: #e0e0e0; /* Fond gris clair pour les barres */
+  border-radius: 30px;
+  position: relative;
+}
+
+.task-bar-complete, .task-bar-remaining {
+  height: 30px;
+  border-radius: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+
+
+.task-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #000;
+  font-size: 14px;
 }

@@ -17,6 +17,7 @@
 /* Zone de recherche */
 .search-container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   position: relative;
   flex: 1; /* Prend l'espace disponible */
@@ -79,6 +80,7 @@
   display: flex;
   align-items: center;
   cursor: pointer;
+  position: relative;
 }
 
 .profile-image {
@@ -98,7 +100,6 @@
   font-size: 14px;
   font-weight: bold;
   color: #333;
-  margin: 0;
 }
 
 .profile-role {
