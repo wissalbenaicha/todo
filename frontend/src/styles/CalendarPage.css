@@ -89,11 +89,12 @@ body {
 .calendar-container {
   background-color: #fff;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  padding: 40px; /* Espacement intérieur */
+  padding: 10px; /* Espacement intérieur */
   border-radius: 5px;
-  margin: 0 auto; /* Centre le calendrier */
+  margin: -10 auto; /* Centre le calendrier */
   width: 100%;
   transition: all 0.3s ease;
+  margin-top: 65px; 
 }
 
 /* Titre du calendrier */
