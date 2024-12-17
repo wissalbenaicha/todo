@@ -25,14 +25,14 @@
 
 .search-icon {
   position: absolute;
-  left: 10px;
+  left: 370px;
   color: #aaa;
   font-size: 16px;
 }
 
 .search-input {
   width: 100%;
-  padding: 8px 10px 8px 35px;
+  padding: 8px 10px 8px 45px; /* Augmenter le padding à gauche */
   border: 1px solid #ddd;
   border-radius: 20px;
   outline: none;
@@ -40,6 +40,7 @@
   color: #333;
   background-color: #f7f7f7;
 }
+
 
 .search-input::placeholder {
   color: #aaa;
