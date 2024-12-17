@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaTachometerAlt, FaCalendarAlt, FaTasks, FaCog, FaSignOutAlt } from 'react-icons/fa'; // Home icon removed
+import { MdDashboard, MdEvent, MdCheckCircle, MdSettings, MdExitToApp } from 'react-icons/md'; // Import des nouvelles icônes
 import '../styles/sidbar.css';
 import logo from '../assets/images/logo.png';
 
@@ -15,29 +15,29 @@ const Sidbar = () => {
       <ul className="menu">
         <li>
           <Link to="/dashboard" className={location.pathname === "/dashboard" ? "active" : ""}>
-            <FaTachometerAlt className="icon" /> Dashboard
+            <MdDashboard className="icon" /> Dashboard
           </Link>
         </li>
         <li>
           <Link to="/tasks" className={location.pathname === "/tasks" ? "active" : ""}>
-            <FaTasks className="icon" /> Tasks
+            <MdCheckCircle className="icon" /> Tasks
           </Link>
         </li>
         <li>
           <Link to="/calendar" className={location.pathname === "/calendar" ? "active" : ""}>
-            <FaCalendarAlt className="icon" /> Calendar
+            <MdEvent className="icon" /> Calendar
           </Link>
         </li>
       </ul>
       <ul className="bottom-menu">
         <li>
           <Link to="/settings" className={location.pathname === "/settings" ? "active" : ""}>
-            <FaCog className="icon" /> Settings
+            <MdSettings className="icon" /> Settings
           </Link>
         </li>
         <li>
           <Link to="/logout">
-            <FaSignOutAlt className="icon" /> Logout
+            <MdExitToApp className="icon" /> Logout
           </Link>
         </li>
       </ul>
