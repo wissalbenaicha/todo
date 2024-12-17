@@ -148,8 +148,8 @@ input {
 
 .step-badge {
   position: absolute;
-  top: -20px;
-  right: -20px;
+  top: -160px;
+  right: -15px;
   background-color: #e0f2ff;
   color: #0055ff;
   padding: 5px 15px;
@@ -241,11 +241,11 @@ label {
   right: 30px;
 }
 .label {
-  right: 150px;
+  right: 110px;
   display: grid;
   grid-template-rows: repeat( 3fr);
-  text-align: justify;
-  gap: 15px;
+  text-align: left;
+  gap: 12px;
 
 }
 
@@ -257,4 +257,5 @@ select,
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 14px;
+  top: 0.1PX;
 }

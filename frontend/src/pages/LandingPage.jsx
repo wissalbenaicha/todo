@@ -11,6 +11,7 @@ import Work from "../components/Work";
 import Composant3 from "../components/Composant3";
 import Faq from "../components/Faq";
 
+
 const LandingPage = () => {
   return (
     <div className="landing-page">
