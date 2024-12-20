@@ -1,127 +1,174 @@
-/* TasksPage2.css */
+/* Conteneur principal */
+.tasks-page {
+  display: flex;
+  background-color: white;
+  width: 100vw; /* Prend toute la largeur de la fenêtre */
+}
+
+/* Contenu principal */
+.main-content {
+  flex: 1;
+  padding: 0; /* Supprime les marges internes */
+  margin: 40px 0 0 0; /* Ajuste les marges pour supprimer les marges latérales */
+  height: 100vh; /* Assure que le contenu prend toute la hauteur */
+}
+
+/* En-tête des tâches */
+.tasks-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding: 0 20px; /* Garde un padding horizontal pour l'en-tête */
+}
+
+.tasks-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.add-task-btn {
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.add-task-btn:hover {
+  background-color: #45a049;
+}
+
+/* Grille des cartes */
 .tasks-container {
-  background-color: rgb(248, 250, 252);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Colonnes auto-adaptatives */
+  gap: 10px; /* Espacement entre les cartes */
+  padding: 0 10px; /* Ajoute un léger padding horizontal */
+  box-sizing: border-box; /* Inclut le padding dans la largeur totale */
+  overflow-x: auto; /* Ajoute un défilement horizontal si le contenu dépasse */
+  margin-left: 240px; /* Décale les cartes vers la droite */
+  height: 600px; /* Hauteur fixe pour le conteneur des tâches */
+  /* min-height: 400px; Hauteur minimale pour le conteneur des tâches */
+  /* max-height: 800px; Hauteur maximale pour le conteneur des tâches */
+  /* overflow-y: auto; Ajoute un défilement vertical si le contenu dépasse */
 }
 
+/* Carte individuelle */
 .task-card {
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   background-color: white;
-  position: relative;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Amélioration du box-shadow */
+  padding: 15px; /* Réduit le padding des cartes */
+  display: flex;
+  flex-direction: column;
+  height: 200px; /* Hauteur fixe pour les cartes */
+  min-height: 150px; /* Hauteur minimale */
+  max-height: 300px; /* Hauteur maximale */
 }
 
-.task-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.05);
-  border-color: rgba(229, 231, 235, 0.8);
+/* Catégorie de la tâche */
+.task-category {
+  font-size: 14px;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 10px;
 }
 
-.category-tag {
-  font-weight: 500;
-  transition: all 0.2s ease;
-  border: 1px solid transparent;
+/* Titre de la tâche */
+.task-title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
 }
 
-.category-tag:hover {
-  opacity: 0.9;
+/* Description de la tâche */
+.task-description {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 20px;
+  flex: 1; /* Remplit l'espace disponible */
 }
 
-.button-hover {
-  transition: all 0.2s ease;
+/* Pied de la carte */
+.task-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
 }
 
-.button-hover:hover {
-  transform: scale(1.05);
+.task-priority {
+  color: #666;
 }
 
-.progress-bar {
-  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+.task-status {
+  font-weight: bold;
 }
 
-.avatar-group img {
-  transition: transform 0.2s ease, z-index 0.2s ease;
-  box-shadow: 0 0 0 2px white;
+.status-in-progress {
+  color: orange;
 }
 
-.avatar-group img:hover {
-  transform: translateY(-2px) scale(1.1);
-  z-index: 10;
+.status-completed {
+  color: green;
 }
 
-.notification-btn {
-  position: relative;
-}
-
-.notification-btn::after {
-  content: '';
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 8px;
-  height: 8px;
-  background-color: #EF4444;
-  border-radius: 50%;
-  border: 2px solid white;
-}
-
-/* Search input styles */
-.search-input {
-  transition: all 0.2s ease;
-  background-color: white;
-}
-
-.search-input:focus {
-  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
-  border-color: rgb(59, 130, 246);
-}
-
-/* Dark mode support */
-@media (prefers-color-scheme: dark) {
-  .tasks-container {
-    background-color: rgb(17, 24, 39);
+/* Responsivité */
+@media (max-width: 1024px) {
+  .header {
+    padding: 10px; /* Réduit le padding */
   }
 
-  .task-card {
-    background-color: rgb(31, 41, 55);
-    border-color: rgb(55, 65, 81);
+  .search-container {
+    width: 200px; /* Réduit la largeur */
   }
 
-  .task-card:hover {
-    border-color: rgb(75, 85, 99);
+  .main-content {
+    margin-left: 200px; /* Ajuste le contenu */
+    width: calc(100% - 200px);
   }
 
-  .search-input {
-    background-color: rgb(55, 65, 81);
-    color: white;
-    border-color: rgb(75, 85, 99);
+  .profile-container {
+    margin-left: 10px; /* Ajuste l'espacement sur les écrans plus petits */
   }
 }
 
-/* Loading state */
-@keyframes shimmer {
-  100% {
-    transform: translateX(100%);
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column; /* Empile les éléments */
+    align-items: flex-start;
   }
-}
 
-.loading-skeleton {
-  position: relative;
-  overflow: hidden;
-  background-color: rgb(243, 244, 246);
-}
+  .search-container {
+    width: 100%; /* Prend toute la largeur */
+    margin-bottom: 10px;
+  }
 
-.loading-skeleton::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.4),
-    transparent
-  );
-  transform: translateX(-100%);
-  animation: shimmer 1.5s infinite;
+  .notification-container {
+    margin-right: 0; /* Réinitialise le décalage */
+  }
+
+  .profile-container {
+    margin-top: 10px; /* Ajoute un espace en haut */
+    align-self: flex-end; /* Place le profil à droite */
+  }
+
+  .page-container {
+    flex-direction: column; /* Empile le contenu */
+    margin-top: 100px; /* Ajuste l'espace sous le Header */
+  }
+
+  .main-content {
+    margin-left: 0; /* Supprime le décalage */
+    width: 100%; /* S'adapte à la taille */
+  }
+
+  .calendar-container {
+    width: 100%; /* Prend toute la largeur */
+    margin: 10px 0;
+  }
 }
