@@ -3,6 +3,9 @@ import TaskPage2 from "../components/TaskPage2";
 import Header from "../components/Header"; // Importer le Header
 import Sidbar from "../components/Sidbar"; // Importer le Sidebar
 import "../styles/TachePage2.css"; // Importer les styles CSS de TachePage2
+import "../styles/TaskPage2.css"; 
+
+
 
 
 
