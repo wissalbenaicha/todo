@@ -16,36 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.urls import path
 from django.views.generic import TemplateView
-from rest_framework.routers import DefaultRouter
-from table1.views import Table1ViewSet
-
-
-
-router = DefaultRouter()
-router.register(r'table1', Table1ViewSet)
-
-
-
+from newtache.views import TaskEntryListCreateView  # Importer la vue TaskEntryListCreateView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-
-  
-
-    # React Frontend : toutes les autres routes pointent vers React
-    path('', TemplateView.as_view(template_name='index.html')),
-    
-        path('api/', include('accounts.urls')),  # Inclure les URLs de l'application accounts sans préfixe
-         path('api/', include(router.urls)),
-
-
+    path('', TemplateView.as_view(template_name='index.html')),  # Pour React ou la page principale
+    path('api/', include('accounts.urls')),  # Inclure les URLs de l'application accounts sans préfixe
+    # Utiliser URL pour enregistrer les vues API
+    path('api/task-entry/', TaskEntryListCreateView.as_view(), name='task-entry-list-create'),
 ]
-
-
-
-
-
-
-

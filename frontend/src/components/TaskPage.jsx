@@ -42,7 +42,7 @@ function TaskPage() {
     };
 
     try {
-      const response = await api.post("table1/", taskData);
+      const response = await api.post("task-entry/", taskData);
       alert("Tâche créée avec succès !");
       console.log("Task created:", response.data);
     } catch (error) {
@@ -54,7 +54,7 @@ function TaskPage() {
   // Fonction pour récupérer les tâches
   const fetchTasks = async () => {
     try {
-      const response = await api.get("table1/");
+      const response = await api.get("task-entry/");
       console.log("Tasks:", response.data);
     } catch (error) {
       console.error("Error fetching tasks:", error);
