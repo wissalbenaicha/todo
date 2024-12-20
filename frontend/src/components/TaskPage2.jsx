@@ -3,7 +3,7 @@ import Header from '../components/Header'; // Importer le Header
 import Sidbar from '../components/Sidbar';
 import "../styles/TaskPage2.css";
 
-const TasksPage = () => {
+const TasksPage2 = () => {
   const [tasks, setTasks] = useState([
     {
       id: 1,
@@ -42,7 +42,7 @@ const TasksPage = () => {
   return (
     <div className="tasks-page">
       <Sidbar/>
-      <div className="main-content">
+      <div className="main">
         <Header />
         <div className="tasks-header">
           <h2>My Tasks</h2>
@@ -70,4 +70,4 @@ const TasksPage = () => {
   );
 };
 
-export default TasksPage;
+export default TasksPage2;

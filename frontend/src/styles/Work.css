@@ -32,12 +32,9 @@ body {
   }
 }
 .work-section {
-  background-color: white;
-}
-.work-section .container {
-  padding: 60px 30px;
-  text-align: center;
-  background-color: white;
+  height: 100%;
+  width: 1900px;
+  padding-top: 60 PX;
 }
 
 .work-section h1 {

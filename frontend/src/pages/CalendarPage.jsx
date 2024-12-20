@@ -28,7 +28,7 @@ const CalendarPage = ({ onProfileClick }) => { // Prend en charge la fonction po
       <Sidbar />
 
       {/* Contenu principal */}
-      <div className="main-content">
+      <div className="main2">
         {/* Header avec gestion du profil */}
         <Header onProfileClick={onProfileClick} />
 

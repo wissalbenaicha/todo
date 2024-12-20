@@ -33,7 +33,7 @@ body {
 .features {
   /*padding-top: 60px;
   padding-bottom: 60px;*/
-  padding: 40px 30px;
+  padding: 20px 30px;
   background-color: white;
 }
 
@@ -49,20 +49,21 @@ body {
 .title {
   justify-content: center; /* Centrer horizontalement */
   align-items: center; /* Centrer verticalement */
-  height: 30px; /* Hauteur du conteneur */
-  padding: 20px 30px;
+  height: 0px; /* Hauteur du conteneur */
+  padding: 0px 80px;
   font-weight: bold;
+
 }
 
 .features .feat {
   margin-top: 10px;
-  padding: 20px;
+  padding: 0px 20px;
   text-align: center;
 }
 
 .features .feat h3 {
   font-weight: 800;
-  margin: 10px 0;
+  margin: 0px 0;
   text-align: justify;
 }
 
@@ -94,7 +95,7 @@ body {
   padding: 15px 20px;
   display: block;
   width: fit-content;
-  margin: 30px auto;
+  margin: 0px auto;
   border-radius: 30px;
   text-decoration: none;
 }

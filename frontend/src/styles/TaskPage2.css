@@ -8,9 +8,11 @@
 /* Contenu principal */
 .main {
   flex: 1;
-  padding: 0; /* Supprime les marges internes */
-  margin: 40px 0 0 0; /* Ajuste les marges pour supprimer les marges latérales */
+  padding: 0;
+  margin: 0;
+  padding-top: 60px; /* Ajoute un espace en haut */
   height: 100vh; /* Assure que le contenu prend toute la hauteur */
+  position: relative; /* Assure un positionnement correct des éléments enfants */
 }
 
 /* En-tête des tâches */
@@ -20,6 +22,7 @@
   align-items: center;
   margin-bottom: 20px;
   padding: 0 20px; /* Garde un padding horizontal pour l'en-tête */
+  z-index: 1; /* Assure que l'en-tête est au-dessus des autres éléments */
 }
 
 .tasks-header h2 {
@@ -35,6 +38,8 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
+  z-index: 2; /* Assure que le bouton est au-dessus des autres éléments */
+
 }
 
 .add-task-btn:hover {
@@ -46,14 +51,11 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Colonnes auto-adaptatives */
   gap: 10px; /* Espacement entre les cartes */
-  padding: 0 10px; /* Ajoute un léger padding horizontal */
+  padding: 0 30px; /* Ajoute un léger padding horizontal */
   box-sizing: border-box; /* Inclut le padding dans la largeur totale */
   overflow-x: auto; /* Ajoute un défilement horizontal si le contenu dépasse */
-  margin-left: 240px; /* Décale les cartes vers la droite */
+  margin-left: 0; /* Supprime le décalage à gauche */
   height: 600px; /* Hauteur fixe pour le conteneur des tâches */
-  /* min-height: 400px; Hauteur minimale pour le conteneur des tâches */
-  /* max-height: 800px; Hauteur maximale pour le conteneur des tâches */
-  /* overflow-y: auto; Ajoute un défilement vertical si le contenu dépasse */
 }
 
 /* Carte individuelle */
@@ -61,10 +63,10 @@
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Amélioration du box-shadow */
-  padding: 15px; /* Réduit le padding des cartes */
+  padding: 10px; /* Réduit le padding des cartes */
   display: flex;
   flex-direction: column;
-  height: 200px; /* Hauteur fixe pour les cartes */
+  height: 250px; /* Hauteur fixe pour les cartes */
   min-height: 150px; /* Hauteur minimale */
   max-height: 300px; /* Hauteur maximale */
 }
@@ -128,8 +130,8 @@
   }
 
   .main {
-    margin-left: 200px; /* Ajuste le contenu */
-    width: calc(100% - 200px);
+    margin-left: 0; /* Ajuste le contenu */
+    width: 100%;
   }
 
   .profile-container {
@@ -159,7 +161,7 @@
 
   .page-container {
     flex-direction: column; /* Empile le contenu */
-    margin-top: 100px; /* Ajuste l'espace sous le Header */
+    margin-top: 60px; /* Ajuste l'espace sous le Header */
   }
 
   .main {

@@ -11,9 +11,7 @@ const Navbar = () => {
     <nav>
       <div className="navbar-container">
         {/* Logo */}
-        <div className="logo">
-          <img src={logo} alt="Logo" className="navbar-logo" />
-        </div>
+          <img src={logo} alt="logo" className="navbar-logo" />
 
         {/* Hamburger Menu */}
         <div className="hamburger" onClick={() => setMenuActive(!menuActive)}>
