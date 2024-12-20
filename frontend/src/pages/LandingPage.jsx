@@ -26,6 +26,7 @@ const LandingPage = () => {
       <Composant3 />
       <Faq />
       <Footer />
+     
     </div>
   );
 };
