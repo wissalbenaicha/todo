@@ -1,29 +1,26 @@
 import React from "react";
 import Sidbar from "../components/Sidbar";
 import Header from "../components/Header";
-import Dashbroard from "../components/Dashbroard"
-import "../styles/DashboardPage.css"; // Ajoutez du CSS pour organiser la mise en page
+import Dashboard from "../components/Dashbroard"; // Correction du nom du composant
+import "../styles/DashboardPage.css";
 
 const DashboardPage = () => {
   return (
-    <div className="page-container">
+    <div className="dashboard-page">
       {/* Sidebar */}
       <Sidbar />
 
       {/* Contenu principal */}
       <div className="main-content">
         {/* Header avec gestion du profil */}
-        <Header  />
+        <Header />
 
- {/* Dashboard Content */}
- <div className="dashboard-content">
-          <Dashbroard />
+        {/* Dashboard Content */}
+        <div className="dashboard-content">
+          <Dashboard />
         </div>
-        
-        
-    </div>
-    
       </div>
+    </div>
   );
 };
 

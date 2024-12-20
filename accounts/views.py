@@ -36,23 +36,20 @@ from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import User
 
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.permissions import IsAuthenticated
+
 class LoginView(APIView):
     def post(self, request):
-        # Récupérer l'email et le mot de passe depuis la requête
         emailuser = request.data.get('emailuser')
         passworduser = request.data.get('passworduser')
 
-        # Vérifier que l'email et le mot de passe sont fournis
         if not emailuser or not passworduser:
             return Response({"detail": "Email and password are required"}, status=status.HTTP_400_BAD_REQUEST)
 
         try:
-            # Rechercher l'utilisateur dans la base de données par son email
-            user = User.objects.get(emailuser=emailuser)
-
-            # Vérifier le mot de passe
-            if user.passworduser == passworduser:  # À ajuster si vous utilisez un hachage pour le mot de passe
-                # Générer le refresh token et l'access token avec SimpleJWT
+            user = User.objects.get(email=emailuser)
+            if user.passworduser == passworduser:  # A ajuster si vous utilisez du hachage
                 refresh = RefreshToken.for_user(user)
                 return Response({
                     'refresh': str(refresh),
@@ -60,10 +57,9 @@ class LoginView(APIView):
                 }, status=status.HTTP_200_OK)
             else:
                 return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
-
         except User.DoesNotExist:
-            # Si l'utilisateur n'existe pas dans la base de données
             return Response({"detail": "Invalid credentials"}, status=status.HTTP_400_BAD_REQUEST)
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import User

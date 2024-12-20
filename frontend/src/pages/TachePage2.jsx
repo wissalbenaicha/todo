@@ -6,11 +6,6 @@ import "../styles/TachePage2.css"; // Importer les styles CSS de TachePage2
 import "../styles/TaskPage2.css"; 
 
 
-
-
-
-
-
 const TachePage2 = () => {
   return (
     <div className="tache-page-container">
@@ -18,7 +13,7 @@ const TachePage2 = () => {
       <Sidbar />
 
       {/* Contenu principal */}
-      <div className="main-content">
+      <div className="main">
         {/* Header */}
         <Header />
 

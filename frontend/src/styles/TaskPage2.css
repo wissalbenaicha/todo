@@ -6,7 +6,7 @@
 }
 
 /* Contenu principal */
-.main-content {
+.main {
   flex: 1;
   padding: 0; /* Supprime les marges internes */
   margin: 40px 0 0 0; /* Ajuste les marges pour supprimer les marges latérales */
@@ -127,7 +127,7 @@
     width: 200px; /* Réduit la largeur */
   }
 
-  .main-content {
+  .main {
     margin-left: 200px; /* Ajuste le contenu */
     width: calc(100% - 200px);
   }
@@ -162,7 +162,7 @@
     margin-top: 100px; /* Ajuste l'espace sous le Header */
   }
 
-  .main-content {
+  .main {
     margin-left: 0; /* Supprime le décalage */
     width: 100%; /* S'adapte à la taille */
   }

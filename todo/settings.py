@@ -148,3 +148,13 @@ EMAIL_HOST_USER = 'eneimxema@gmail.com'# Ton adresse email
 EMAIL_HOST_PASSWORD = 'pvxr jvkg evcj xvda'  # Mot de passe ou mot de passe d'application
 
 FRONTEND_URL = 'http://localhost:3000'  # URL de ton frontend pour les liens de vérification
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
