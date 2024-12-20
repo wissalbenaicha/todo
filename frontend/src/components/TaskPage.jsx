@@ -117,7 +117,7 @@ function TaskPage() {
           </div>
           </div>
 
-          {/* <div className="icons">
+{/* <div className="icons">
             <span
               className="icon"
               onClick={(e) => {
