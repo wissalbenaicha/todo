@@ -63,7 +63,7 @@ nav {
 }
 
 .navbar-left li {
-  margin: 17px; /* Augmenter l'espace horizontal */
+   margin: 17px; /* Augmenter l'espace horizontal */
   position: relative;
   font-size: 14px;
   color: #333;
@@ -79,11 +79,13 @@ nav {
   cursor: pointer;
   white-space: nowrap;
 }
-nav .logo {
-  height: 20%;
-  width: 20%;
-}
+.navbar-logo{
+  width: auto; /* Ajuste automatiquement la largeur proportionnellement à la hauteur */
+  height: 80px; /* Taille ajustée */
+  margin-bottom: 0px;
 
+
+}
 /* Menu déroulant */
 .dropdown {
   position: absolute;

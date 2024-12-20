@@ -7,8 +7,9 @@ import user4 from "../assets/images/image4Work.webp";
 
 function Work() {
   return (
+    <div className="container">
+
     <div className="work-section">
-      <div className="container">
         <h1>Built for the way you work</h1>
         <div className="categories">
           <button>Brainstorming</button>
@@ -35,7 +36,7 @@ function Work() {
               <h3>Study for Upcoming Semester Exams</h3>
               <p>
                 Review all relevant materials and practice problem-solving for
-                the next exams. Organize study sessions if needed.
+                the next exams. 
               </p>
               <div className="progress-bar">
                 <div className="progress" style={{ width: "70%" }}></div>

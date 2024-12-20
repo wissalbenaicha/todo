@@ -1,12 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState } from "react";
 import "../styles/TaskPage.css";
 import logo from "../assets/images/logo.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faList,
-  faCalendarDays,
-  faPencilAlt,
-} from "@fortawesome/free-solid-svg-icons";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
@@ -16,20 +10,12 @@ function TaskPage() {
   const [taskName, setTaskName] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [priority, setPriority] = useState("");
-  const [category, setCategory] = useState("");
-  const [showCalendar, setShowCalendar] = useState(false);
-  const [showPriority, setShowPriority] = useState(false);
-  const [showCategory, setShowCategory] = useState(false);
+  const [category, setCategory] = useState(""); // Nom de la catégorie
   const [etat, setEtat] = useState(""); // État de la tâche
-
-  // Références pour gérer les menus déroulants
-  const calendarRef = useRef(null);
-  const priorityRef = useRef(null);
-  const categoryRef = useRef(null);
 
   // API Axios instance
   const api = axios.create({
-    baseURL: "http://127.0.0.1:8000/api/",
+    baseURL: "http://127.0.0.1:8000/api/", // Remplacez par l'URL correcte de votre API
   });
 
   // Fonction pour ajouter une tâche
@@ -38,7 +24,8 @@ function TaskPage() {
       nom_tache: taskName,
       date_echeance: selectedDate.toISOString().split("T")[0],
       priorite: priority,
-      etat: etat, // Ajout de l'état
+      etat: etat,
+      category: category, // Nom de la catégorie
     };
 
     try {
@@ -51,29 +38,15 @@ function TaskPage() {
     }
   };
 
-  // Fonction pour récupérer les tâches
-  const fetchTasks = async () => {
-    try {
-      const response = await api.get("task-entry/");
-      console.log("Tasks:", response.data);
-    } catch (error) {
-      console.error("Error fetching tasks:", error);
-    }
-  };
-
-  // Appeler fetchTasks au chargement du composant
-  useEffect(() => {
-    fetchTasks();
-  }, []);
-
   return (
     <div className="container">
       <div className="task-wrapper">
-        {/* Left Section */}
+        {/* Section gauche */}
         <div className="task-left">
-          <img src={logo} alt="Logo" className="logo" />
+          <img src={logo} alt="Logo" className="logoo" />
           <h1 className="task-title">Add your first task</h1>
           <div className="input-wrapper">
+            <label>Task Name</label>
             <input
               type="text"
               placeholder="Task name"
@@ -81,9 +54,7 @@ function TaskPage() {
               onChange={(e) => setTaskName(e.target.value)}
             />
 
-            {/* Date d'échéance */}
-            <div className="label">
-            <label >Date echeance </label>
+            <label>Date échéance</label>
             <DatePicker
               selected={selectedDate}
               onChange={(date) => setSelectedDate(date)}
@@ -91,8 +62,7 @@ function TaskPage() {
               className="date-picker-input"
             />
 
-            {/* Priorité */}
-            <label>Priorite</label>
+            <label>Priorité</label>
             <select
               value={priority}
               onChange={(e) => setPriority(e.target.value)}
@@ -105,93 +75,14 @@ function TaskPage() {
               <option value="Low">Low</option>
             </select>
 
-            {/* Etat */}
-            <label>Etat</label>
-            <select value={etat} onChange={(e) => setEtat(e.target.value)}>
-              <option value="" disabled>
-                Choose status
-              </option>
-              <option value="In Progress">In Progress</option>
-              <option value="Completed">Completed</option>
-            </select>
+            <label>Catégorie</label>
+            <input
+              type="text"
+              placeholder="Enter category name"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+            />
           </div>
-          </div>
-
-{/* <div className="icons">
-            <span
-              className="icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowCalendar(!showCalendar);
-              }}
-              ref={calendarRef}
-            >
-              <FontAwesomeIcon icon={faCalendarDays} />
-              {showCalendar && (
-                <div className="calendar-dropdown">
-                  <DatePicker
-                    selected={selectedDate}
-                    onChange={(date) => setSelectedDate(date)}
-                    dateFormat="dd/MM/yyyy"
-                    className="date-picker-input"
-                  />
-                </div>
-              )}
-            </span>
-
-            <span
-              className="icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowPriority(!showPriority);
-              }}
-              ref={priorityRef}
-            >
-              <FontAwesomeIcon icon={faList} />
-              {showPriority && (
-                <div className="priority-wrapper">
-                  <select
-                    value={priority}
-                    onChange={(e) => setPriority(e.target.value)}
-                  >
-                    <option value="" disabled>
-                      Priority
-                    </option>
-                    <option value="Medium">Medium</option>
-                    <option value="High">High</option>
-                    <option value="Low">Low</option>
-                  </select>
-                </div>
-              )}
-            </span>
-
-            <span
-              className="icon"
-              onClick={(e) => {
-                e.stopPropagation();
-                setShowCategory(!showCategory);
-              }}
-              ref={categoryRef}
-            >
-              <FontAwesomeIcon icon={faPencilAlt} />
-              {showCategory && (
-                <div className="category-wrapper">
-                  <select
-                    value={category}
-                    onChange={(e) => setCategory(e.target.value)}
-                  >
-                    <option value="" disabled>
-                      Category
-                    </option>
-                    <option value="uncategorized">Uncategorized</option>
-                    <option value="work">Work</option>
-                    <option value="personal">Personal</option>
-                    <option value="urgent">Urgent</option>
-                  </select>
-                </div>
-              )}
-            </span>
-          </div>*/}
 
           <button className="continue-btn" onClick={handleContinue}>
             Continue
@@ -199,9 +90,8 @@ function TaskPage() {
           <div className="back-arrow">&#8592;</div>
         </div>
 
-        {/* Right Section */}
+        {/* Section droite */}
         <div className="task-right">
-          <div className="step-badge">Step 2/2</div>
           <p className="user-message">
             <strong>Hello User,</strong>
             <br />
