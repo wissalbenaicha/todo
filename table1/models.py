@@ -2,6 +2,8 @@ from django.db import models
 from django.contrib.auth.models import User  # Pour associer les données à un utilisateur
 from accounts.models import User  # Importez le modèle User depuis l'application accounts
 
+from accounts.models import User  # Importer le modèle User
+
 class Table1(models.Model):
     PRIORITY_CHOICES = [
         ('High', 'High'),
@@ -23,6 +25,7 @@ class Table1(models.Model):
     category = models.ForeignKey('Category', on_delete=models.SET_NULL, null=True, blank=True)  # Relation vers Category
     iduser = models.ForeignKey(User, on_delete=models.CASCADE, related_name='tasks')  # Référence au modèle User dans l'application accounts
 
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='taches', null=True, blank=True)
 
     def __str__(self):
         return self.nom_tache
