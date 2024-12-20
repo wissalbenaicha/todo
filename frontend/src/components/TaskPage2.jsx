@@ -42,7 +42,7 @@ const TasksPage = () => {
   return (
     <div className="tasks-page">
       <Sidbar/>
-      <div className="main-content">
+      <div className="main">
         <Header />
         <div className="tasks-header">
           <h2>My Tasks</h2>

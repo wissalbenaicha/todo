@@ -42,7 +42,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/LandingPage" element={<LandingPage />} />
           {/* Route pour la Tache Page */}
-          <Route path="/tasks" element={<TachePage />} />
+          <Route path="/tasks" element={<TachePage2 />} />
           <Route path="/TachePage" element={<TachePage />} />
           {/* Route pour la Tache Page 2 */}
           <Route path="/" element={<TachePage2 />} />
