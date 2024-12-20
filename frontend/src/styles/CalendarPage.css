@@ -32,7 +32,7 @@ body {
 }
 
 /* Contenu principal */
-.main-content {
+.main2 {
   margin-left: 250px; /* Décalage pour laisser l'espace de la sidebar */
   margin-top: 65px; /* Espace sous le Header */
   padding: 20px;
@@ -111,7 +111,7 @@ body {
     width: 200px; /* Réduit la largeur de la sidebar */
   }
 
-  .main-content {
+  .main2 {
     margin-left: 200px; /* Ajuste le contenu principal */
   }
 
@@ -127,7 +127,7 @@ body {
     width: 150px; /* Réduit encore la sidebar */
   }
 
-  .main-content {
+  .main2 {
     margin-left: 150px; /* Ajuste le contenu principal */
   }
 
@@ -157,7 +157,7 @@ body {
     display: none; /* Cache la sidebar */
   }
 
-  .main-content {
+  .main2 {
     margin-left: 0; /* Réinitialise le décalage */
     width: 100%;
   }
