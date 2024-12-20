@@ -27,8 +27,7 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'corsheaders',
     'notifications',  # Remplace par le nom exact de ton app
-
-    'table1',
+    'newtache',
 ]
 
 # Middleware
@@ -52,6 +51,9 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',  # Par défaut, nécessite l'authentification
+    ],
 }
 
 # Configuration JWT (Tokens)
