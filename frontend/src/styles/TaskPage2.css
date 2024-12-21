@@ -110,6 +110,36 @@
 .status-completed {
   color: green;
 }
+/* TaskPage2.css */
+.task-footer button {
+  padding: 10px 15px;
+  margin-right: 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.task-footer .edit-btn {
+  background-color: #4CAF50; /* Vert */
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.task-footer .edit-btn:hover {
+  background-color: #45a049; /* Vert foncé */
+}
+
+.task-footer .delete-btn {
+  background-color: #f44336; /* Rouge */
+  color: white;
+  transition: background-color 0.3s;
+}
+
+.task-footer .delete-btn:hover {
+  background-color: #d32f2f; /* Rouge foncé */
+}
+
 
 /* Responsivité */
 @media (max-width: 1024px) {
