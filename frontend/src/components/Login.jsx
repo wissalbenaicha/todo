@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";  // Importer le hook de redirection
 import "../styles/Login.css";
-import { useNavigate } from "react-router-dom";  // Remplacez useHistory par useNavigate
 
 const Login = () => {
   const [email, setEmail] = useState("");          // Email de l'utilisateur
   const [password, setPassword] = useState("");    // Mot de passe de l'utilisateur
   const [message, setMessage] = useState("");      // Message de retour (succès ou erreur)
-  const [loading, setLoading] = useState(false);   // Etat pour le chargement
-
-  const navigate = useNavigate();  // Utilisez useNavigate pour la redirection après la connexion réussie
+  const navigate = useNavigate();  // Hook pour gérer la redirection
 
   // Fonction de gestion de la soumission du formulaire de connexion
   const handleLogin = async (e) => {
     e.preventDefault();  // Empêcher le comportement par défaut du formulaire
 
-    setLoading(true);  // Indiquer que la requête est en cours
     const userData = {
       emailuser: email,       // Utilisation de 'emailuser' comme nom du champ
       passworduser: password, // Utilisation de 'passworduser' comme nom du champ
@@ -28,7 +25,7 @@ const Login = () => {
           'Content-Type': 'application/json',  // Spécification du type de contenu
         },
       });
-
+      
       console.log('Login successful', response.data);
 
       // Sauvegarder les tokens d'accès et de rafraîchissement dans localStorage
@@ -36,15 +33,12 @@ const Login = () => {
       localStorage.setItem('refresh_token', response.data.refresh);
 
       setMessage('Login successful');
-
-      // Rediriger l'utilisateur vers le tableau de bord après la connexion réussie
-      navigate('/dashboard');  // Redirection vers la page de tableau de bord
-
+      
+      // Redirection vers le tableau de bord après une connexion réussie
+      navigate('/dashboard');  // Redirection vers une page de tableau de bord
     } catch (error) {
       setMessage('Error logging in');  // Message d'erreur si la connexion échoue
       console.error('Error logging in:', error.response ? error.response.data : error.message);
-    } finally {
-      setLoading(false);  // Terminer le chargement, peu importe si la connexion réussit ou échoue
     }
   };
 
@@ -93,12 +87,8 @@ const Login = () => {
           {message && <p className="text-center text-red-500 mb-4">{message}</p>}
 
           {/* Bouton de connexion */}
-          <button
-            onClick={handleLogin}
-            className="w-full bg-blue-900 text-white py-2 rounded-lg mb-4"
-            disabled={loading}  // Désactive le bouton pendant le chargement
-          >
-            {loading ? "Logging in..." : "Sign In"}
+          <button onClick={handleLogin} className="w-full bg-blue-900 text-white py-2 rounded-lg mb-4">
+            Sign In
           </button>
         </div>
       </div>

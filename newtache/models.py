@@ -1,5 +1,7 @@
+# models.py (pour TaskCategory, TaskEntry, TimeLog, UserProgress)
+
 from django.db import models
-from accounts.models import User  # Importer votre modèle personnalisé User depuis l'application accounts
+from accounts.models import User  # Import du modèle User
 
 class TaskCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
@@ -31,9 +33,8 @@ class TaskEntry(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
-        related_name='task_entries'  # Relation unique pour les catégories
+        related_name='task_entries'
     )
-   
     id_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
@@ -50,13 +51,13 @@ class TimeLog(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='time_logs'  # Nom unique pour les TimeLogs
+        related_name='time_logs'
     )
     category = models.ForeignKey(
         TaskCategory,
         on_delete=models.CASCADE,
         default=1,
-        related_name='time_logs'  # Nom unique pour éviter les conflits
+        related_name='time_logs'
     )
     date = models.DateField()
     hours_spent = models.PositiveIntegerField(default=0)
@@ -65,17 +66,17 @@ class TimeLog(models.Model):
         unique_together = ('user', 'category', 'date')
 
     def __str__(self):
-        return f"{self.user.username} - {self.category.name} - {self.date} - {self.hours_spent}h"
+        return f"{self.user.nomuser} - {self.category.name} - {self.date} - {self.hours_spent}h"
 
 
 class UserProgress(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='progress_records'  # Nom unique pour les enregistrements de progression
+        related_name='progress_records'
     )
     timeframe = models.CharField(max_length=10)  # "week", "month", "year"
     value = models.FloatField()
 
     def __str__(self):
-        return f"UserProgress ({self.timeframe}): {self.value} for {self.user.username}"
+        return f"UserProgress ({self.timeframe}): {self.value} for {self.user.nomuser}"

@@ -151,10 +151,9 @@ FRONTEND_URL = 'http://localhost:3000'  # URL de ton frontend pour les liens de 
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.SessionAuthentication',  # Authentification par session
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.IsAuthenticated',
+        'rest_framework.permissions.AllowAny',  # Autoriser tout le monde à accéder à certaines vues
     ],
 }
