@@ -38,7 +38,7 @@ class TaskEntry(models.Model):
     id_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='task_entries_user_alt',
+        related_name='task_entries_user_alt',  # Nom unique pour la deuxième relation
         null=True,
         blank=True
     )

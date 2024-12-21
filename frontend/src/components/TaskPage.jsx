@@ -24,7 +24,8 @@ function TaskPage() {
   const [taskName, setTaskName] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [priority, setPriority] = useState("");
-  const [category, setCategory] = useState(""); // ID de la catégorie
+  const [category, setCategory] = useState(""); // Nom de la catégorie
+  const [newCategory, setNewCategory] = useState(""); // Pour une nouvelle catégorie
   const [etat, setEtat] = useState(""); // État de la tâche
   const [categories, setCategories] = useState([]); // Liste des catégories disponibles
 
@@ -39,14 +40,50 @@ function TaskPage() {
       }
     };
     fetchCategories();
-  }, []);
+  }, []); // Exécute une seule fois au montage
 
   // Fonction pour ajouter une tâche
   const handleContinue = async () => {
-    // Vérification des champs
-    if (!taskName || !priority || !etat ) {
+    if (!taskName || !priority || !etat) {
       alert("Veuillez remplir tous les champs !");
       return;
+    }
+
+    let categoryId = category; // Utiliser l'ID de la catégorie si elle existe déjà
+
+    // Si une nouvelle catégorie est fournie, l'ajouter à la base de données
+    if (newCategory) {
+      if (!newCategory.trim()) {
+        alert("Veuillez entrer un nom valide pour la nouvelle catégorie.");
+        return;
+      }
+
+      // Vérification de la donnée avant d'envoyer la requête
+      const categoryData = { name: newCategory.trim() };
+      console.log("Category data being sent:", categoryData); // Debugging pour afficher la donnée envoyée
+
+      try {
+        const response = await api.post("task-category/", categoryData); // Envoi de la nouvelle catégorie
+        categoryId = response.data.id; // Récupérer l'ID de la nouvelle catégorie
+        setCategories([...categories, response.data]); // Ajouter la catégorie créée à la liste
+        setCategory(categoryId); // Sélectionner la nouvelle catégorie
+      } catch (error) {
+        console.error(
+          "Error adding new category:",
+          error.response ? error.response.data : error.message
+        );
+        if (error.response) {
+          alert(
+            `Erreur: ${
+              error.response.data.detail ||
+              "Erreur lors de l'ajout de la catégorie."
+            }`
+          );
+        } else {
+          alert("Erreur lors de la création de la catégorie.");
+        }
+        return;
+      }
     }
 
     const taskData = {
@@ -54,16 +91,19 @@ function TaskPage() {
       date_echeance: selectedDate.toISOString().split("T")[0], // Formatage de la date d'échéance
       priorite: priority,
       etat: etat,
-      category: category, // Envoie l'ID de la catégorie
+      category: categoryId, // Envoie l'ID de la catégorie (nouvelle ou existante)
       date_creation: new Date().toISOString(), // Date de création au format ISO
     };
 
     try {
-      const response = await api.post("task-entry/", taskData);
+      const response = await api.post("newtache_taskentry/", taskData); // Ajouter la tâche dans la table taskentry
       alert("Tâche créée avec succès !");
       console.log("Task created:", response.data);
     } catch (error) {
-      console.error("Error creating task:", error.response ? error.response.data : error.message);
+      console.error(
+        "Error creating task:",
+        error.response ? error.response.data : error.message
+      );
       if (error.response && error.response.status === 401) {
         alert("Erreur : Vous n'êtes pas authentifié. Veuillez vous connecter.");
       } else {
@@ -112,7 +152,10 @@ function TaskPage() {
             <label>Catégorie</label>
             <select
               value={category}
-              onChange={(e) => setCategory(e.target.value)} // Modifie l'ID de la catégorie
+              onChange={(e) => {
+                setCategory(e.target.value);
+                setNewCategory(""); // Réinitialiser si une catégorie existante est choisie
+              }}
             >
               <option value="" disabled>
                 Choose category
@@ -123,6 +166,14 @@ function TaskPage() {
                 </option>
               ))}
             </select>
+
+            <label>Nouvelle catégorie</label>
+            <input
+              type="text"
+              placeholder="Enter new category"
+              value={newCategory}
+              onChange={(e) => setNewCategory(e.target.value)}
+            />
 
             <label>État</label>
             <select
