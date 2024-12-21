@@ -5,7 +5,7 @@ from newtache.views import TaskCategoryListView  # Importer la vue qui renvoie l
 
 urlpatterns = [
     path('tasks/', TaskListCreateView.as_view(), name='task-list-create'),  # Register APIView here
-     path('task-category/', TaskCategoryListView.as_view(), name='task-category-list'),
+     path('api/task-category/', TaskCategoryListView.as_view(), name='task-category-list'),
 ]
 
 # newtache/urls.py
