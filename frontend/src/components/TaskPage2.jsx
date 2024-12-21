@@ -1,71 +1,23 @@
-import React, { useState } from "react";
-import Header from '../components/Header'; // Importer le Header
+// TasksPage2.jsx
+import React, { useContext, useState } from "react";
+import Header from '../components/Header'; 
 import Sidbar from '../components/Sidbar';
 import "../styles/TaskPage2.css";
 import { useNavigate } from 'react-router-dom';
+import TaskContext from '../context/TaskContext'; 
 
 const TasksPage2 = () => {
-  const [tasks, setTasks] = useState([
-    {
-      id: 1,
-      category: "Design",
-      title: "Create User Interface for New Project",
-      description:
-        "Develop wireframes and mockups for the upcoming project. Focus on intuitive design and user experience.",
-      priority: "Moderate",
-      status: "In progress",
-    },
-    {
-      id: 2,
-      category: "Coding",
-      title: "Develop Core Application Modules",
-      description:
-        "Write and test code for the main functionalities of the project. Ensure clean, efficient, and maintainable code.",
-      priority: "Moderate",
-      status: "Completed",
-    },
-    {
-      id: 3,
-      category: "Presentation / GL",
-      title: "Prepare Group Presentation on Software Engineering",
-      description:
-        "Work on the structure, slides, and delivery of the group presentation. Focus on teamwork and clear communication.",
-      priority: "Moderate",
-      status: "In progress",
-    },
-    {
-      id: 4,
-      category: "Testing",
-      title: "Perform Unit Testing on Application",
-      description:
-        "Execute unit tests to identify bugs and ensure software quality before deployment.",
-      priority: "High",
-      status: "Pending",
-    },
-    {
-      id: 5,
-      category: "Research",
-      title: "Explore New Technologies for the Project",
-      description:
-        "Investigate modern tools and technologies that could improve project efficiency.",
-      priority: "Low",
-      status: "In progress",
-    },
-    {
-      id: 6,
-      category: "Documentation",
-      title: "Update Project Documentation",
-      description:
-        "Review and update the project documentation to reflect recent changes and progress.",
-      priority: "Moderate",
-      status: "Completed",
-    },
-  ]);
+  const { tasks, deleteTask } = useContext(TaskContext); 
+  const navigate = useNavigate();
+  const [editTaskId, setEditTaskId] = useState(null);
 
-  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const handleEdit = (task) => {
+    setEditTaskId(task.id);
+    navigate(`/edit-task/${task.id}`);
+  };
 
   const addTask = () => {
-    navigate('/add-task'); // Redirige vers la page d'ajout de tâche
+    navigate('/add-task');
   };
 
   return (
@@ -89,9 +41,11 @@ const TasksPage2 = () => {
 
                 <div className="task-footer">
                   <span className="task-priority">Priority: {task.priority}</span>
-                  <span className={`task-status status-${task.status.replace(" ", "-").toLowerCase()}`}>
-                    Status: {task.status}
+                  <span className={`task-status status-${task.status ? task.status.replace(" ", "-").toLowerCase() : 'unknown'}`}>
+                    Status: {task.status || 'Unknown'}
                   </span>
+                  <button onClick={() => handleEdit(task)}>Modifier</button>
+                  <button onClick={() => deleteTask(task.id)}>Supprimer</button>
                 </div>
               </div>
             ))

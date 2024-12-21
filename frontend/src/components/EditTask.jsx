@@ -1,19 +1,22 @@
-// AddTask.jsx
-import React, { useState, useContext } from "react";
+// EditTask.jsx
+import React, { useState, useContext, useEffect } from "react";
 import "../styles/Addtask.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TaskContext from '../context/TaskContext';
 
-const AddTask = () => {
-  const [title, setTitle] = useState("");
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [priority, setPriority] = useState("");
-  const [category, setCategory] = useState("");
-  const [status, setStatus] = useState("");
-  const { addTask } = useContext(TaskContext);
+const EditTask = () => {
+  const { tasks, editTask } = useContext(TaskContext);
   const navigate = useNavigate();
+  const { id } = useParams();
+  const taskToEdit = tasks.find(task => task.id === parseInt(id));
+
+  const [title, setTitle] = useState(taskToEdit ? taskToEdit.title : "");
+  const [selectedDate, setSelectedDate] = useState(taskToEdit ? new Date(taskToEdit.date_echeance) : new Date());
+  const [priority, setPriority] = useState(taskToEdit ? taskToEdit.priority : "");
+  const [category, setCategory] = useState(taskToEdit ? taskToEdit.category : "");
+  const [status, setStatus] = useState(taskToEdit ? taskToEdit.status : "");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,39 +26,29 @@ const AddTask = () => {
       return;
     }
 
-    const taskData = {
+    const updatedTask = {
+      id: taskToEdit.id,
       title: title,
-      date_echeance: selectedDate.toISOString().split("T")[0], 
+      date_echeance: selectedDate.toISOString().split("T")[0],
       priority: priority,
       status: status,
-      category: category || null,
-      date_creation: new Date().toISOString(),
-      id: Date.now()
+      category: category,
+      date_creation: taskToEdit.date_creation
     };
 
     try {
-      console.log('Submitting task:', taskData); // Vérifiez ici
-      addTask(taskData);
-      alert("Tâche créée avec succès !");
-      resetForm();
-      navigate('/TachePage2'); // Redirigez vers TachePage2
+      editTask(updatedTask);
+      alert("Tâche modifiée avec succès !");
+      navigate('/tasks');
     } catch (error) {
-      console.error("Erreur lors de la création de la tâche :", error.message);
-      alert("Erreur lors de la création de la tâche.");
+      console.error("Erreur lors de la modification de la tâche :", error.message);
+      alert("Erreur lors de la modification de la tâche.");
     }
-  };
-
-  const resetForm = () => {
-    setTitle("");
-    setSelectedDate(new Date());
-    setPriority("");
-    setCategory("");
-    setStatus("");
   };
 
   return (
     <form onSubmit={handleSubmit} className="add-task-form">
-      <h2 className="add-task-title">Ajouter une Tâche</h2>
+      <h2 className="add-task-title">Modifier la Tâche</h2>
 
       <div className="form-group">
         <label>Nom de la Tâche :</label>
@@ -121,10 +114,10 @@ const AddTask = () => {
       </div>
 
       <button type="submit" className="add-task-button">
-        Ajouter
+        Modifier
       </button>
     </form>
   );
 };
 
-export default AddTask;
+export default EditTask;
