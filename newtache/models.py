@@ -22,6 +22,8 @@ class TaskEntry(models.Model):
         ('In Progress', 'In Progress'),
         ('Completed', 'Completed'),
     ]
+    default='Pending',  # Valeur par défaut pour les enregistrements existants.
+
 
     nom_tache = models.CharField(max_length=255)
     date_creation = models.DateTimeField(auto_now_add=True)
