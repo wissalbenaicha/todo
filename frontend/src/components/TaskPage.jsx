@@ -24,33 +24,15 @@ function TaskPage() {
   const [taskName, setTaskName] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [priority, setPriority] = useState("");
-  const [category, setCategory] = useState(""); // ID de la catégorie
+  const [category, setCategory] = useState(""); // Nom de la catégorie
   const [etat, setEtat] = useState(""); // État de la tâche
-  const [categories, setCategories] = useState([]); // Liste des catégories disponibles
-
-  // Fonction pour récupérer les catégories depuis l'API
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await api.get("task-category/"); // Endpoint pour récupérer les catégories
-        setCategories(response.data); // Met à jour la liste des catégories
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-    fetchCategories();
-  }, []);
-
-  // API Axios instance
-  const api = axios.create({
-    baseURL: "http://127.0.0.1:8000/api/", // Remplacez par l'URL correcte de votre API
-  });
+  const [error, setError] = useState(""); // Gestion des erreurs
 
   // Fonction pour ajouter une tâche
   const handleContinue = async () => {
     // Vérification des champs
-    if (!taskName || !priority || !etat ) {
-      alert("Veuillez remplir tous les champs !");
+    if (!taskName || !priority || !etat || !category) {
+      setError("Veuillez remplir tous les champs !");
       return;
     }
 
@@ -59,7 +41,7 @@ function TaskPage() {
       date_echeance: selectedDate.toISOString().split("T")[0], // Formatage de la date d'échéance
       priorite: priority,
       etat: etat,
-      category: category, // Envoie l'ID de la catégorie
+      category: category, // Envoie le nom de la catégorie (et non l'ID)
       date_creation: new Date().toISOString(), // Date de création au format ISO
     };
 
@@ -67,12 +49,18 @@ function TaskPage() {
       const response = await api.post("task-entry/", taskData);
       alert("Tâche créée avec succès !");
       console.log("Task created:", response.data);
+      // Réinitialisation des champs après soumission
+      setTaskName("");
+      setPriority("");
+      setEtat("");
+      setCategory("");
+      setSelectedDate(new Date());
     } catch (error) {
       console.error("Error creating task:", error.response ? error.response.data : error.message);
       if (error.response && error.response.status === 401) {
         alert("Erreur : Vous n'êtes pas authentifié. Veuillez vous connecter.");
       } else {
-        alert("Erreur lors de la création de la tâche.");
+        setError("Erreur lors de la création de la tâche.");
       }
     }
   };
@@ -85,6 +73,7 @@ function TaskPage() {
           <img src={logo} alt="Logo" className="logoo" />
           <h1 className="task-title">Add your first task</h1>
           <div className="input-wrapper">
+            {/* Input pour le nom de la tâche */}
             <label>Task Name</label>
             <input
               type="text"
@@ -93,6 +82,7 @@ function TaskPage() {
               onChange={(e) => setTaskName(e.target.value)}
             />
 
+            {/* Sélecteur de date */}
             <label>Date échéance</label>
             <DatePicker
               selected={selectedDate}
@@ -101,6 +91,7 @@ function TaskPage() {
               className="date-picker-input"
             />
 
+            {/* Sélecteur de priorité */}
             <label>Priorité</label>
             <select
               value={priority}
@@ -114,21 +105,16 @@ function TaskPage() {
               <option value="Low">Low</option>
             </select>
 
+            {/* Champ pour saisir la catégorie */}
             <label>Catégorie</label>
-            <select
+            <input
+              type="text"
+              placeholder="Enter category"
               value={category}
-              onChange={(e) => setCategory(e.target.value)} // Modifie l'ID de la catégorie
-            >
-              <option value="" disabled>
-                Choose category
-              </option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
+              onChange={(e) => setCategory(e.target.value)} // L'utilisateur saisit le nom de la catégorie
+            />
 
+            {/* Sélecteur d'état */}
             <label>État</label>
             <select
               value={etat}
@@ -143,6 +129,10 @@ function TaskPage() {
             </select>
           </div>
 
+          {/* Affichage des erreurs */}
+          {error && <div className="error-message">{error}</div>}
+
+          {/* Bouton pour continuer */}
           <button className="continue-btn" onClick={handleContinue}>
             Continue
           </button>

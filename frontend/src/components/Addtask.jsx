@@ -1,41 +1,62 @@
-import React, { useState } from 'react';
-import '../styles/Addtask.css'; // Import du fichier CSS
+import React, { useState } from "react";
+import "../styles/Addtask.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import axios from "axios";
 
-const AddTask = ({ onAddTask }) => {
-  const [formData, setFormData] = useState({
-    taskName: '',
-    priority: 'Moyenne',
-    date: '',
-    category: '',
-    status: 'En attente',
-  });
+// Configurer l'instance Axios
+const api = axios.create({
+  baseURL: "http://127.0.0.1:8000/api/", // Remplacez par l'URL correcte de votre API
+});
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
+const AddTask = () => {
+  const [taskName, setTaskName] = useState("");
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [priority, setPriority] = useState("");
+  const [category, setCategory] = useState(""); // Nom de la catégorie
+  const [etat, setEtat] = useState(""); // État de la tâche
 
-  const handleSubmit = (e) => {
+  // Fonction pour ajouter une tâche
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.taskName || !formData.date || !formData.category) {
-      alert('Veuillez remplir tous les champs obligatoires.');
+
+    // Vérification des champs obligatoires
+    if (!taskName || !priority || !etat) {
+      alert("Veuillez remplir tous les champs obligatoires !");
       return;
     }
-    onAddTask(formData); // Transmet les données de la tâche au composant parent
-    resetForm();
+
+    const taskData = {
+      nom_tache: taskName,
+      date_echeance: selectedDate.toISOString().split("T")[0], // Formatage de la date d'échéance
+      priorite: priority,
+      etat: etat,
+      category: category || null, // Nom de la catégorie
+      date_creation: new Date().toISOString(), // Date de création au format ISO
+    };
+
+    try {
+      const response = await api.post("task-entry/", taskData);
+      alert("Tâche créée avec succès !");
+      console.log("Tâche créée :", response.data);
+      resetForm();
+    } catch (error) {
+      console.error("Erreur lors de la création de la tâche :", error.response ? error.response.data : error.message);
+      if (error.response && error.response.status === 401) {
+        alert("Erreur : Vous n'êtes pas authentifié. Veuillez vous connecter.");
+      } else {
+        alert("Erreur lors de la création de la tâche.");
+      }
+    }
   };
 
+  // Réinitialiser le formulaire
   const resetForm = () => {
-    setFormData({
-      taskName: '',
-      priority: 'Moyenne',
-      date: '',
-      category: '',
-      status: 'En attente',
-    });
+    setTaskName("");
+    setSelectedDate(new Date());
+    setPriority("");
+    setCategory("");
+    setEtat("");
   };
 
   return (
@@ -46,56 +67,68 @@ const AddTask = ({ onAddTask }) => {
         <label>Nom de la Tâche :</label>
         <input
           type="text"
-          name="taskName"
-          value={formData.taskName}
-          onChange={handleChange}
           placeholder="Entrez le nom de la tâche"
+          value={taskName}
+          onChange={(e) => setTaskName(e.target.value)}
           required
+        />
+      </div>
+
+      <div className="form-group">
+        <label>Date d'Échéance :</label>
+        <DatePicker
+          selected={selectedDate}
+          onChange={(date) => setSelectedDate(date)}
+          dateFormat="dd/MM/yyyy"
+          className="date-picker-input"
         />
       </div>
 
       <div className="form-group">
         <label>Priorité :</label>
-        <select name="priority" value={formData.priority} onChange={handleChange}>
-          <option value="Basse">Basse</option>
-          <option value="Moyenne">Moyenne</option>
-          <option value="Haute">Haute</option>
-        </select>
-      </div>
-
-      <div className="form-group">
-        <label>Date :</label>
-        <input
-          type="date"
-          name="date"
-          value={formData.date}
-          onChange={handleChange}
+        <select
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
           required
-        />
+        >
+          <option value="" disabled>
+            Choisir une priorité
+          </option>
+          <option value="High">Haute</option>
+          <option value="Medium">Moyenne</option>
+          <option value="Low">Basse</option>
+        </select>
       </div>
 
       <div className="form-group">
         <label>Catégorie :</label>
         <input
           type="text"
-          name="category"
-          value={formData.category}
-          onChange={handleChange}
-          placeholder="Entrez la catégorie"
-          required
+          placeholder="Entrez le nom de la catégorie"
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
         />
       </div>
 
       <div className="form-group">
         <label>État :</label>
-        <select name="status" value={formData.status} onChange={handleChange}>
-          <option value="En attente">En attente</option>
-          <option value="En cours">En cours</option>
-          <option value="Terminée">Terminée</option>
+        <select
+          value={etat}
+          onChange={(e) => setEtat(e.target.value)}
+          required
+        >
+          <option value="" disabled>
+            Choisir un état
+          </option>
+          <option value="Pending">En attente</option>
+          <option value="In Progress">En cours</option>
+          <option value="Completed">Terminée</option>
         </select>
       </div>
 
-      <button type="submit" className="add-task-button">Ajouter</button>
+      <button type="submit" className="add-task-button">
+        Ajouter
+      </button>
     </form>
   );
 };

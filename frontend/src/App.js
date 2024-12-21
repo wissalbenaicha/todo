@@ -10,7 +10,7 @@ import VerifyEmail from "./components/VerifyEmail";
 import DashboardPage from "./pages/DashboardPage";
 import TachePage from "./pages/TachePage";
 import TachePage2 from "./pages/TachePage2";
-
+import AddTask from "./components/Addtask";
 function App() {
   // État pour gérer l'affichage du profil
   const [isProfileVisible, setIsProfileVisible] = useState(false);
@@ -47,6 +47,8 @@ function App() {
           {/* Route pour la Tache Page 2 */}
           <Route path="/" element={<TachePage2 />} />
           <Route path="/TachePage2" element={<TachePage2 />} />
+          <Route path="/add-task" element={<AddTask />} />
+
           {/* Route pour CalendarPage */}
           <Route
             path="/calendar"
