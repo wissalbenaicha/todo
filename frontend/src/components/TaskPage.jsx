@@ -41,6 +41,11 @@ function TaskPage() {
     fetchCategories();
   }, []);
 
+  // API Axios instance
+  const api = axios.create({
+    baseURL: "http://127.0.0.1:8000/api/", // Remplacez par l'URL correcte de votre API
+  });
+
   // Fonction pour ajouter une tâche
   const handleContinue = async () => {
     // Vérification des champs
