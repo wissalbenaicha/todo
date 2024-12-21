@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Header from '../components/Header'; // Importer le Header
 import Sidbar from '../components/Sidbar';
 import "../styles/TaskPage2.css";
+import { useNavigate } from 'react-router-dom';
 
 const TasksPage2 = () => {
   const [tasks, setTasks] = useState([
@@ -32,39 +33,71 @@ const TasksPage2 = () => {
       priority: "Moderate",
       status: "In progress",
     },
+    {
+      id: 4,
+      category: "Testing",
+      title: "Perform Unit Testing on Application",
+      description:
+        "Execute unit tests to identify bugs and ensure software quality before deployment.",
+      priority: "High",
+      status: "Pending",
+    },
+    {
+      id: 5,
+      category: "Research",
+      title: "Explore New Technologies for the Project",
+      description:
+        "Investigate modern tools and technologies that could improve project efficiency.",
+      priority: "Low",
+      status: "In progress",
+    },
+    {
+      id: 6,
+      category: "Documentation",
+      title: "Update Project Documentation",
+      description:
+        "Review and update the project documentation to reflect recent changes and progress.",
+      priority: "Moderate",
+      status: "Completed",
+    },
   ]);
 
+  const navigate = useNavigate(); // Initialize the useNavigate hook
+
   const addTask = () => {
-    // Redirection vers la page pour ajouter une tâche
-    alert("Redirect to add task page");
+    navigate('/add-task'); // Redirige vers la page d'ajout de tâche
   };
 
   return (
     <div className="tasks-page">
-      <Sidbar/>
+      <Sidbar />
       <div className="main">
         <Header />
         <div className="tasks-header">
           <h2>My Tasks</h2>
-          
-        </div>
-        <button className="add-task-btn" onClick={addTask}>
+          <button className="add-task-btn" onClick={addTask}>
             + Add new task
           </button>
+        </div>
+
         <div className="tasks-container">
-          {tasks.map((task) => (
-            <div key={task.id} className="task-card">
-              <div className="task-category">{task.category}</div>
-              <h3 className="task-title">{task.title}</h3>
-              <p className="task-description">{task.description}</p>
-              <div className="task-footer">
-                <span className="task-priority">Priority: {task.priority}</span>
-                <span className={`task-status status-${task.status.replace(" ", "-").toLowerCase()}`}>
-                  Status: {task.status}
-                </span>
+          {tasks.length > 0 ? (
+            tasks.map((task) => (
+              <div key={task.id} className="task-card">
+                <div className="task-category">{task.category}</div>
+                <h3 className="task-title">{task.title}</h3>
+
+                <div className="task-footer">
+                  <span className="task-priority">Priority: {task.priority}</span>
+                  <span className={`task-status status-${task.status.replace(" ", "-").toLowerCase()}`}>
+                    Status: {task.status}
+                  </span>
+                </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <p>No tasks available</p>
+          )}
         </div>
       </div>
     </div>

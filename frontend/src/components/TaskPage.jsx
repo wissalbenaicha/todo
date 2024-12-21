@@ -25,27 +25,14 @@ function TaskPage() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [priority, setPriority] = useState("");
   const [category, setCategory] = useState(""); // Nom de la catégorie
-  const [newCategory, setNewCategory] = useState(""); // Pour une nouvelle catégorie
   const [etat, setEtat] = useState(""); // État de la tâche
-  const [categories, setCategories] = useState([]); // Liste des catégories disponibles
-
-  // Fonction pour récupérer les catégories depuis l'API
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await api.get("task-category/"); // Endpoint pour récupérer les catégories
-        setCategories(response.data); // Met à jour la liste des catégories
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
-    };
-    fetchCategories();
-  }, []); // Exécute une seule fois au montage
+  const [error, setError] = useState(""); // Gestion des erreurs
 
   // Fonction pour ajouter une tâche
   const handleContinue = async () => {
-    if (!taskName || !priority || !etat) {
-      alert("Veuillez remplir tous les champs !");
+    // Vérification des champs
+    if (!taskName || !priority || !etat || !category) {
+      setError("Veuillez remplir tous les champs !");
       return;
     }
 
@@ -91,7 +78,7 @@ function TaskPage() {
       date_echeance: selectedDate.toISOString().split("T")[0], // Formatage de la date d'échéance
       priorite: priority,
       etat: etat,
-      category: categoryId, // Envoie l'ID de la catégorie (nouvelle ou existante)
+      category: category, // Envoie le nom de la catégorie (et non l'ID)
       date_creation: new Date().toISOString(), // Date de création au format ISO
     };
 
@@ -99,6 +86,12 @@ function TaskPage() {
       const response = await api.post("newtache_taskentry/", taskData); // Ajouter la tâche dans la table taskentry
       alert("Tâche créée avec succès !");
       console.log("Task created:", response.data);
+      // Réinitialisation des champs après soumission
+      setTaskName("");
+      setPriority("");
+      setEtat("");
+      setCategory("");
+      setSelectedDate(new Date());
     } catch (error) {
       console.error(
         "Error creating task:",
@@ -107,7 +100,7 @@ function TaskPage() {
       if (error.response && error.response.status === 401) {
         alert("Erreur : Vous n'êtes pas authentifié. Veuillez vous connecter.");
       } else {
-        alert("Erreur lors de la création de la tâche.");
+        setError("Erreur lors de la création de la tâche.");
       }
     }
   };
@@ -120,6 +113,7 @@ function TaskPage() {
           <img src={logo} alt="Logo" className="logoo" />
           <h1 className="task-title">Add your first task</h1>
           <div className="input-wrapper">
+            {/* Input pour le nom de la tâche */}
             <label>Task Name</label>
             <input
               type="text"
@@ -128,6 +122,7 @@ function TaskPage() {
               onChange={(e) => setTaskName(e.target.value)}
             />
 
+            {/* Sélecteur de date */}
             <label>Date échéance</label>
             <DatePicker
               selected={selectedDate}
@@ -136,6 +131,7 @@ function TaskPage() {
               className="date-picker-input"
             />
 
+            {/* Sélecteur de priorité */}
             <label>Priorité</label>
             <select
               value={priority}
@@ -149,32 +145,16 @@ function TaskPage() {
               <option value="Low">Low</option>
             </select>
 
+            {/* Champ pour saisir la catégorie */}
             <label>Catégorie</label>
-            <select
-              value={category}
-              onChange={(e) => {
-                setCategory(e.target.value);
-                setNewCategory(""); // Réinitialiser si une catégorie existante est choisie
-              }}
-            >
-              <option value="" disabled>
-                Choose category
-              </option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-
-            <label>Nouvelle catégorie</label>
             <input
               type="text"
-              placeholder="Enter new category"
-              value={newCategory}
-              onChange={(e) => setNewCategory(e.target.value)}
+              placeholder="Enter category"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)} // L'utilisateur saisit le nom de la catégorie
             />
 
+            {/* Sélecteur d'état */}
             <label>État</label>
             <select
               value={etat}
@@ -189,6 +169,10 @@ function TaskPage() {
             </select>
           </div>
 
+          {/* Affichage des erreurs */}
+          {error && <div className="error-message">{error}</div>}
+
+          {/* Bouton pour continuer */}
           <button className="continue-btn" onClick={handleContinue}>
             Continue
           </button>

@@ -1,0 +1,17 @@
+/* Conteneur principal de la page */
+
+
+/* Conteneur des tâches */
+.main {
+  flex: 1; /* S'étend pour occuper l'espace disponible */
+  margin-left: 130px; /* Ajuste en fonction de la sidebar */
+  padding: 20px;
+ 
+  overflow-y: auto; /* Permet uniquement le défilement vertical si nécessaire */
+  overflow-x: hidden; /* Supprime tout débordement horizontal */
+  background-color: #f7f7f7;
+}
+
+
+
+

@@ -9,7 +9,6 @@ class TaskCategory(models.Model):
     def __str__(self):
         return self.name
 
-
 class TaskEntry(models.Model):
     PRIORITY_CHOICES = [
         ('High', 'High'),
@@ -45,7 +44,6 @@ class TaskEntry(models.Model):
 
     def __str__(self):
         return self.nom_tache
-
 
 class TimeLog(models.Model):
     user = models.ForeignKey(
