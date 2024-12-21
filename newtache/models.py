@@ -44,7 +44,7 @@ class TaskEntry(models.Model):
 
     def __str__(self):
         return self.nom_tache
-
+#pour graphe productivity
 class TimeLog(models.Model):
     user = models.ForeignKey(
         User,
@@ -66,7 +66,7 @@ class TimeLog(models.Model):
     def __str__(self):
         return f"{self.user.nomuser} - {self.category.name} - {self.date} - {self.hours_spent}h"
 
-
+#progress year month week 
 class UserProgress(models.Model):
     user = models.ForeignKey(
         User,

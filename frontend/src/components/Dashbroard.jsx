@@ -43,14 +43,57 @@ const Dashboard = () => {
   const categoryRef = useRef(null);
   const yearlyProgressRef = useRef(null);
 
-  // States for task completion and remaining tasks
-  const [tasksCompleted, setTasksCompleted] = useState(50);
-  const [tasksRemaining, setTasksRemaining] = useState(30);
+  const [taskProgressData, setTaskProgressData] = useState([]);
+  const [dailyTasks, setDailyTasks] = useState([]);
+  const [productivityData, setProductivityData] = useState([]);
+  const [categoryData, setCategoryData] = useState([]);
+  const [yearlyData, setYearlyData] = useState([]);
+
+  const [tasksCompleted, setTasksCompleted] = useState(0);
+  const [tasksRemaining, setTasksRemaining] = useState(0);
   const totalTasks = tasksCompleted + tasksRemaining;
   const [timeframe, setTimeframe] = useState('year'); // Track user's selected timeframe
 
   // Function to calculate percentage of task completion
-  const getCompletionPercentage = (completed, total) => (completed / total) * 100;
+  const getCompletionPercentage = (completed, total) => (total > 0 ? (completed / total) * 100 : 0);
+
+  useEffect(() => {
+    // Fetch Task Progress Data
+    fetch('/api/tasks/progress')
+      .then(response => response.json())
+      .then(data => {
+        setTaskProgressData(data.category_progress);
+        setTasksCompleted(data.tasks_completed); // Supposons que l'API renvoie ces valeurs
+        setTasksRemaining(data.tasks_remaining); // Supposons que l'API renvoie ces valeurs
+      })
+      .catch(error => console.error('Error fetching task progress:', error));
+
+    // Fetch Daily Tasks Data
+    fetch('/api/tasks/daily')
+      .then(response => response.json())
+      .then(data => setDailyTasks(data))
+      .catch(error => console.error('Error fetching daily tasks:', error));
+
+    // Fetch Productivity Data
+    fetch('/api/tasks/productivity')
+      .then(response => response.json())
+      .then(data => {
+        setProductivityData(data.productivity);
+      })
+      .catch(error => console.error('Error fetching productivity data:', error));
+
+    // Fetch Category Data
+    fetch('/api/task-category')
+      .then(response => response.json())
+      .then(data => setCategoryData(data))
+      .catch(error => console.error('Error fetching category data:', error));
+
+    // Fetch Yearly Progress Data
+    fetch(`/api/tasks/user-progress?timeframe=${timeframe}`)
+      .then(response => response.json())
+      .then(data => setYearlyData(data))
+      .catch(error => console.error('Error fetching yearly progress:', error));
+  }, [timeframe]);
 
   useEffect(() => {
     const renderChart = (canvasRef, chartType, data, options) => {
@@ -66,19 +109,18 @@ const Dashboard = () => {
     };
 
     // Task Progress Data
-    const taskProgressData = [
-      { value: 52, color: '#00E5FF' },
-      { value: 79, color: '#008A10' },
-      { value: 25, color: '#BF1300' },
-    ];
+    const progressData = Object.keys(taskProgressData).map(key => ({
+      value: taskProgressData[key].progress,
+      color: '#00E5FF',
+    }));
 
     taskProgressRefs.forEach((ref, index) => {
       renderChart(ref, 'doughnut', {
         labels: ['Progress'],
         datasets: [
           {
-            data: [taskProgressData[index].value, 100 - taskProgressData[index].value],
-            backgroundColor: [taskProgressData[index].color, '#e0e0e0'],
+            data: [progressData[index]?.value || 0, 100 - (progressData[index]?.value || 0)],
+            backgroundColor: [progressData[index]?.color || '#e0e0e0', '#e0e0e0'],
           },
         ],
       }, {
@@ -91,23 +133,26 @@ const Dashboard = () => {
               weight: 'bold',
               size: 18,
             },
-           formatter: (value) => `${Math.round(value)}%`,
-            anchor: 'end',       // Positionner l'étiquette à la fin
-           align: 'start',      // Alignement de l'étiquette à l'extérieur
-           offset: 20,          // Décalage pour éloigner l'étiquette de l'anneau
-           rotation: 0,         // Rotation si nécessaire
-}
+            formatter: (value) => `${Math.round(value)}%`,
+            anchor: 'end',
+            align: 'start',
+            offset: 20,
+            rotation: 0,
+          }
         },
       });
     });
 
     // Daily Task Data - Line Chart
+    const dailyLabels = dailyTasks.map(task => task.date_creation);
+    const dailyCounts = dailyTasks.map(task => task.count);
+
     renderChart(dailyTaskRef, 'bar', {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'],
+      labels: dailyLabels,
       datasets: [
         {
           label: 'Tasks',
-          data: [5, 7, 4, 6, 8],
+          data: dailyCounts,
           backgroundColor: '#00E5FF',
           borderRadius: 80,
           barThickness: 15,
@@ -125,30 +170,36 @@ const Dashboard = () => {
     });
 
     // Productivity Data
+    const productivityLabels = productivityData.map(log => log.date);
+    const categoryDataByCategory = {}; // Grouping productivity by category
+
+    productivityData.forEach(log => {
+      if (!categoryDataByCategory[log.category]) {
+        categoryDataByCategory[log.category] = [];
+      }
+      categoryDataByCategory[log.category].push(log.total_hours);
+    });
+
+    const categoryColors = {
+      Design: '#00E5FF',
+      Sport: '#BF1300',
+      'Web Dev': '#00B0DC',
+    };
+
     renderChart(productivityRef, 'bar', {
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      datasets: [
-        {
-          label: 'Design',
-          data: [3, 4, 2, 5, 3, 0, 0],
-          backgroundColor: '#00E5FF',
-        },
-        {
-          label: 'Sport',
-          data: [0, 0, 2, 3, 4, 6, 7],
-          backgroundColor: '#BF1300',
-        },
-        {
-          label: 'Web Dev',
-          data: [2, 3, 4, 2, 3, 0, 0],
-          backgroundColor: '#00B0DC',
-        },
-      ],
+      labels: productivityLabels,
+      datasets: Object.keys(categoryDataByCategory).map(category => ({
+        label: category,
+        data: categoryDataByCategory[category],
+        backgroundColor: categoryColors[category] || '#e0e0e0',
+      })),
     }, {
-      plugins: { legend: { position: 'bottom' },
-      datalabels: {
-        display: false, // Désactive les labels affichés sur les barres
-      }, },
+      plugins: {
+        legend: { position: 'bottom' },
+        datalabels: {
+          display: false, // Disable datalabels on bars
+        },
+      },
       indexAxis: 'y',
       responsive: true,
       maintainAspectRatio: false,
@@ -156,20 +207,18 @@ const Dashboard = () => {
       layout: {
         padding: 20,
       },
-      
     });
 
     // Category Data
+    const categoryLabels = categoryData.map(category => category.name);
+    const categoryCounts = categoryData.map(category => category.task_entries.length);
+
     renderChart(categoryRef, 'doughnut', {
-      labels: ['Sport', 'Design', 'Web Dev'],
+      labels: categoryLabels,
       datasets: [
         {
-          data: [25, 50, 25],
-          backgroundColor: [
-            '#BF1300',
-            '#00B0DC',
-            '#00E5FF',
-          ],
+          data: categoryCounts,
+          backgroundColor: ['#BF1300', '#00B0DC', '#00E5FF'],
         },
       ],
     }, {
@@ -177,11 +226,8 @@ const Dashboard = () => {
       maintainAspectRatio: false,
       plugins: {
         datalabels: {
-          font: {
-            size: 18, // Taille des datalabels
-            weight: 'bold',
-          },
-          color: 'black', // Couleur des datalabels (facultatif)
+          font: { size: 18, weight: 'bold' },
+          color: 'black',
         },
         legend: { position: 'bottom' },
       },
@@ -189,53 +235,22 @@ const Dashboard = () => {
       layout: {
         padding: 20,
       },
-      
     });
 
     // Yearly Progress Data
-    const getYearlyData = () => ({
-      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+    renderChart(yearlyProgressRef, 'bar', {
+      labels: yearlyData.map(data => data.date),
       datasets: [
         {
           label: 'Progress',
-          data: [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60],
-          backgroundColor: Array(12).fill('#00B0DC'),
+          data: yearlyData.map(data => data.value),
+          backgroundColor: Array(yearlyData.length).fill('#00B0DC'),
         },
       ],
-    });
-
-    const getMonthlyData = () => ({
-      labels: Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`),
-      datasets: [
-        {
-          label: 'Progress',
-          data: Array.from({ length: 30 }, () => Math.floor(Math.random() * 50) + 10),
-          backgroundColor: Array(30).fill('#00B0DC'),
-        },
-      ],
-    });
-
-    const getWeeklyData = () => ({
-      labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-      datasets: [
-        {
-          label: 'Progress',
-          data: Array.from({ length: 7 }, () => Math.floor(Math.random() * 20) + 5),
-          backgroundColor: Array(7).fill('#00B0DC'),
-        },
-      ],
-    });
-
-    const dataMap = {
-      year: getYearlyData(),
-      month: getMonthlyData(),
-      week: getWeeklyData(),
-    };
-
-    renderChart(yearlyProgressRef, 'bar', dataMap[timeframe], {
+    }, {
       plugins: { legend: { display: false } },
     });
-  }, [timeframe]);
+  }, [taskProgressData, dailyTasks, productivityData, categoryData, yearlyData, timeframe]);
 
   return (
     <div className="dashboard-container">
@@ -264,7 +279,7 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Task Progress and Daily Task (1st span) */}
+        {/* Task Progress and Daily Task */}
         <div className="task-progress">
           <h3>Task Progress</h3>
           <div className="progress-items">
@@ -282,7 +297,7 @@ const Dashboard = () => {
           <canvas ref={dailyTaskRef}></canvas>
         </div>
 
-        {/* Category and Productivity (2nd span) */}
+        {/* Category and Productivity */}
         <div className="category">
           <h3>Category</h3>
           <canvas ref={categoryRef}></canvas>
@@ -293,7 +308,7 @@ const Dashboard = () => {
           <canvas ref={productivityRef}></canvas>
         </div>
 
-        {/* Yearly Progress (3rd span) */}
+        {/* Yearly Progress */}
         <div className="yearly-progress">
           <h3>
             Progress
