@@ -38,8 +38,8 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 16px;
-  z-index: 2; /* Assure que le bouton est au-dessus des autres éléments */
-
+  margin-left: 790px; /* Décale le bouton à droite */
+ 
 }
 
 .add-task-btn:hover {
@@ -121,56 +121,25 @@
 
 /* Responsivité */
 @media (max-width: 1024px) {
-  .header {
-    padding: 10px; /* Réduit le padding */
+  .tasks-header {
+    flex-direction: column; /* Empile les éléments */
+    align-items: flex-start; /* Alignement à gauche */
   }
 
-  .search-container {
-    width: 200px; /* Réduit la largeur */
-  }
-
-  .main {
-    margin-left: 0; /* Ajuste le contenu */
-    width: 100%;
-  }
-
-  .profile-container {
-    margin-left: 10px; /* Ajuste l'espacement sur les écrans plus petits */
+  .add-task-btn {
+    align-self: flex-end; /* Positionne le bouton à droite */
+    margin-left: 0; /* Supprime le décalage automatique */
   }
 }
 
 @media (max-width: 768px) {
-  .header {
+  .tasks-header {
     flex-direction: column; /* Empile les éléments */
-    align-items: flex-start;
+    align-items: flex-start; /* Alignement à gauche */
   }
 
-  .search-container {
-    width: 100%; /* Prend toute la largeur */
-    margin-bottom: 10px;
-  }
-
-  .notification-container {
-    margin-right: 0; /* Réinitialise le décalage */
-  }
-
-  .profile-container {
-    margin-top: 10px; /* Ajoute un espace en haut */
-    align-self: flex-end; /* Place le profil à droite */
-  }
-
-  .page-container {
-    flex-direction: column; /* Empile le contenu */
-    margin-top: 60px; /* Ajuste l'espace sous le Header */
-  }
-
-  .main {
-    margin-left: 0; /* Supprime le décalage */
-    width: 100%; /* S'adapte à la taille */
-  }
-
-  .calendar-container {
-    width: 100%; /* Prend toute la largeur */
-    margin: 10px 0;
+  .add-task-btn {
+    align-self: flex-end; /* Positionne le bouton à droite */
+    margin-left: 0; /* Supprime le décalage automatique */
   }
 }
