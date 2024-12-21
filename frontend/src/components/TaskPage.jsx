@@ -5,44 +5,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
 
-// Configurer l'instance Axios avec l'authentification JWT
-const api = axios.create({
-  baseURL: "http://127.0.0.1:8000/api/", // Remplacez par l'URL correcte de votre API
-});
-
-// Ajouter un intercepteur pour inclure le token dans les en-têtes
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem("access_token");
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
-
-// Gérer les erreurs d'expiration du token et rafraîchir automatiquement
-api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    if (error.response.status === 401 && error.config && !error.config._retry) {
-      error.config._retry = true;
-      try {
-        const refreshToken = localStorage.getItem("refresh_token");
-        const response = await axios.post("http://127.0.0.1:8000/api/token/refresh/", {
-          refresh: refreshToken,
-        });
-        localStorage.setItem("access_token", response.data.access);
-        error.config.headers.Authorization = `Bearer ${response.data.access}`;
-        return api.request(error.config);
-      } catch (refreshError) {
-        console.error("Refresh token expired. Please log in again.");
-        localStorage.clear();
-        window.location.href = "/login"; // Redirige vers la page de connexion
-      }
-    }
-    return Promise.reject(error);
-  }
-);
-
 function TaskPage() {
   // États pour la gestion des données
   const [taskName, setTaskName] = useState("");
@@ -50,6 +12,11 @@ function TaskPage() {
   const [priority, setPriority] = useState("");
   const [category, setCategory] = useState(""); // Nom de la catégorie
   const [etat, setEtat] = useState(""); // État de la tâche
+
+  // API Axios instance
+  const api = axios.create({
+    baseURL: "http://127.0.0.1:8000/api/", // Remplacez par l'URL correcte de votre API
+  });
 
   // Fonction pour ajouter une tâche
   const handleContinue = async () => {
@@ -67,11 +34,7 @@ function TaskPage() {
       console.log("Task created:", response.data);
     } catch (error) {
       console.error("Error creating task:", error);
-      if (error.response && error.response.status === 401) {
-        alert("Erreur : Vous n'êtes pas authentifié. Veuillez vous connecter.");
-      } else {
-        alert("Erreur lors de la création de la tâche.");
-      }
+      alert("Erreur lors de la création de la tâche.");
     }
   };
 
