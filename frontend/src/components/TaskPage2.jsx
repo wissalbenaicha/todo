@@ -46,10 +46,11 @@ const TasksPage2 = () => {
         <Header />
         <div className="tasks-header">
           <h2>My Tasks</h2>
-          <button className="add-task-btn" onClick={addTask}>
+          
+        </div>
+        <button className="add-task-btn" onClick={addTask}>
             + Add new task
           </button>
-        </div>
         <div className="tasks-container">
           {tasks.map((task) => (
             <div key={task.id} className="task-card">
