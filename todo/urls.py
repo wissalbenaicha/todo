@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
 from newtache.views import TaskEntryListCreateView  # Importer la vue TaskEntryListCreateView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,4 +27,6 @@ urlpatterns = [
     path('api/', include('accounts.urls')),  # Inclure les URLs de l'application accounts sans préfixe
     # Utiliser URL pour enregistrer les vues API
     path('api/task-entry/', TaskEntryListCreateView.as_view(), name='task-entry-list-create'),
+     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
