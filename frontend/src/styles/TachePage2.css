@@ -1,46 +1,17 @@
 /* Conteneur principal de la page */
-.tasks-page {
-    display: flex;
-    background-color: white;
-    width: 100vw;
-    height: 100vh; /* Assure une hauteur adaptée à la fenêtre */
-    overflow: hidden; /* Élimine les débordements */
-  }
-  
-  /* Sidebar (Barre latérale) */
-  .sidebar {
-    width: 250px;
-    height: 100vh; /* S'ajuste parfaitement à la hauteur de la fenêtre */
-    position: fixed;
-    left: 0;
-    top: 0;
-    background-color: #001b96;
-    z-index: 1000;
-  }
-  
-  /* Conteneur principal des tâches */
-  .main {
-    flex: 1;
-    margin-left: 250px; /* Ajuste la position à droite de la Sidebar */
-    padding: 20px; /* Ajoute un espace pour le contenu */
-    padding-top: 65px; /* Prend en compte la hauteur du Header */
-    height: calc(100vh - 65px); /* Empêche le dépassement vertical */
-    overflow-y: auto; /* Permet uniquement le défilement vertical si nécessaire */
-    overflow-x: hidden; /* Évite tout débordement horizontal */
-    background-color: #f7f7f7;
-  }
-  
-  /* Header */
-  .header {
-    position: fixed;
-    top: 0;
-    left: 250px;
-    right: 0;
-    height: 65px;
-    z-index: 999;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: white;
-  }
-  
+
+
+/* Conteneur des tâches */
+.main {
+  flex: 1; /* S'étend pour occuper l'espace disponible */
+  margin-left: 130px; /* Ajuste en fonction de la sidebar */
+  padding: 20px;
+ 
+  overflow-y: auto; /* Permet uniquement le défilement vertical si nécessaire */
+  overflow-x: hidden; /* Supprime tout débordement horizontal */
+  background-color: #f7f7f7;
+}
+
+
+
+
