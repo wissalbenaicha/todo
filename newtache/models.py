@@ -1,14 +1,14 @@
-# models.py (pour TaskCategory, TaskEntry, TimeLog, UserProgress)
-
 from django.db import models
 from accounts.models import User  # Import du modèle User
 
+# Modèle pour les catégories de tâches
 class TaskCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
 
+# Modèle pour les entrées de tâches
 class TaskEntry(models.Model):
     PRIORITY_CHOICES = [
         ('High', 'High'),
@@ -45,6 +45,7 @@ class TaskEntry(models.Model):
     def __str__(self):
         return self.nom_tache
 
+# Modèle pour le suivi du temps passé par l'utilisateur sur les catégories de tâches
 class TimeLog(models.Model):
     user = models.ForeignKey(
         User,
@@ -66,7 +67,7 @@ class TimeLog(models.Model):
     def __str__(self):
         return f"{self.user.nomuser} - {self.category.name} - {self.date} - {self.hours_spent}h"
 
-
+# Modèle pour enregistrer la progression des utilisateurs
 class UserProgress(models.Model):
     user = models.ForeignKey(
         User,
@@ -78,3 +79,4 @@ class UserProgress(models.Model):
 
     def __str__(self):
         return f"UserProgress ({self.timeframe}): {self.value} for {self.user.nomuser}"
+

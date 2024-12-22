@@ -36,43 +36,6 @@ function TaskPage() {
       return;
     }
 
-    let categoryId = category; // Utiliser l'ID de la catégorie si elle existe déjà
-
-    // Si une nouvelle catégorie est fournie, l'ajouter à la base de données
-    if (newCategory) {
-      if (!newCategory.trim()) {
-        alert("Veuillez entrer un nom valide pour la nouvelle catégorie.");
-        return;
-      }
-
-      // Vérification de la donnée avant d'envoyer la requête
-      const categoryData = { name: newCategory.trim() };
-      console.log("Category data being sent:", categoryData); // Debugging pour afficher la donnée envoyée
-
-      try {
-        const response = await api.post("task-category/", categoryData); // Envoi de la nouvelle catégorie
-        categoryId = response.data.id; // Récupérer l'ID de la nouvelle catégorie
-        setCategories([...categories, response.data]); // Ajouter la catégorie créée à la liste
-        setCategory(categoryId); // Sélectionner la nouvelle catégorie
-      } catch (error) {
-        console.error(
-          "Error adding new category:",
-          error.response ? error.response.data : error.message
-        );
-        if (error.response) {
-          alert(
-            `Erreur: ${
-              error.response.data.detail ||
-              "Erreur lors de l'ajout de la catégorie."
-            }`
-          );
-        } else {
-          alert("Erreur lors de la création de la catégorie.");
-        }
-        return;
-      }
-    }
-
     const taskData = {
       nom_tache: taskName,
       date_echeance: selectedDate.toISOString().split("T")[0], // Formatage de la date d'échéance
@@ -83,7 +46,7 @@ function TaskPage() {
     };
 
     try {
-      const response = await api.post("newtache_taskentry/", taskData); // Ajouter la tâche dans la table taskentry
+      const response = await api.post("task-entry/", taskData);
       alert("Tâche créée avec succès !");
       console.log("Task created:", response.data);
       // Réinitialisation des champs après soumission
@@ -93,10 +56,7 @@ function TaskPage() {
       setCategory("");
       setSelectedDate(new Date());
     } catch (error) {
-      console.error(
-        "Error creating task:",
-        error.response ? error.response.data : error.message
-      );
+      console.error("Error creating task:", error.response ? error.response.data : error.message);
       if (error.response && error.response.status === 401) {
         alert("Erreur : Vous n'êtes pas authentifié. Veuillez vous connecter.");
       } else {
