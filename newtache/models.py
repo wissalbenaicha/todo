@@ -37,15 +37,14 @@ class TaskEntry(models.Model):
     id_user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='task_entries_user_alt',  # Nom unique pour la deuxième relation
+        related_name='task_entries_user_alt',
         null=True,
         blank=True
     )
 
     def __str__(self):
         return self.nom_tache
-
-# Modèle pour le suivi du temps passé par l'utilisateur sur les catégories de tâches
+#pour graphe productivity
 class TimeLog(models.Model):
     user = models.ForeignKey(
         User,
@@ -67,7 +66,7 @@ class TimeLog(models.Model):
     def __str__(self):
         return f"{self.user.nomuser} - {self.category.name} - {self.date} - {self.hours_spent}h"
 
-# Modèle pour enregistrer la progression des utilisateurs
+#progress year
 class UserProgress(models.Model):
     user = models.ForeignKey(
         User,

@@ -8,8 +8,6 @@ router.register(r'timelogs', TimeLogViewSet)
 
 # Définition des routes pour l'application newtache
 urlpatterns = [
-    path('api/', include(router.urls)),  # Inclus les routes pour les timelogs via le routeur
-    path('tasks/', TaskListCreateView.as_view(), name='task-list-create'),  # Register APIView for tasks
-    path('task-category/', TaskCategoryListView.as_view(), name='task-category-list'),  # API view for task categories
-    path('categories/', TaskCategoryListView.as_view(), name='task-category-list'),  # Optionnel : Redondance avec la route ci-dessus
+    path('tasks/', TaskListCreateView.as_view(), name='task-list-create'),  # Register APIView here
+     path('task-category/', TaskCategoryListView.as_view(), name='task-category-list'),
 ]
