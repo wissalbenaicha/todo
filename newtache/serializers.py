@@ -1,11 +1,8 @@
 from rest_framework import serializers
 from .models import TaskCategory, TaskEntry, TimeLog, UserProgress
 from .models import TaskCategory
+from .models import TaskCategory, TaskEntry
 
-class TaskCategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TaskCategory
-        fields = ['id', 'name']
 # Serializer pour TaskCategory
 class TaskCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -58,3 +55,8 @@ class UserProgressSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProgress
         fields = '__all__'
+
+class TaskEntrySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TaskEntry
+        fields = ['id', 'nom_tache', 'date_creation', 'date_echeance', 'priorite', 'etat', 'category', 'id_user']

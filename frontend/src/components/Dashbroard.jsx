@@ -1,328 +1,169 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  Chart,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  LineElement,
-  LineController,
-  PointElement,
-  PieController,
-  DoughnutController,
-  ArcElement,
-  Tooltip,
-  Legend,
-} from "chart.js";
-import ChartDataLabels from "chartjs-plugin-datalabels";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Doughnut } from "react-chartjs-2";  // Importation du graphique Doughnut
+import { Bar } from "react-chartjs-2"; // Importation du graphique Bar
+import { Chart as ChartJS, ArcElement, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from "chart.js";
+import '../styles/Dashboard.css'; // Assurez-vous d'importer le fichier CSS
 
-import "../styles/Dashboard.css";
+// Enregistrement des éléments nécessaires pour Chart.js
+ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement);
 
-// Register necessary chart components
-Chart.register(
-  ChartDataLabels,
-  BarController,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-  LineElement,
-  LineController,
-  PointElement,
-  PieController,
-  DoughnutController,
-  ArcElement,
-  Tooltip,
-  Legend
-);
+const DashboardWithChart = () => {
+  // État pour les données du tableau de bord
+  const [dashboardData, setDashboardData] = useState({
+    tasks_completed: 0,
+    tasks_remaining: 0,
+    total_tasks: 0,
+    tasks_completed_percentage: 0,
+    tasks_remaining_percentage: 0,
+  });
 
-const Dashboard = () => {
-  // Refs for each chart
-  const taskProgressRefs = [useRef(null), useRef(null), useRef(null)];
-  const dailyTaskRef = useRef(null);
-  const productivityRef = useRef(null);
-  const categoryRef = useRef(null);
-  const yearlyProgressRef = useRef(null);
+  // État pour les données des graphiques
+  const [chartData, setChartData] = useState(null);
+  const [tasks, setTasks] = useState({});
+  const [loading, setLoading] = useState(true);
 
-  const [taskProgressData, setTaskProgressData] = useState([]);
-  const [dailyTasks, setDailyTasks] = useState([]);
-  const [productivityData, setProductivityData] = useState([]);
-  const [categoryData, setCategoryData] = useState([]);
-  const [yearlyData, setYearlyData] = useState([]);
-
-  const [tasksCompleted, setTasksCompleted] = useState(0);
-  const [tasksRemaining, setTasksRemaining] = useState(0);
-  const totalTasks = tasksCompleted + tasksRemaining;
-  const [timeframe, setTimeframe] = useState("year"); // Track user's selected timeframe
-
-  // Function to calculate percentage of task completion
-  const getCompletionPercentage = (completed, total) => (total > 0 ? (completed / total) * 100 : 0);
-
+  // Récupération des données du tableau de bord
   useEffect(() => {
-    // Fetch Task Progress Data
-    fetch('/api/tasks/progress')
-      .then(response => response.json())
-      .then(data => {
-        setTaskProgressData(data.category_progress);
-        setTasksCompleted(data.tasks_completed); // Supposons que l'API renvoie ces valeurs
-        setTasksRemaining(data.tasks_remaining); // Supposons que l'API renvoie ces valeurs
-      })
-      .catch(error => console.error('Error fetching task progress:', error));
+    fetch('http://127.0.0.1:8000/api/dashboard/tasks/')
+      .then((response) => response.json())
+      .then((data) => setDashboardData(data))
+      .catch((error) => console.error('Erreur lors de la récupération des données du tableau de bord :', error));
 
-    // Fetch Daily Tasks Data
-    fetch('/api/tasks/daily')
-      .then(response => response.json())
-      .then(data => setDailyTasks(data))
-      .catch(error => console.error('Error fetching daily tasks:', error));
+    // Récupérer les données des catégories de tâches pour le graphique
+    axios
+      .get("http://127.0.0.1:8000/api/task-categories/")
+      .then((response) => {
+        let data = response.data;
+        data = data.map((category) => ({
+          ...category,
+          name: category.name ? category.name : "Autres",
+        }));
+        const sortedData = data.sort((a, b) => b.count - a.count).slice(0, 6);
 
-    // Fetch Productivity Data
-    fetch('/api/tasks/productivity')
-      .then(response => response.json())
-      .then(data => {
-        setProductivityData(data.productivity);
-      })
-      .catch(error => console.error('Error fetching productivity data:', error));
+        const labels = sortedData.map((category) => category.name);
+        const counts = sortedData.map((category) => category.count);
 
-    // Fetch Category Data
-    fetch('/api/task-category')
-      .then(response => response.json())
-      .then(data => setCategoryData(data))
-      .catch(error => console.error('Error fetching category data:', error));
-
-    // Fetch Yearly Progress Data
-    fetch(`/api/tasks/user-progress?timeframe=${timeframe}`)
-      .then(response => response.json())
-      .then(data => setYearlyData(data))
-      .catch(error => console.error('Error fetching yearly progress:', error));
-  }, [timeframe]);
-
-  useEffect(() => {
-    const renderChart = (canvasRef, chartType, data, options) => {
-      const ctx = canvasRef.current.getContext("2d");
-      if (ctx.chartInstance) {
-        ctx.chartInstance.destroy();
-      }
-      ctx.chartInstance = new Chart(ctx, {
-        type: chartType,
-        data: data,
-        options: options,
-      });
-    };
-
-    // Task Progress Data
-    const progressData = Object.keys(taskProgressData).map(key => ({
-      value: taskProgressData[key].progress,
-      color: '#00E5FF',
-    }));
-
-    taskProgressRefs.forEach((ref, index) => {
-      renderChart(ref, 'doughnut', {
-        labels: ['Progress'],
-        datasets: [
-          {
-            data: [progressData[index]?.value || 0, 100 - (progressData[index]?.value || 0)],
-            backgroundColor: [progressData[index]?.color || '#e0e0e0', '#e0e0e0'],
-          },
-        ],
-      }, {
-        cutout: '70%',
-        plugins: {
-          legend: { display: false },
-          datalabels: {
-            color: 'black',
-            font: {
-              weight: 'bold',
-              size: 18,
+        setChartData({
+          labels: labels,
+          datasets: [
+            {
+              label: "Nombre de tâches",
+              data: counts,
+              backgroundColor: [
+                "#BF1300", "#00E5FF", "#00B0DC", "#4BC0C0", "#9966FF", "#001A6E",
+              ],
+              hoverBackgroundColor: [
+                "#BF1300", "#00E5FF", "#00B0DC", "#4BC0C0", "#9966FF", "#001A6E",
+              ],
             },
-            formatter: (value) => `${Math.round(value)}%`,
-            anchor: 'end',
-            align: 'start',
-            offset: 20,
-            rotation: 0,
-          }
-        },
+          ],
+        });
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des catégories :", error);
       });
-    });
 
-    // Daily Task Data - Line Chart
-    const dailyLabels = dailyTasks.map(task => task.date_creation);
-    const dailyCounts = dailyTasks.map(task => task.count);
+    // Récupérer les tâches quotidiennes pour le graphique de barres
+    axios
+      .get("http://localhost:8000/api/daily-tasks/")
+      .then((response) => {
+        setTasks(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error("Erreur lors de la récupération des tâches quotidiennes :", error);
+        setLoading(false);
+      });
+  }, []);
 
-    renderChart(dailyTaskRef, 'bar', {
-      labels: dailyLabels,
-      datasets: [
-        {
-          label: 'Tasks',
-          data: dailyCounts,
-          backgroundColor: '#00E5FF',
-          borderRadius: 80,
-          barThickness: 15,
-        },
-      ],
-    }, {
-      plugins: { legend: { display: false } },
-      responsive: true,
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 10,
-        },
+  if (loading) {
+    return <div>Chargement...</div>;
+  }
+
+  // Préparer les données pour le graphique de barres
+  const labels = Object.keys(tasks).map((key) => key.replace("day_", "Jour "));
+  const dataValues = Object.values(tasks);
+
+  const barChartData = {
+    labels: labels,
+    datasets: [
+      {
+        label: "Nombre de tâches",
+        data: dataValues,
+        backgroundColor: "#00E5FF", // Couleur de la barre
+        borderColor: "#00E5FF", // Couleur de la bordure
+        borderWidth: 2, // Largeur de la bordure
+        barThickness: 30, // Taille de la barre (réduite)
+        borderRadius: 30, // Bordure arrondie
       },
-    });
-
-    // Productivity Data
-    const productivityLabels = productivityData.map(log => log.date);
-    const categoryDataByCategory = {}; // Grouping productivity by category
-
-    productivityData.forEach(log => {
-      if (!categoryDataByCategory[log.category]) {
-        categoryDataByCategory[log.category] = [];
-      }
-      categoryDataByCategory[log.category].push(log.total_hours);
-    });
-
-    const categoryColors = {
-      Design: '#00E5FF',
-      Sport: '#BF1300',
-      'Web Dev': '#00B0DC',
-    };
-
-    renderChart(productivityRef, 'bar', {
-      labels: productivityLabels,
-      datasets: Object.keys(categoryDataByCategory).map(category => ({
-        label: category,
-        data: categoryDataByCategory[category],
-        backgroundColor: categoryColors[category] || '#e0e0e0',
-      })),
-    }, {
-      plugins: {
-        legend: { position: 'bottom' },
-        datalabels: {
-          display: false, // Disable datalabels on bars
-        },
-      },
-      indexAxis: 'y',
-      responsive: true,
-      maintainAspectRatio: false,
-      aspectRatio: 1.5,
-      layout: {
-        padding: 20,
-      },
-    });
-
-    // Category Data
-    const categoryLabels = categoryData.map(category => category.name);
-    const categoryCounts = categoryData.map(category => category.task_entries.length);
-
-    renderChart(categoryRef, 'doughnut', {
-      labels: categoryLabels,
-      datasets: [
-        {
-          data: categoryCounts,
-          backgroundColor: ['#BF1300', '#00B0DC', '#00E5FF'],
-        },
-      ],
-    }, {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        datalabels: {
-          font: { size: 18, weight: 'bold' },
-          color: 'black',
-        },
-        legend: { position: 'bottom' },
-      },
-      aspectRatio: 1,
-      layout: {
-        padding: 20,
-      },
-    });
-
-    // Yearly Progress Data
-    renderChart(yearlyProgressRef, 'bar', {
-      labels: yearlyData.map(data => data.date),
-      datasets: [
-        {
-          label: 'Progress',
-          data: yearlyData.map(data => data.value),
-          backgroundColor: Array(yearlyData.length).fill('#00B0DC'),
-        },
-      ],
-    }, {
-      plugins: { legend: { display: false } },
-    });
-  }, [taskProgressData, dailyTasks, productivityData, categoryData, yearlyData, timeframe]);
+    ],
+  };
 
   return (
     <div className="dashboard-container">
-      <div className="stats-container">
-        <div className="task-bar">
-          <div className="task-bar-complete">
+      <h2>Dashboard</h2>
+
+      {/* Informations des tâches */}
+      <div className="task-info">
+        <div>
+          <h3>Tâches Complètes</h3>
+          <p>{dashboardData.tasks_completed} / {dashboardData.total_tasks}</p>
+          <div className="progress-bar-container">
             <div
-              className="task-progress"
+              className="progress-bar"
               style={{
-                width: `${getCompletionPercentage(tasksCompleted, totalTasks)}%`,
-                backgroundColor: "#00B0DC",
+                width: `${dashboardData.tasks_completed_percentage}%`,
+                backgroundColor: '#00B0DC',
               }}
             />
-            <div className="task-label">{tasksCompleted} / {totalTasks} Tâches Complètes</div>
           </div>
+          <p>Complété : {dashboardData.tasks_completed_percentage}%</p>
         </div>
 
-        <div className="task-bar">
-          <div className="task-bar-remaining">
+        <div>
+          <h3>Tâches Restantes</h3>
+          <p>{dashboardData.tasks_remaining} / {dashboardData.total_tasks}</p>
+          <div className="progress-bar-container">
             <div
-              className="task-progress"
+              className="progress-bar"
               style={{
-                width: `${getCompletionPercentage(tasksRemaining, totalTasks)}%`,
-                backgroundColor: "#BF1300",
+                width: `${dashboardData.tasks_remaining_percentage}%`,
+                backgroundColor: '#BF1300',
               }}
             />
-            <div className="task-label">{tasksRemaining} / {totalTasks} Tâches Restantes</div>
           </div>
+          <p>Restant : {dashboardData.tasks_remaining_percentage}%</p>
+        </div>
+      </div>
+
+      {/* Graphiques */}
+      <div className="chart-container">
+        <div className="chart-box">
+          <h3>Graphique des Catégories de Tâches</h3>
+          {chartData ? (
+            <Doughnut data={chartData}
+                  options={
+                    {
+                      cutout: '70%', 
+                      radius: '60%',  // Réduit la taille du donut en ajustant son rayon
+
+                    }
+                  }
+            />
+            
+          ) : (
+            <p>Chargement du graphique...</p>
+          )}
         </div>
 
-        {/* Task Progress and Daily Task */}
-        <div className="task-progress">
-          <h3>Task Progress</h3>
-          <div className="progress-items">
-            {["In Progress", "Completed", "Not Started"].map((label, index) => (
-              <div key={label} className="progress-item">
-                <canvas ref={taskProgressRefs[index]}></canvas>
-                <p>{label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="daily-task">
-          <h3>Daily Task</h3>
-          <canvas ref={dailyTaskRef}></canvas>
-        </div>
-
-        {/* Category and Productivity */}
-        <div className="category">
-          <h3>Category</h3>
-          <canvas ref={categoryRef}></canvas>
-        </div>
-
-        <div className="productivity">
-          <h3>Productivity</h3>
-          <canvas ref={productivityRef}></canvas>
-        </div>
-
-        {/* Yearly Progress */}
-        <div className="yearly-progress">
-          <h3>Progress</h3>
-          <select onChange={(e) => setTimeframe(e.target.value)} aria-label="Select Timeframe">
-            <option value="year">Year</option>
-            <option value="month">Month</option>
-            <option value="week">Week</option>
-          </select>
-          <canvas ref={yearlyProgressRef}></canvas>
+        <div className="chart-box">
+          <h3>Graphique des Tâches Quotidiennes</h3>
+          <Bar data={barChartData} options={{ responsive: true }} />
         </div>
       </div>
     </div>
   );
 };
 
-export default Dashboard;
+export default DashboardWithChart;

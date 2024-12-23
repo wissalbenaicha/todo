@@ -4,6 +4,7 @@ import logo from "../assets/images/logo.png";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 // Configurer l'instance Axios avec l'authentification JWT
 const api = axios.create({
@@ -55,54 +56,45 @@ function TaskPage() {
   const [taskName, setTaskName] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [priority, setPriority] = useState("");
-  const [category, setCategory] = useState(""); // ID de la catégorie sélectionnée
+  const [category, setCategory] = useState(""); // Nom de la catégorie entrée
   const [etat, setEtat] = useState(""); // État de la tâche
   const [newCategory, setNewCategory] = useState(""); // Nom de la nouvelle catégorie
-  const [categories, setCategories] = useState([]); // Liste des catégories disponibles
   const [error, setError] = useState(""); // Gestion des erreurs
-  const [loading, setLoading] = useState(false); // Gestion du chargement
-
-  // Récupérer les catégories existantes lors du montage du composant
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await api.get("task-category/");
-        setCategories(response.data);
-      } catch (error) {
-        console.error("Erreur lors de la récupération des catégories:", error);
-        setError("Erreur lors de la récupération des catégories.");
-      }
-    };
-    fetchCategories();
-  }, []);
+  const navigate = useNavigate();
 
   // Fonction pour ajouter une tâche
   const handleContinue = async () => {
-    setError(""); // Réinitialiser les erreurs à chaque tentative
-    let categoryId = category;
-    const token = localStorage.getItem("access_token");
+    let categoryId = null; // Initialiser categoryId
 
-    if (!token) {
-      alert("Vous n'êtes pas authentifié. Veuillez vous connecter.");
-      window.location.href = "/login";
-      return;
-    }
+    // Si une nouvelle catégorie est fournie, l'ajouter à la base de données
+    if (newCategory) {
+      if (!newCategory.trim()) {
+        alert("Veuillez entrer un nom valide pour la nouvelle catégorie.");
+        return;
+      }
 
-    // Vérification si la catégorie existe déjà
-    if (newCategory.trim() && !categories.some(cat => cat.name === newCategory.trim())) {
       try {
-        const categoryData = { name: newCategory.trim() };
-
-        // Ajoutez l'en-tête d'authentification avec le token d'accès
-        const response = await api.post("task-category/create/", categoryData, {
-          headers: {
-            Authorization: `Bearer ${token}`, // Inclure le token ici
-          },
+        // Vérifier si la catégorie existe déjà
+        const response = await api.get("task-category/", {
+          params: { name: newCategory.trim() },
         });
 
-        categoryId = response.data.id;
-        setCategory(categoryId); // Mettre à jour l'ID de la catégorie dans l'état
-        setCategories([...categories, response.data]); // Ajouter la nouvelle catégorie à la liste
+        // Si la catégorie existe, récupérer son ID
+        if (response.data && response.data.length > 0) {
+          categoryId = response.data[0].id; // L'ID de la catégorie existante
+        } else {
+          // Si la catégorie n'existe pas, créer une nouvelle catégorie
+          const categoryData = { name: newCategory.trim() };
+          const newCategoryResponse = await api.post("task-category/create/", categoryData);
+
+          if (newCategoryResponse.data && newCategoryResponse.data.id) {
+            categoryId = newCategoryResponse.data.id; // Mettre à jour avec l'ID de la nouvelle catégorie
+            alert("Nouvelle catégorie créée.");
+          } else {
+            alert("Erreur lors de la création de la catégorie.");
+            return;
+          }
+        }
       } catch (error) {
         console.error("Erreur lors de l'ajout de la catégorie:", error.response ? error.response.data : error.message);
         alert("Erreur lors de la création de la catégorie.");
@@ -119,30 +111,33 @@ function TaskPage() {
       return;
     }
 
+    // Création de la tâche
     const taskData = {
       nom_tache: taskName,
       date_echeance: selectedDate.toISOString().split("T")[0],
       priorite: priority,
       etat: etat,
-      category: categoryId,
-      date_creation: new Date().toISOString(),
+      category: categoryId, // Utilisation de l'ID de la catégorie
+      date_creation: new Date().toISOString(), // Date de création au format ISO
     };
 
     setLoading(true); // Démarrer le chargement
 
     try {
-      const response = await api.post("task-entry/", taskData);
+      const response = await api.post("task-entry/", taskData); // Ajouter la tâche dans la table taskentry
       alert("Tâche créée avec succès !");
+      navigate("/dashboard"); // Redirection vers une page de tableau de bord
+
       console.log("Task created:", response.data);
       // Réinitialiser les champs
       setTaskName("");
       setPriority("");
       setEtat("");
       setCategory("");
-      setNewCategory("");
+      setNewCategory(""); // Réinitialisation de la nouvelle catégorie
       setSelectedDate(new Date());
     } catch (error) {
-      console.error("Erreur lors de la création de la tâche:", error);
+      console.error("Erreur lors de la création de la tâche:", error.response ? error.response.data : error.message);
       if (error.response && error.response.status === 401) {
         alert("Erreur : Vous n'êtes pas authentifié. Veuillez vous connecter.");
       } else {
@@ -177,46 +172,24 @@ function TaskPage() {
             />
 
             <label>Priorité</label>
-            <select
-              value={priority}
-              onChange={(e) => setPriority(e.target.value)}
-            >
-              <option value="" disabled>
-                Choose priority
-              </option>
+            <select value={priority} onChange={(e) => setPriority(e.target.value)}>
+              <option value="" disabled>Choose priority</option>
               <option value="High">High</option>
               <option value="Medium">Medium</option>
               <option value="Low">Low</option>
             </select>
 
-            <label>Catégorie</label>
-            <select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="" disabled>
-                Choose category
-              </option>
-              {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
-                  {cat.name}
-                </option>
-              ))}
-            </select>
-
-            <label>Nouvelle catégorie</label>
+            <label>Catégorie (nouvelle ou existante)</label>
             <input
               type="text"
-              placeholder="Enter new category"
+              placeholder="Enter category"
               value={newCategory}
               onChange={(e) => setNewCategory(e.target.value)}
             />
 
             <label>État</label>
             <select value={etat} onChange={(e) => setEtat(e.target.value)}>
-              <option value="" disabled>
-                Choose status
-              </option>
+              <option value="" disabled>Choose status</option>
               <option value="Pending">Pending</option>
               <option value="In Progress">In Progress</option>
               <option value="Completed">Completed</option>
@@ -232,8 +205,7 @@ function TaskPage() {
 
         <div className="task-right">
           <p className="user-message">
-            <strong>Hello User,</strong>
-            <br />
+            <strong>Hello User,</strong><br />
             It’s time to add your first task.
           </p>
           <div className="circle"></div>

@@ -1,21 +1,30 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import TimeLogViewSet, TaskListCreateView, TaskCategoryListView, TaskCategoryListCreateView
-
-# Création du routeur pour TimeLogViewSet
-router = DefaultRouter()
-router.register(r'timelogs', TimeLogViewSet)
+from django.urls import path
+from .views import (
+    TaskEntryListCreateView,
+    TaskCategoryListView,
+    TaskCategoryListCreateView,
+    CreateTaskView  # Vue pour créer une tâche avec catégorie
+)
 
 # Définition des routes pour l'application newtache
 urlpatterns = [
-    # Tâches
-    path('tasks/', TaskListCreateView.as_view(), name='task-list-create'),  # Vue pour afficher et créer des tâches
+    path('task-entry/', TaskEntryListCreateView.as_view(), name='task-entry-list-create'),
+    path('task-category/', TaskCategoryListView.as_view(), name='task-category-list'),
+    path('task-category/create/', TaskCategoryListCreateView.as_view(), name='task-category-create'),
+    path('task/create-with-category/', CreateTaskView.as_view(), name='task-create-with-category'),
     
-    # Catégories de tâches
-    path('task-category/', TaskCategoryListView.as_view(), name='task-category-list'),  # Liste des catégories
-    path('task-category/create/', TaskCategoryListCreateView.as_view(), name='task-category-create'),  # Création d'une nouvelle catégorie
-    
-    # Inclure les routes créées par le routeur pour TimeLogViewSet
-    path('api/', include(router.urls)),  # Cela inclut les routes pour 'timelogs' via le routeur
+]
+from django.urls import path
+from .views import task_category_view
+
+urlpatterns = [
+    path('api/task-category/', task_category_view, name='task-category'),
+]
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('api/daily-tasks/', views.get_daily_tasks, name='daily-tasks'),
 ]
 
