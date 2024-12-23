@@ -1,15 +1,28 @@
 from django.urls import path
-from .views import TaskListCreateView  # Import your TaskListCreateView
-from newtache.views import TaskCategoryListView  # Importer la vue qui renvoie les catégories
+from .views import (
+    TaskEntryListCreateView,
+    TaskCategoryListView,
+    TaskCategoryListCreateView,
+    CreateTaskView  # Vue pour créer une tâche avec catégorie
+)
+
+urlpatterns = [
+    path('task-entry/', TaskEntryListCreateView.as_view(), name='task-entry-list-create'),
+    path('task-category/', TaskCategoryListView.as_view(), name='task-category-list'),
+    path('task-category/create/', TaskCategoryListCreateView.as_view(), name='task-category-create'),
+    path('task/create-with-category/', CreateTaskView.as_view(), name='task-create-with-category'),
+    
+]
+from django.urls import path
+from .views import task_category_view
+
+urlpatterns = [
+    path('api/task-category/', task_category_view, name='task-category'),
+]
+
 from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('tasks/', TaskListCreateView.as_view(), name='task-list-create'),  # Register APIView here
-     path('task-category/', TaskCategoryListView.as_view(), name='task-category-list'),
-    path('api/tasks/progress', views.task_progress, name='task_progress'),
-    path('api/tasks/daily', views.daily_tasks, name='daily_tasks'),
-    path('api/tasks/productivity', views.productivity_data, name='productivity_data'),
-    path('api/task-category', views.task_categories, name='task_categories'),
-    path('api/tasks/user-progress', views.user_progress, name='user_progress'),
+    path('api/daily-tasks/', views.get_daily_tasks, name='daily-tasks'),
 ]

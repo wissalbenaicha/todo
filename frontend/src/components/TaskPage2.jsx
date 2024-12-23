@@ -44,7 +44,6 @@ const TasksPage2 = () => {
                   <span className={`task-status status-${task.status ? task.status.replace(" ", "-").toLowerCase() : 'unknown'}`}>
                     Status: {task.status || 'Unknown'}
                   </span>
-                  <button onClick={() => handleEdit(task)}>Modifier</button>
                   <button onClick={() => deleteTask(task.id)}>Supprimer</button>
                 </div>
               </div>

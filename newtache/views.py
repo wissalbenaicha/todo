@@ -1,116 +1,167 @@
-from rest_framework import status
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from newtache.models import TaskEntry, TaskCategory
-from newtache.serializers import TaskEntrySerializer, TaskCategorySerializer
+from rest_framework import status
+from .models import TaskCategory, TaskEntry
+from .serializers import TaskCategorySerializer, TaskEntrySerializer
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .models import TaskCategory, TaskEntry
+from datetime import datetime
+# views.py
+from rest_framework import status
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from .models import TaskEntry, TaskCategory
+from .serializers import TaskEntrySerializer
+from django.contrib.auth.models import User
 
-# Vue pour la gestion des tâches
-class TaskEntryListCreateView(APIView):
+class CreateTaskView(APIView):
+    """
+    Cette vue permet de créer une tâche et, si nécessaire, de créer une catégorie.
+    """
+    
+    def post(self, request, *args, **kwargs):
+        # Récupérer les données envoyées par le frontend
+        title = request.data.get('nom_tache')
+        due_date = request.data.get('date_echeance')
+        priority = request.data.get('priorite')
+        status = request.data.get('etat')
+        category_name = request.data.get('category_name')  # Nom de la catégorie
+        user_id = request.data.get('id_user')  # ID de l'utilisateur (peut être null)
+
+        # Vérifier si tous les champs obligatoires sont présents
+        if not title or not due_date or not priority or not status:
+            return Response({"detail": "Veuillez remplir tous les champs obligatoires."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Gérer la catégorie
+        category = None
+        if category_name:
+            # Vérifier si la catégorie existe déjà
+            category = TaskCategory.objects.filter(name=category_name.strip()).first()
+
+            if not category:
+                # Si la catégorie n'existe pas, la créer
+                category = TaskCategory.objects.create(name=category_name.strip())
+
+        # Gérer l'utilisateur (peut être null)
+        user = None
+        if user_id:
+            try:
+                user = User.objects.get(id=user_id)
+            except User.DoesNotExist:
+                return Response({"detail": "L'utilisateur spécifié n'existe pas."}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Créer la tâche
+        task_data = {
+            'nom_tache': title,
+            'date_echeance': due_date,
+            'priorite': priority,
+            'etat': status,
+            'category': category.id if category else None,
+            'id_user': user.id if user else None
+        }
+
+        # Sérialiser et sauvegarder la tâche
+        task_serializer = TaskEntrySerializer(data=task_data)
+        if task_serializer.is_valid():
+            task_serializer.save()
+            return Response(task_serializer.data, status=status.HTTP_201_CREATED)
+        else:
+            return Response(task_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+from rest_framework.generics import ListCreateAPIView
+from .models import TaskEntry
+from .serializers import TaskEntrySerializer
+
+class TaskEntryListCreateView(ListCreateAPIView):
+    queryset = TaskEntry.objects.all()
+    serializer_class = TaskEntrySerializer
+
+
+from rest_framework.generics import ListAPIView
+from .models import TaskCategory
+from .serializers import TaskCategorySerializer
+
+class TaskCategoryListView(ListAPIView):
+    queryset = TaskCategory.objects.all()
+    serializer_class = TaskCategorySerializer
+
+
+from rest_framework.generics import ListCreateAPIView
+from .models import TaskCategory
+from .serializers import TaskCategorySerializer
+
+class TaskCategoryListCreateView(ListCreateAPIView):
+    queryset = TaskCategory.objects.all()
+    serializer_class = TaskCategorySerializer
+
+
+#dashboard 
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .models import TaskEntry
+from rest_framework import status
+
+class TaskDashboardView(APIView):
     def get(self, request):
-        tasks = TaskEntry.objects.all()  # Récupère toutes les tâches
-        serializer = TaskEntrySerializer(tasks, many=True)
-        return Response(serializer.data)
+        # Récupérer le nombre total de tâches
+        total_tasks = TaskEntry.objects.count()
 
-    def post(self, request):
-        serializer = TaskEntrySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Récupérer le nombre de tâches complètes
+        tasks_completed = TaskEntry.objects.filter(etat='Completed').count()
 
-# Vue pour la gestion des catégories de tâches
-class TaskCategoryListView(APIView):
-    def get(self, request):
-        categories = TaskCategory.objects.all()  # Récupère toutes les catégories de tâches
-        serializer = TaskCategorySerializer(categories, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        # Récupérer le nombre de tâches restantes (en cours et en attente)
+        tasks_remaining = TaskEntry.objects.filter(etat__in=['Pending', 'In Progress']).count()
 
-# Vue pour la création d'une nouvelle catégorie de tâche
-class TaskCategoryListCreateView(APIView):
-    def post(self, request):
-        # Créer une nouvelle catégorie de tâche
-        serializer = TaskCategorySerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        # Calculer le pourcentage de tâches complètes et restantes
+        tasks_completed_percentage = (tasks_completed / total_tasks) * 100 if total_tasks > 0 else 0
+        tasks_remaining_percentage = (tasks_remaining / total_tasks) * 100 if total_tasks > 0 else 0
+
+        # Retourner ces données sous forme de réponse JSON
+        data = {
+            'tasks_completed': tasks_completed,
+            'tasks_remaining': tasks_remaining,
+            'total_tasks': total_tasks,
+            'tasks_completed_percentage': tasks_completed_percentage,
+            'tasks_remaining_percentage': tasks_remaining_percentage,
+        }
+
+        return Response(data, status=status.HTTP_200_OK)
+
 
 from django.http import JsonResponse
-from django.db.models import Count, Sum
-from .models import TaskCategory, TaskEntry, TimeLog, UserProgress
-from django.utils import timezone
-from datetime import timedelta
+from django.db.models import Count
+from .models import TaskEntry  # Import du modèle TaskEntry
 
-
-# Helper function to calculate task completion status
-def calculate_task_progress(user):
-    completed_tasks = TaskEntry.objects.filter(id_user=user, etat='Completed')
-    pending_tasks = TaskEntry.objects.filter(id_user=user, etat='Pending')
-    in_progress_tasks = TaskEntry.objects.filter(id_user=user, etat='In Progress')
-
-    return {
-        'tasks_completed': completed_tasks.count(),
-        'tasks_remaining': pending_tasks.count() + in_progress_tasks.count(),
-        'category_progress': {
-            category.name: {
-                'progress': (completed_tasks.filter(category=category).count() / TaskEntry.objects.filter(category=category).count()) * 100 if TaskEntry.objects.filter(category=category).count() > 0 else 0
-            }
-            for category in TaskCategory.objects.all()
+def task_category_view(request):
+    # Récupérer les catégories avec le décompte des tâches associées
+    categories = TaskEntry.objects.values('category__name').annotate(count=Count('id'))
+    data = [
+        {
+            "name": category['category__name'],
+            "count": category['count']
         }
-    }
+        for category in categories
+    ]
+    return JsonResponse(data, safe=False)
 
+# views.py
+from datetime import timedelta, date
+from django.utils import timezone
+from django.http import JsonResponse
+from .models import TaskEntry
 
-# View for fetching task progress data (per user)
-def task_progress(request):
-    user = request.user  # Assuming the user is authenticated
-    data = calculate_task_progress(user)
-    return JsonResponse(data)
-
-
-# View for fetching daily task count (assuming the task's date_creation is the key)
 def daily_tasks(request):
-    user = request.user
-    today = timezone.now().date()
+    # Calculer les 5 derniers jours
+    today = timezone.localdate()
+    days = [today - timedelta(days=i) for i in range(4, -1, -1)]  # 4 jours avant jusqu'à aujourd'hui
 
-    tasks_today = TaskEntry.objects.filter(id_user=user, date_creation__date=today).values('date_creation').annotate(count=Count('id'))
-    data = list(tasks_today)
+    task_counts = {}
+    
+    for i, day in enumerate(days, start=1):
+        task_counts[f"day_{i}"] = TaskEntry.objects.filter(date_echeance=day).count()
 
-    return JsonResponse(data, safe=False)
-
-
-# View for fetching productivity data (grouped by category and user)
-def productivity_data(request):
-    user = request.user
-    time_logs = TimeLog.objects.filter(user=user).values('category__name', 'date').annotate(total_hours=Sum('hours_spent'))
-
-    data = list(time_logs)
-
-    return JsonResponse({'productivity': data}, safe=False)
-
-
-# View for fetching task categories
-def task_categories(request):
-    categories = TaskCategory.objects.all().values('name', 'task_entries__id')
-    data = list(categories)
-
-    return JsonResponse(data, safe=False)
-
-
-# View for fetching user progress data over a timeframe (e.g., month, week, year)
-def user_progress(request):
-    user = request.user
-    timeframe = request.GET.get('timeframe', 'year')  # Default to 'year'
-    now = timezone.now()
-
-    if timeframe == 'month':
-        start_date = now.replace(day=1)
-    elif timeframe == 'week':
-        start_date = now - timedelta(days=now.weekday())  # Start of the current week
-    else:  # Default to 'year'
-        start_date = now.replace(month=1, day=1)  # Start of the current year
-
-    progress_data = UserProgress.objects.filter(user=user, timeframe=timeframe, value__gte=0)
-
-    data = list(progress_data.values('value', 'timeframe', 'user__nomuser', 'timeframe'))
-    return JsonResponse(data, safe=False)
-
+    return JsonResponse(task_counts)
