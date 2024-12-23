@@ -79,11 +79,11 @@ function TaskPage() {
       category: categoryId, // Utilisation de l'ID de la catégorie
       date_creation: new Date().toISOString(), // Date de création au format ISO
     };
-
     try {
       const response = await api.post("task-entry/", taskData); // Ajouter la tâche dans la table taskentry
       alert("Tâche créée avec succès !");
       navigate("/dashboard"); // Redirection vers une page de tableau de bord
+
       console.log("Task created:", response.data);
       // Réinitialisation des champs après soumission
       setTaskName("");
@@ -101,7 +101,6 @@ function TaskPage() {
       }
     }
   };
-
   return (
     <div className="container">
       <div className="task-wrapper">
