@@ -1,6 +1,5 @@
 from django.db import models
 from accounts.models import User  # Import du modèle User
-
 # Modèle pour les catégories de tâches
 class TaskCategory(models.Model):
     name = models.CharField(max_length=100, unique=True)

@@ -1,8 +1,9 @@
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import TemplateView
-from newtache.views import TaskEntryListCreateView, TaskCategoryListView  # Utilisez TaskCategoryListView ici
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from newtache.views import TaskEntryListCreateView, TaskCategoryListView , TaskCategoryListCreateView# Utilisez TaskCategoryListView ici
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView 
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,4 +15,7 @@ urlpatterns = [
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/task-category/', TaskCategoryListView.as_view(), name='task-category-list'),  # Ajouter cette ligne
+          path('api/task-category/create/', TaskCategoryListCreateView.as_view(), name='task-category-create'),
+          
+
 ]

@@ -154,6 +154,8 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',  # Authentification par session
     ],
     'DEFAULT_PERMISSION_CLASSES': [
-        'rest_framework.permissions.AllowAny',  # Autoriser tout le monde à accéder à certaines vues
+        'rest_framework.permissions.AllowAny', 
+          # Autoriser tout le monde à accéder à certaines vues
+           'rest_framework.permissions.IsAuthenticated',
     ],
 }
