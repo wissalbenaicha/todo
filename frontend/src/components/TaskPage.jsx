@@ -15,42 +15,10 @@ const api = axios.create({
 api.interceptors.request.use((config) => {
   const token = localStorage.getItem("access_token");
   if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = Bearer ${token};
   }
   return config;
 });
-
-// Intercepteur pour gérer le rafraîchissement des tokens
-api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    if (error.response && error.response.status === 401) {
-      const refreshToken = localStorage.getItem("refresh_token");
-      if (refreshToken) {
-        try {
-          const response = await axios.post(
-            "http://127.0.0.1:8000/api/token/refresh/",
-            {
-              refresh: refreshToken,
-            }
-          );
-          localStorage.setItem("access_token", response.data.access);
-          error.config.headers.Authorization = `Bearer ${response.data.access}`;
-          return axios(error.config); // Relancer la requête avec le nouveau token
-        } catch (refreshError) {
-          alert("Votre session a expiré. Veuillez vous reconnecter.");
-          localStorage.clear();
-          window.location.href = "/login";
-        }
-      } else {
-        alert("Session expirée. Veuillez vous reconnecter.");
-        localStorage.clear();
-        window.location.href = "/login";
-      }
-    }
-    return Promise.reject(error);
-  }
-);
 
 function TaskPage() {
   const [taskName, setTaskName] = useState("");
@@ -100,36 +68,24 @@ function TaskPage() {
         alert("Erreur lors de la création de la catégorie.");
         return;
       }
-    } else if (newCategory.trim() && categories.some(cat => cat.name === newCategory.trim())) {
-      setError("Cette catégorie existe déjà.");
-      return;
-    }
-
-    // Vérification des champs
-    if (!taskName.trim() || !priority || !etat || !categoryId) {
-      setError("Tous les champs doivent être remplis.");
-      return;
     }
 
     // Création de la tâche
     const taskData = {
       nom_tache: taskName,
-      date_echeance: selectedDate.toISOString().split("T")[0],
+      date_echeance: selectedDate.toISOString().split("T")[0], // Formatage de la date d'échéance
       priorite: priority,
       etat: etat,
       category: categoryId, // Utilisation de l'ID de la catégorie
       date_creation: new Date().toISOString(), // Date de création au format ISO
     };
 
-    setLoading(true); // Démarrer le chargement
-
     try {
       const response = await api.post("task-entry/", taskData); // Ajouter la tâche dans la table taskentry
       alert("Tâche créée avec succès !");
       navigate("/dashboard"); // Redirection vers une page de tableau de bord
-
       console.log("Task created:", response.data);
-      // Réinitialiser les champs
+      // Réinitialisation des champs après soumission
       setTaskName("");
       setPriority("");
       setEtat("");
@@ -143,8 +99,6 @@ function TaskPage() {
       } else {
         setError("Erreur lors de la création de la tâche.");
       }
-    } finally {
-      setLoading(false); // Arrêter le chargement
     }
   };
 
