@@ -2,6 +2,10 @@ from rest_framework import generics, status
 from rest_framework.response import Response
 from newtache.models import TaskEntry, TaskCategory
 from newtache.serializers import TaskEntrySerializer
+from rest_framework.views import APIView
+
+
+
 
 class TaskEntryListCreateView(APIView):
     def get(self, request):
